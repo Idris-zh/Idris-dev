@@ -50,9 +50,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Idris'
-copyright = u'2017, The Idris Community'
-author = u'The Idris Community'
+project = u'Idris-zh'
+copyright = u'2018, Idris 社区'
+author = u'Idris 社区'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -237,7 +237,7 @@ latex_elements = {
 'fontpkg': '',
 'inputenc': '',
 'utf8extra': '',
-'releasename': 'Version',
+'releasename': '版本',
 
 # The font size ('10pt', '11pt' or '12pt').
 'pointsize': '10pt',
@@ -294,8 +294,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index',  'idris-documentation-complete.tex',  u'Documentation for the Idris Language',    u'The Idris Community', 'report'),
-   ('tutorial/index',  'idris-tutorial.tex',  u'The Idris Tutorial',    u'The Idris Community', 'howto'),
+  ('index',  'idris-documentation-complete.tex',  u'Idris 语言文档',    u'Idris 社区', 'report'),
+   ('tutorial/index',  'idris-tutorial.tex',  u'Idris 教程',    u'Idris 社区', 'howto'),
 ]
 
 
@@ -328,7 +328,7 @@ latex_logo = '../icons/idris-512x512.png'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'idrismanual', u'Idris Manual Documentation',
+    (master_doc, 'idrismanual', u'Idris 手册',
      [author], 1)
 ]
 
@@ -342,8 +342,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  (master_doc, 'IdrisManual', u'Idris Manual Documentation',
-   author, 'IdrisManual', 'One line description of project.',
+  (master_doc, 'IdrisManual', u'Idris 手册',
+   author, 'IdrisManual', '项目描述',
    'Miscellaneous'),
 ]
 
