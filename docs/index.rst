@@ -19,10 +19,10 @@ Idris 语言文档
 
 .. note::
 
-   Idris 文档已按照**创作共用 CC0 许可协议**发布。因此根据法律规定，
+   Idris 文档已按照 **创作共用 CC0 许可协议** 发布。因此根据法律规定，
    **Idris 社区** 已放弃对 Idris 文档的所有版权以及相关或邻接的权利。
 
-   关于 CC0 的更多信息请参见：https://creativecommons.org/publicdomain/zero/1.0/deed.zh
+   关于 CC0 的更多信息参见：https://creativecommons.org/publicdomain/zero/1.0/deed.zh
 
 
 .. toctree::
