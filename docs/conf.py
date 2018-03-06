@@ -237,7 +237,7 @@ latex_elements = {
 'fontpkg': '',
 'inputenc': '',
 'utf8extra': '',
-'releasename': '版本',
+'releasename': u'版本',
 
 # The font size ('10pt', '11pt' or '12pt').
 'pointsize': '10pt',
@@ -343,7 +343,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   (master_doc, 'IdrisManual', u'Idris 手册',
-   author, 'IdrisManual', '项目描述',
+   author, 'IdrisManual', u'项目描述',
    'Miscellaneous'),
 ]
 
