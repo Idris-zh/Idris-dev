@@ -13,7 +13,7 @@
 .. respectively:
 
 在传统编程语言中，**类型** 与 **值** 之间有明确的区分。例如在 `Haskell
-<http://www.haskell.org>`_ 中, 以下这些类型分别表示整数、字符、字符列表
+<http://www.haskell.org>`_ 中, 下面这些类型分别表示整数、字符、字符列表
 以及任意值的列表：
 
 -  ``Int``, ``Char``, ``[Char]``, ``[a]``
@@ -21,7 +21,7 @@
 .. Correspondingly, the following values are examples of inhabitants of
 .. those types:
 
-相应地，以下这些值为这些类型的成员：
+相应地，下面这些值分别为上述类型的成员：
 
 -  ``42``, ``’a’``, ``"Hello world!"``, ``[2,3,4,5,6]``
 
@@ -34,7 +34,7 @@
 
 然而，在带有 **依赖类型** 的语言中，它们的区别并不明显。
 依赖类型允许类型「依赖」于值，换句话说，类型是 **一等** 的语言构造，
-即它可以像其它值一样操作。标准的例子就是给定了长度的列表类型 [1]_ ：
+即它可以像其它值一样操作。典型的例子就是带有长度的列表类型 [1]_ ：
 ``Vect n a``，其中 ``a`` 为元素类型，而 ``n`` 为该列表的长度且可以为任意项。
 
 .. When types can contain values, and where those values describe
@@ -46,7 +46,7 @@
 .. function, which concatenates vectors:
 
 当类型可以包含描述性质的值（如列表的长度）时，函数的类型便可开始描述其自身的性质了。
-比如连接两个列表，该操作拥有性质：结果列表的长度为两个输入列表的长度之和。
+比如当连接两个列表时，该操作拥有性质：结果列表的长度为两个输入列表的长度之和。
 因此我们可以为 ``app`` 函数赋予如下类型，它用于连接向量：
 
 .. code-block:: idris
@@ -80,9 +80,8 @@
 .. dependent types for writing and verifying systems software.
 
 本教程旨在简要介绍该语言，面向已经熟悉函数式语言（如 `Haskell <http://www.haskell.org>`_
-或 `OCaml <http://ocaml.org>`_ ）的读者。特别是需要读者对 Haskell
-的语法有一定程度的熟悉，尽管大多数概念至少会被简要地解释。
-读者也被认为有兴趣使用依赖类型来编写和验证系统软件。
+或 `OCaml <http://ocaml.org>`_ ）的读者。尽管大多数概念会被简要地解释，
+读者需要对 Haskell 的语法有一定程度的熟悉。我们亦假设读者有兴趣使用依赖类型来编写和验证系统软件。
 
 .. For a more in-depth introduction to Idris, which proceeds at a much slower
 .. pace, covering interactive program development, with many more examples, see
@@ -105,12 +104,12 @@
 .. ``samples``. It is, however, strongly recommended that you type
 .. them in yourself, rather than simply loading and reading them.
 
-本教程包括一些示例代码，已经通过了 Idris 的测试。这些文件可从 Idris
-发行版中获取，以便您可以轻松尝试它们。它们可在 ``samples`` 中找到。
+本教程包括一些经过 Idris 测试的示例代码。这些文件可从 Idris
+发行版中获取，因此您可以轻松尝试它们。它们可在 ``samples`` 中找到。
 然而，我们强烈建议您亲自输入它们，而非简单地加载并阅读。
 
 .. .. [1]
 ..    Typically, and perhaps confusingly, referred to in the dependently typed programming literature as “vectors”
 
 .. [1]
-   也许会令人困惑，它在依赖类型编程的文献中通常被称作「向量」。
+   也许会令人困惑，它在依赖类型编程的文献中通常被称作「向量 (Vector) 」。
