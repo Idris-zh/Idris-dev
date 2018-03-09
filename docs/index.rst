@@ -35,3 +35,4 @@ Idris 语言文档
    proofs/index
    reference/index
    guides/index
+   terminology
