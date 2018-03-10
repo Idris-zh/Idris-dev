@@ -192,12 +192,12 @@ Idris 允许对模块内容可见性进行细粒度控制。默认情况下，�
 
 .. - ``export``  the type constructor is exported
 
-- ``export``  类型构造函数是导出的
+- ``export``  类型构造器是导出的
 
 .. - ``public export`` the type constructor and data constructors are
 ..   exported
 
-- ``public export`` 类型构造函数和数据构造函数是导出的
+- ``public export`` 类型构造器和数据构造器是导出的
 
 
 对于接口的涵义
@@ -349,7 +349,7 @@ Idris 允许对模块内容可见性进行细粒度控制。默认情况下，�
 .. explicitly. The ``addAll`` function, when called from the REPL, will
 .. thus have the following type signature.
 
- ``parameters`` 块的作用是对块内的每个函数、类型和数据构造函数添加声明参数。
+ ``parameters`` 块的作用是对块内的每个函数、类型和数据构造器添加声明参数。
  具体的说，将参数到添加到参数列表的前面。
 
 ::
@@ -370,7 +370,7 @@ Idris 允许对模块内容可见性进行细粒度控制。默认情况下，�
 .. in which case the parameters are added explicitly to all type and data
 .. constructors. They may also be dependent types with implicit arguments:
 
-可以嵌套参数块，而且在将参数显式的添加到所有类型和数据构造函数的情况下，可以包含数据声明。
+可以嵌套参数块，而且在将参数显式的添加到所有类型和数据构造器的情况下，可以包含数据声明。
 它们也可能是使用隐式参数的依赖类型：
 
 .. code-block:: idris
