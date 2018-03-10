@@ -1,10 +1,12 @@
 .. _tutorial-index:
 
-##################
-.. The Idris Tutorial
-
+##########
 Idris 教程
-##################
+##########
+
+.. ##################
+.. The Idris Tutorial
+.. ##################
 
 .. This is the Idris Tutorial.
 .. It provides a brief introduction to programming in the Idris Language.

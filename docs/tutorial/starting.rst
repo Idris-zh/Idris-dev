@@ -1,10 +1,12 @@
 .. _sect-starting:
 
-***************
-.. Getting Started
-
+****
 入门
-***************
+****
+
+.. ***************
+.. Getting Started
+.. ***************
 
 .. Prerequisites
 

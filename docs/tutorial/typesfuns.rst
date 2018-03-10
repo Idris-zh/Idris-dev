@@ -1,10 +1,12 @@
 .. _sect-typefuns:
 
-*******************
-.. Types and Functions
-
+**********
 类型与函数
-*******************
+**********
+
+.. *******************
+.. Types and Functions
+.. *******************
 
 .. Primitive Types
 
@@ -347,10 +349,10 @@ Idris 为原语类型定义了所有的普通算数和比较运算。它们通�
 
 .. _sect-holes:
 
-.. Holes
-
 坑
 -----
+
+.. Holes
 
 .. Idris programs can contain *holes* which stand for incomplete parts of
 .. programs. For example, we could leave a hole for the greeting in our
@@ -923,10 +925,11 @@ prelude 中定义了很多 I/O 操作，例如为了读写文件，需要包括�
 
 .. _sect-do:
 
-.. “``do``” notation
-
 「``do``」记法
-=================
+==============
+
+.. “``do``” notation
+.. =================
 
 .. I/O programs will typically need to sequence actions, feeding the
 .. output of one computation into the input of the next. ``IO`` is an
@@ -968,10 +971,11 @@ IO 操作中：
 
 .. _sect-lazy:
 
-.. Laziness
-
 惰性
-========
+====
+
+.. Laziness
+.. ========
 
 .. Normally, arguments to functions are evaluated before the function
 .. itself (that is, Idris uses *eager* evaluation). However, this is
@@ -1268,9 +1272,9 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
     *UsefulTypes> show (map (* 2) intVec)
     "[2, 4, 6, 8, 10]" : String
 
-``(*2)`` is shorthand for a function which multiplies a number
-by 2. It expands to ``\x => x * 2``. Similarly, ``(2*)`` would expand
-to ``\x => 2 * x``.
+.. ``(*2)`` is shorthand for a function which multiplies a number
+.. by 2. It expands to ``\x => x * 2``. Similarly, ``(2*)`` would expand
+.. to ``\x => 2 * x``.
 
 ``(*2)`` 是将数字乘以 2 的函数的简写，它会被展开为  ``\x => x * 2``。
 同样，``(2*)`` 会被展开为 ``\x => 2 * x``。
@@ -1287,9 +1291,9 @@ Maybe
 
     data Maybe a = Just a | Nothing
 
-``Maybe`` is one way of giving a type to an operation that may
-fail. For example, looking something up in a ``List`` (rather than a
-vector) may result in an out of bounds error:
+.. ``Maybe`` is one way of giving a type to an operation that may
+.. fail. For example, looking something up in a ``List`` (rather than a
+.. vector) may result in an out of bounds error:
 
 ``Maybe`` 是为可能失败的操作赋予类型的一种方式。例如，在 ``List``
 （而非向量）中查找可能会产生越界错误：
@@ -1312,10 +1316,10 @@ vector) may result in an out of bounds error:
 
     maybe : Lazy b -> Lazy (a -> b) -> Maybe a -> b
 
-Note that the types of the first two arguments are wrapped in
-``Lazy``. Since only one of the two arguments will actually be used,
-we mark them as ``Lazy`` in case they are large expressions where it
-would be wasteful to compute and then discard them.
+.. Note that the types of the first two arguments are wrapped in
+.. ``Lazy``. Since only one of the two arguments will actually be used,
+.. we mark them as ``Lazy`` in case they are large expressions where it
+.. would be wasteful to compute and then discard them.
 
 注意前两个参数的类型被封装在 ``Lazy`` 内。由于二者只有其一会被使用，
 计算大型表达式然后丢弃会造成浪费，因此我们将它们标记为 ``Lazy``。
@@ -1655,10 +1659,12 @@ Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一�
 
 .. _sect-more-expr:
 
-.. More Expressions
-
 更多表达式
-================
+==========
+
+.. More Expressions
+.. ================
+
 
 .. ``let`` bindings
 
@@ -1692,13 +1698,13 @@ Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一�
 
 .. List comprehensions
 
-列表解析
+列表推导
 -------------------
 
 .. Idris provides *comprehension* notation as a convenient shorthand
 .. for building lists. The general form is:
 
-Idris 提供了 **解析** 记法作为构建列表的简便写法。一般形式为：
+Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形式为：
 
 ::
 
@@ -1709,7 +1715,7 @@ Idris 提供了 **解析** 记法作为构建列表的简便写法。一般形�
 .. separated ``qualifiers``. For example, we can build a list of
 .. Pythagorean triples as follows:
 
-它会根据逗号分隔的描述符 ``qualifiers`` 给定的条件，通过求值表达式 ``expression``
+它会根据逗号分隔的限定式 ``qualifiers`` 给定的条件，通过求值表达式 ``expression``
 产生的值来生成列表。例如，我们可以按如下方式构建构建勾股三角的列表：
 
 .. code-block:: idris
