@@ -1790,8 +1790,8 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. hint:: 推导式
 
     推导式（Comprehension）来源于集合的构建方法，即 ``{x|x∈X⋀Φ(x)}``，其中的 ``Φ(x)``
-    即为限定式（Qualifier）。
-    参见`维基百科<https://en.wikipedia.org/wiki/Set-builder_notation#Parallels_in_programming_languages>`_
+    即为限定式（Qualifier）。详情参见
+    `维基百科 <https://en.wikipedia.org/wiki/Set-builder_notation#Parallels_in_programming_languages>`_ 。
 
 
 ``case`` 表达式
