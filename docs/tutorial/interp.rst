@@ -13,8 +13,8 @@
 .. system to ensure that any programs which can be represented are
 .. well-typed.
 
-在本节中，我们使用我们所见过的功能来做一个大一点的例子——一个简单的函数式语言解释器，
-带有变量、函数运用、二元运算符和 ``if...then...else`` 构造。我们用依赖类型系统来
+在本节中，我们使用我们所见过的特性来做一个大一点的例子：一个简单的函数式语言解释器，
+带有变量、函数应用、二元运算符和 ``if...then...else`` 构造。我们用依赖类型系统来
 保证所有能可以被表达的程序都是良类型的。
 
 .. Representing Languages
@@ -99,7 +99,7 @@
 .. in the prelude:
 
 上述代码使用了 Idris 标准库 ``Vect`` 和 ``Fin`` 类型。因为它们不在 prelude 库中，
-所以我么需要导入它们。
+所以我们需要导入它们。
 
 .. code-block:: idris
 
@@ -118,7 +118,7 @@
 .. the context, ``HasType i G T``, which is a proof that variable ``i``
 .. in context ``G`` has type ``T``. This is defined as follows:
 
-我们使用一个不带名字的变量表示方法 - 它们是以 **德布鲁因** 法来索引。变量以其在上下文中
+我们使用一个不带名字的变量表示方法 - 它们是以 **de Bruijn** 法来索引。变量以其在上下文中
 从属关系的证明来表达： ``HasType i G T`` 是变量 ``i`` 在上下文 ``G`` 中有类型
 ``T`` 的证明。这是以如下形式定义的。
 
@@ -150,8 +150,8 @@
 .. lambdas between the definition and the use.
 
 所以，在表达式 ``\x. \y. x y`` 中，变量 ``x`` 有德布鲁因索引 1，可以表达为
-``Pop Stop``；变量 ``y`` 有德布鲁因索引 0，可以表达为 ``Stop``。我们通过数定义与使用之间
-lambda 的个数来决定德布鲁因索引。
+``Pop Stop`` ；变量 ``y`` 有 de Bruijn 索引 0，可以表达为 ``Stop`` 。我们通过数定义与使用之间
+lambda 的个数来决定 de Bruijn 索引。
 
 .. A value carries a concrete representation of an integer:
 
@@ -175,7 +175,7 @@ lambda 的个数来决定德布鲁因索引。
 .. Function application produces a value of type ``t`` given a function
 .. from ``a`` to ``t`` and a value of type ``a``:
 
-函数运用取一个从 ``a`` 到 ``t`` 的函数和一个类型为 ``a`` 的值，创造一个类型为 ``t``
+函数应用接受一个从 ``a`` 到 ``t`` 的函数和一个类型为 ``a`` 的值，产生一个类型为 ``t``
 的值。
 
 .. code-block:: idris
@@ -185,7 +185,7 @@ lambda 的个数来决定德布鲁因索引。
 .. We allow arbitrary binary operators, where the type of the operator
 .. informs what the types of the arguments must be:
 
-我们允许任意的二元运算符，运算符的类型告诉我们其参数的类型：
+我们允许任意的二元运算符，运算符的类型会告诉我们参数的类型：
 
 .. code-block:: idris
 
@@ -378,8 +378,8 @@ Lambda 则比较有意思。我们创建一个解释 lambda 内部作用域的�
 
 .. Aside: ``cast``
 
-额外：``cast``
---------------
+题外话：``cast``
+----------------
 
 .. The prelude defines an interface ``Cast`` which allows conversion
 .. between types:
@@ -398,4 +398,4 @@ Prelude 中定义了一个 ``Cast`` 接口来实现类型之间的转换：
 .. make sense.
 
 这是一个 **多参数** 接口，定义了转换的源类型和目标类型。在转换被应用的地方，类型检查器必须
-能够推导出 **两个** 参数。原语类型之间有意义的转换已经被提前定义好。
+能够推导出 **两个** 参数。原语类型间有意义的转换均已定义。
