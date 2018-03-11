@@ -24,9 +24,9 @@
 .. interface, which is defined in the prelude and provides an interface for
 .. converting values to ``String``:
 
-为此，我们使用了 **接口**，它类似于 Haskell 中的类型类或 Rust 中的特性。为了定义接口，
-我们提供了一组可重载的的函数。``Show`` 接口就是个简单的例子，它在 prelude 中定义，
-并提供了将值转换为 ``String`` 的接口：
+为此，我们使用了 **接口（Interface）**，它类似于 Haskell 中的类型类或 Rust
+中的特性。为了定义接口，我们提供了一组可重载的的函数。``Show`` 接口就是个简单的例子，
+它在 prelude 中定义，并提供了将值转换为 ``String`` 的接口：
 
 .. code-block:: idris
 
@@ -36,7 +36,7 @@
 .. This generates a function of the following type (which we call a
 .. *method* of the ``Show`` interface):
 
-这会生成一个以下类型的函数（我们称其为 ``Show`` 接口的 **方法** ）：
+这会生成一个以下类型的函数（我们称其为 ``Show`` 接口的 **方法（Method）** ）：
 
 .. code-block:: idris
 
@@ -614,9 +614,9 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. as follows, where ``<*>`` is defined in the same way as ``m_app``
 .. above (this is defined in the Idris library):
 
-与其到处插入 ``m_app``，我们不如使用惯用括号来做这件事。为此，我们可以像下面这样为
-``Maybe`` 提供一个 ``Applicative`` 的实现，其中 ``<*>`` 的定义方式与前面的 ``m_app``
-相同（它已在 Idris 库中定义）：
+与其到处插入 ``m_app``，我们不如使用惯用括号（Idiom Brackets）来做这件事。
+为此，我们可以像下面这样为 ``Maybe`` 提供一个 ``Applicative`` 的实现，其中
+``<*>`` 的定义方式与前面的 ``m_app`` 相同（它已在 Idris 库中定义）：
 
 .. code-block:: idris
 

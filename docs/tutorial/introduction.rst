@@ -23,7 +23,7 @@
 .. Correspondingly, the following values are examples of inhabitants of
 .. those types:
 
-相应地，下面这些值分别为上述类型的成员：
+与此对应，下面这些值分别为上述类型的成员：
 
 -  ``42``, ``’a’``, ``"Hello world!"``, ``[2,3,4,5,6]``
 
@@ -34,10 +34,10 @@
 .. lists of a given length [1]_, ``Vect n a``, where ``a`` is the element
 .. type and ``n`` is the length of the list and can be an arbitrary term.
 
-然而，在带有 **依赖类型** 的语言中，它们的区别并不明显。
-依赖类型允许类型「依赖」于值，换句话说，类型是 **一等** 的语言构造，
-即它可以像其它值一样操作。典型的例子就是带有长度的列表类型 [1]_ ：
-``Vect n a``，其中 ``a`` 为元素类型，而 ``n`` 为该列表的长度且可以为任意项。
+然而，在带有 **依赖类型（Dependent Type）** 的语言中，它们的区别并不明显。
+依赖类型允许类型「依赖」于值，换句话说，类型是 **一等（First-Class）** 的语言构造，
+即它可以像值一样进行操作。标准范例就是带长度的列表类型 [1]_ ``Vect n a``，
+其中 ``a`` 为元素的类型，而 ``n`` 为该列表的长度且可以为任意项。
 
 .. When types can contain values, and where those values describe
 .. properties, for example the length of a list, the type of a function
@@ -47,9 +47,9 @@
 .. lists. We can therefore give the following type to the ``app``
 .. function, which concatenates vectors:
 
-当类型可以包含描述性质的值（如列表的长度）时，函数的类型便可开始描述其自身的性质了。
-比如当连接两个列表时，该操作拥有性质：结果列表的长度为两个输入列表的长度之和。
-因此我们可以为 ``app`` 函数赋予如下类型，它用于连接向量：
+当类型包含了描述其性质的值（如列表的长度）时，它就能描述函数自身的性质了。
+比如连接两个列表的操作，它拥有性质：结果列表的长度为两个输入列表的长度之和。
+因此我们可以为 ``app`` 函数赋予如下类型，它用于连接向量（Vector）：
 
 .. code-block:: idris
 
@@ -63,15 +63,16 @@
 .. a lightweight foreign function interface which allows easy interaction
 .. with external ``C`` libraries.
 
-本教程介绍了 Idris，一个通用目的的依赖类型函数式编程语言。Idris
-项目的目的在于构建一个适用于可验证的，通用目的编程的依赖类型语言。
-为此，Idris 旨在生成高效可执行代码的编译型语言。
-它还拥有一个轻量级的外部函数接口，可与外部 ``C`` 库轻松交互。
+本教程介绍了 Idris，一个通用的依赖类型函数式编程语言。Idris
+项目旨在为可验证的通用编程打造一个依赖类型的语言。
+为此，Idris 被设计成了编译型语言，目的在于生成高效的可执行代码。
+它还拥有轻量的外部函数接口，可与外部 ``C`` 库轻松交互。
+
+目标受众
+========
 
 .. Intended Audience
-
-目标人群
-=================
+.. =================
 
 .. This tutorial is intended as a brief introduction to the language, and
 .. is aimed at readers already familiar with a functional language such
@@ -81,9 +82,10 @@
 .. briefly. The reader is also assumed to have some interest in using
 .. dependent types for writing and verifying systems software.
 
-本教程旨在简要介绍该语言，面向已经熟悉函数式语言（如 `Haskell <http://www.haskell.org>`_
-或 `OCaml <http://ocaml.org>`_ ）的读者。尽管大多数概念会被简要地解释，
-读者需要对 Haskell 的语法有一定程度的熟悉。我们亦假设读者有兴趣使用依赖类型来编写和验证系统软件。
+本教程面向已经熟悉函数式语言（如 `Haskell <http://www.haskell.org>`_
+或 `OCaml <http://ocaml.org>`_ ）的读者，旨在简要地介绍该语言。
+尽管大多数概念都会被简要解释，读者仍需熟悉 Haskell 的语法。
+我们亦假设读者有兴趣使用依赖类型来编写和验证系统软件。
 
 .. For a more in-depth introduction to Idris, which proceeds at a much slower
 .. pace, covering interactive program development, with many more examples, see
@@ -92,13 +94,14 @@
 
 对 Idris 更加深入的介绍，见 Edwin Brady 所著的 `Idris 类型驱动开发
 <https://www.manning.com/books/type-driven-development-with-idris>`_ ，
-其进度要慢得多，涵盖了交互式程序开发以及更多的例子，本书可从
+其进度要慢得多，涵盖了交互式程序开发以及更多的例子。本书可从
 `Manning <https://www.manning.com>`_ 获取。
 
-.. Example Code
-
 示例代码
-============
+========
+
+.. Example Code
+.. ============
 
 .. This tutorial includes some example code, which has been tested with
 .. against Idris. These files are available with the Idris distribution,
@@ -106,9 +109,9 @@
 .. ``samples``. It is, however, strongly recommended that you type
 .. them in yourself, rather than simply loading and reading them.
 
-本教程包括一些经过 Idris 测试的示例代码。这些文件可从 Idris
-发行版中获取，因此您可以轻松尝试它们。它们可在 ``samples`` 中找到。
-然而，我们强烈建议您亲自输入它们，而非简单地加载并阅读。
+本教程中的示例代码通过了 Idris 的测试。这些文件可在 Idris 发行版的 ``samples``
+目录中找到，因此您可以轻松尝试它们。然而，我们强烈建议您不要只是载入后阅读，
+而是亲自输入它们。
 
 .. .. [1]
 ..    Typically, and perhaps confusingly, referred to in the dependently typed programming literature as “vectors”
