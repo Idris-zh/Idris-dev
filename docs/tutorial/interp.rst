@@ -149,10 +149,7 @@
 .. represented as ``Stop``. We find these by counting the number of
 .. lambdas between the definition and the use.
 
-**FZ: Is it a typo? Shouldn't it be** ``\x. \y. x y`` **? This is inconsistent
-to Testing section.**
-
-所以，在表达式 ``\x,\y. x y`` 中，变量 ``x`` 有德布鲁因索引 1，可以表达为
+所以，在表达式 ``\x. \y. x y`` 中，变量 ``x`` 有德布鲁因索引 1，可以表达为
 ``Pop Stop``；变量 ``y`` 有德布鲁因索引 0，可以表达为 ``Stop``。我们通过数定义与使用之间
 lambda 的个数来决定德布鲁因索引。
 
