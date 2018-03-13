@@ -127,7 +127,7 @@ Idris 测试包
 测试本身负责报告它们的成功或失败。测试函数一般使用 ``putStrLn`` 报告测试结果。
 测试框架不强加任何报告标准, 因而不会聚合测试结果。
 
-例如，我们取出一下函数列表，这些函数定义在样本包 ``maths`` 下的一个叫做 ``NumOps`` 的模块里。
+例如，我们取出以下函数列表，这些函数定义在样本包 ``maths`` 下的一个叫做 ``NumOps`` 的模块里。
 
 .. For example, lets take the following list of functions that are defined in a module called ``NumOps`` for a sample package ``maths``.
 
