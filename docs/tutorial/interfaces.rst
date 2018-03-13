@@ -14,7 +14,7 @@
 .. ``==`` to work on the majority of data types. We would like to be able
 .. to display different types in a uniform way.
 
-我们经常想要定义能够跨多种不同数据类型工作的函数。例如，我们想要算数运算符至少可以作用于
+我们经常想要定义能够跨多种不同数据类型工作的函数。例如，我们想要算术运算符至少可以作用于
 ``Int``、``Integer`` 和 ``Double``。我们想要 ``==`` 作用于大部分的数据类型。
 我们想要以一种统一的方式来显示不同的类型。
 
