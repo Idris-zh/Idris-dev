@@ -40,7 +40,7 @@ Idris 程序包含一个用来构建包的简单构建系统和来自一个命�
 
 至少一个字段是 modules 字段，对应的值是通过逗号分割的模块列表。例如，
 给定一个 idris ``maths`` 包，有 ``Maths.idr`` 、``Maths.NumOps.idr`` 、
-``Maths.BinOps.idr`` 和  ``Maths.HexOps.idr` 模块，相应的包文件会是：
+``Maths.BinOps.idr`` 和  ``Maths.HexOps.idr`` 模块，相应的包文件会是：
 
     package maths
 
@@ -111,8 +111,7 @@ Idris 测试包
 函数。所有测试函数必须返回 ``IO ()`` 。
 
 当键入 ``idris --testpkg yourmodule.ipkg`` ，构建系统会通过列出在单一 ``main`` 函数
-下 ``tests`` 函数，在机器上的一个全新环境里创建一个临时文件。构建系统把这个临时文件
-编译成可执行，然后执行它。
+下 ``tests`` 函数，在机器上的一个全新环境里创建一个临时文件。构建系统把这个临时文件编译成可执行，然后执行它。
 
 .. When you enter ``idris --testpkg yourmodule.ipkg``,
 .. the build system creates a temporary file in a fresh environment on your machine
@@ -128,7 +127,7 @@ Idris 测试包
 测试本身负责报告它们的成功或失败。测试函数一般使用 ``putStrLn`` 报告测试结果。
 测试框架不强加任何报告标准, 因而不会聚合测试结果。
 
-例如，我们取出一下函数列表，这些函数定义在样本包 ``maths`` 下的一个被叫做 ``NumOps`` 的模块里。
+例如，我们取出一下函数列表，这些函数定义在样本包 ``maths`` 下的一个叫做 ``NumOps`` 的模块里。
 
 .. For example, lets take the following list of functions that are defined in a module called ``NumOps`` for a sample package ``maths``.
 
