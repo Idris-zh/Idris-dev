@@ -54,8 +54,7 @@ Idris 程序包含一个用来构建包的简单构建系统和来自一个命�
 .. of the main Idris repository, and in `third-party libraries
 .. <https://github.com/idris-lang/Idris-dev/wiki/Libraries>`_.
 
-其他包文件的例子可以在主 Idris 仓库的 ``libs`` 目录下和 `第三方库
- <https://github.com/idris-lang/Idris-dev/wiki/Libraries>` _ 里找到。
+其他包文件的例子可以在主 Idris 仓库的 ``libs`` 目录下和 `第三方库 <https://github.com/idris-lang/Idris-dev/wiki/Libraries>`_ 里找到。
 
 使用包文件
 ===========
@@ -175,12 +174,11 @@ Idris 测试包
     testTriple : IO ()
     testTriple = assertNotEq (triple 2) 5
 
+.. The functions ``assertEq`` and ``assertNotEq`` are used to run expected passing, and failing, equality tests.
+.. The actual tests are ``testDouble`` and ``testTriple``, and are declared in the ``maths.ipkg`` file as follows::
 
 函数  ``assertEq`` 和 ``assertNotEq`` 用于运行预期的通过、失败和相等测试。
 实际上的测试是 ``testDouble`` 和 ``testTriple`` ，在文件 ``maths.ipkg`` 中声明如下::
-
-.. The functions ``assertEq`` and ``assertNotEq`` are used to run expected passing, and failing, equality tests.
-.. The actual tests are ``testDouble`` and ``testTriple``, and are declared in the ``maths.ipkg`` file as follows::
 
     package maths
 
@@ -190,9 +188,8 @@ Idris 测试包
     tests = Test.NumOps.testDouble
           , Test.NumOps.testTriple
 
-
-可以使用 ``idris --testpkg maths.ipkg`` 命令调用测试框架::
 .. The testing framework can then be invoked using ``idris --testpkg maths.ipkg``::
+可以使用 ``idris --testpkg maths.ipkg`` 命令调用测试框架::
 
     > idris --testpkg maths.ipkg
     Type checking ./Maths/NumOps.idr
