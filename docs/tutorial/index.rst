@@ -1,18 +1,20 @@
 .. _tutorial-index:
 
-##################
-.. The Idris Tutorial
-
+##########
 Idris 教程
-##################
+##########
+
+.. ##################
+.. The Idris Tutorial
+.. ##################
 
 .. This is the Idris Tutorial.
 .. It provides a brief introduction to programming in the Idris Language.
 .. It covers the core language features, and assumes some familiarity with an
 .. existing functional programming language such as Haskell or OCaml.
 
-本文档为 Idris 教程。它简单介绍了用 Idris 语言编程。
-本文档覆盖了核心语言特性，并假定你熟悉一门现有的函数式编程语言，如 Haskell 或 OCaml。
+本文档为 Idris 教程，简单介绍了如何用 Idris 语言编程。
+文档覆盖了该语言的核心特性，并假定你至少熟悉一门函数式编程语言，如 Haskell 或 OCaml。
 
 .. .. note::
 
@@ -20,7 +22,7 @@ Idris 教程
 ..    Commons CC0 License. As such to the extent possible under law, *The
 ..    Idris Community* has waived all copyright and related or neighboring
 ..    rights to Documentation for Idris.
-..
+
 ..    More information concerning the CC0 can be found online at: http://creativecommons.org/publicdomain/zero/1.0/
 
 .. note::
