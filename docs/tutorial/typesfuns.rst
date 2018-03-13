@@ -76,8 +76,8 @@ Idris 文件由一个可选的模块声明（此处为 ``module Prims``），一
 .. Evaluating things at the prompt gives an answer, and the type of the
 .. answer. For example:
 
-库模块 ``prelude`` 会在每个 Idris 程序中自动导入，包括 IO 设施，算数运算，
-数据结构以及多种通用函数。prelude 中定义了一些算数和比较运算符，
+库模块 ``prelude`` 会在每个 Idris 程序中自动导入，包括 IO 设施，算术运算，
+数据结构以及多种通用函数。prelude 中定义了一些算术和比较运算符，
 我们可以在提示符中使用它们。在提示符中求值会给出一个答案及其类型。例如：
 
 ::
@@ -93,7 +93,7 @@ Idris 文件由一个可选的模块声明（此处为 ``module Prims``），一
 .. work on user defined types. Boolean expressions can be tested with the
 .. ``if...then...else`` construct, for example:
 
-Idris 为原语类型定义了所有的普通算数和比较运算。它们通过接口进行了重载，
+Idris 为原语类型定义了所有的普通算术和比较运算。它们通过接口进行了重载，
 并可被扩展以适用于用户定义的类型，这点我们会在 :ref:`sect-interfaces`
 一节中讨论。布尔表达式可通过 ``if...then...else`` 构造来测试，例如：
 
@@ -214,7 +214,7 @@ Idris 为原语类型定义了所有的普通算数和比较运算。它们通�
 .. data types and constructor names typically begin with a capital letter.
 .. We can test these functions at the Idris prompt:
 
-标准算数运算符 ``+`` 和 ``*`` 同样根据 ``Nat`` 的需要进行了重载，
+标准算术运算符 ``+`` 和 ``*`` 同样根据 ``Nat`` 的需要进行了重载，
 并使用上面的函数来定义。和 Haskell 不同的是，类型和函数名的字首字母并无大小写限制。
 函数名（前面的 ``plus`` 和 ``mult`` ），数据构造器（``Z``、``S``、``Nil`` 和 ``::``）
 以及类型构造器（``Nat`` 和 ``List``）均为同一命名空间的一部分。不过按照约定，
@@ -250,7 +250,7 @@ Idris 为原语类型定义了所有的普通算数和比较运算。它们通�
 .. Like arithmetic operations, integer literals are also overloaded using
 .. interfaces, meaning that we can also test the functions as follows:
 
-和算数运算符一样，整数字面也可通过接口重载，因此我们也能像下面这样测试函数：
+和算术运算符一样，整数字面也可通过接口重载，因此我们也能像下面这样测试函数：
 
 ::
 
