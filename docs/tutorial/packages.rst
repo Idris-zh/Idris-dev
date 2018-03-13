@@ -11,7 +11,7 @@
 .. These files can be used with the Idris compiler to manage the development process .
 
 Idris 程序包含一个用来构建包的简单构建系统和来自一个命名包描述文件的一些可执行文件。
-这些文件可以与 Idris 编译器一起使用来管理开发进程。
+这些文件可以与 Idris 编译器一起使用来管理开发过程。
 
 包描述
 =======
@@ -187,8 +187,8 @@ Idris 测试包
     tests = Test.NumOps.testDouble
           , Test.NumOps.testTriple
 
-.. The testing framework can then be invoked using ``idris --testpkg maths.ipkg``::
 可以使用 ``idris --testpkg maths.ipkg`` 命令调用测试框架::
+.. The testing framework can then be invoked using ``idris --testpkg maths.ipkg``::
 
     > idris --testpkg maths.ipkg
     Type checking ./Maths/NumOps.idr
