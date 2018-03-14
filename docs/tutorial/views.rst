@@ -128,7 +128,7 @@
 .. binary digits (least significant first) as follows, using the
 .. rule:
 
-我们稍后再看 ``parity`` 的定义。我们可以用它配合 ``with`` 规则来编写一个函数，
+我们之后再看 ``parity`` 的定义。我们可以用它配合 ``with`` 规则来编写一个函数，
 它将一个自然数转换成一系列二进制数字（低位在前）：
 
 .. code-block:: idris
@@ -157,7 +157,7 @@
 ..   ``j`` in the refined pattern can be used on the ride side of the
 ..   ``=`` sign.
 
-  - 当 ``parity k`` 求值为 ``Even`` 时，我们可以根据 ``Even`` 构造器的定义
+- 当 ``parity k`` 求值为 ``Even`` 时，我们可以根据 ``Even`` 构造器的定义
   ``Parity (n + n)``，将原始参数 ``k`` 精化为模式 ``(j + j)``。这样 ``(j + j)``
   就代替了 ``|`` 左侧的 ``k``，而 ``Even`` 则出现在右侧。精化模式中的自然数
   ``j`` 会被用在 ``=`` 符号的两侧。
@@ -179,8 +179,10 @@
 注意，在精化模式的两个 ``j`` 之间有一个函数 (``+``)，它被允许是因为另一个参数
 已经确定了这些模式的形式。
 
-We will return to this function in the next section :ref:`sect-parity` to
-complete the definition of ``parity``.
+.. We will return to this function in the next section :ref:`sect-parity` to
+.. complete the definition of ``parity``.
+
+我们会在下一节 :ref:`sect-parity` 中回到 ``parity`` 上来完成它的定义。
 
 with 与证明
 ===============
