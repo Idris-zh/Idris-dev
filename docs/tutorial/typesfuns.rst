@@ -1511,7 +1511,7 @@ Maybe
 
 .. Dependent pairs are sometimes referred to as “sigma types”.
 
-依赖序对有时被称作「sigma 类型」。
+依赖序对有时被称作「Sigma 类型」。
 
 记录
 ----
