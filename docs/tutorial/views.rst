@@ -21,7 +21,7 @@
 .. or not:
 
 由于类型可以依赖于值，因此某些参数的形式可根据其它值来确定。例如，如果我们写出
-``(++)`` 隐式的长度参数，就会看到它的形式是由矢量是否为空来决定的：
+``(++)`` 的隐式长度参数，就会看出它的形式由矢量是否为空来决定：
 
 .. code-block:: idris
 
@@ -54,12 +54,12 @@
 我们时常需要匹配中间计算（Intermediate Computation）的结果。Idris 受到
 ``Epigram`` [1]_ 中视角（View）的启发，为此提供了一种构造，即 ``with`` 规则。
 它考虑到在依赖型语言中匹配值会影响我们对其它值的形式的了解。在最简单的形式中，
-``with`` 规则会为正在定义的函数添加另一个参数。
+``with`` 规则会为正在定义的函数附加一个参数。
 
 .. We have already seen a vector filter function. This time, we define it
 .. using ``with`` as follows:
 
-我们已经见过向量过滤函数了。这次我们用 ``with`` 来定义它：
+我们已经见过向量的过滤函数了。这次我们用 ``with`` 来定义它：
 
 .. code-block:: idris
 
@@ -76,7 +76,7 @@
 .. original function argument pattern, then the left side of ``|`` is
 .. extraneous and may be omitted:
 
-在这里，``with`` 从句允许我们析构（deconstruct）``filter p xs`` 的结果。
+在这里，``with`` 从句能让我们析构（deconstruct）``filter p xs`` 的结果。
 该视角精化的参数模式 ``filter p (x :: xs)`` 位于 ``with`` 从句的下方，
 之后是一条竖线 ``|`` 后跟着析构的中间结果 ``( _ ** xs' )``。
 如果该视图精化的参数模式与原函数的参数模式相同，那么 ``|`` 左侧的就是多余的，可以省略：
@@ -102,7 +102,7 @@
 .. Otherwise, it is the sum of two equal ``Nat`` plus one:
 
 如果中间计算本身具有依赖类型，那么其结果会影响其它参数的形式 — 我们可以通过测试
-另一个参数来了解一个值的形式。在这类情况中，视角精化的参数模式必须是显式的。
+附加参数来了解一个值的形式。在这类情况中，视角精化的参数模式必须是显式的。
 例如，一个 ``Nat`` 不是偶数就是奇数。如果它是偶数，那么它就等于两个 ``Nat`` 之和。
 否则，它就是两个 ``Nat`` 之和再加一：
 
@@ -176,7 +176,7 @@
 .. occurrences of ``j`` - this is allowed because another argument has
 .. determined the form of these patterns.
 
-注意，在精化模式的两个 ``j`` 之间有一个函数 (``+``)，它被允许是因为另一个参数
+注意，在精化模式的两个 ``j`` 之间有一个函数 (``+``)，它被允许是因为附加参数
 已经确定了这些模式的形式。
 
 .. We will return to this function in the next section :ref:`sect-parity` to
