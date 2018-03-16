@@ -8,8 +8,6 @@
 .. Theorem Proving
 .. ***************
 
-.. hints:: 本文复杂句式和术语较多，译者尚不能驾驭，因此给出部分原文，敬请谅解。
-
 相等性
 ========
 
@@ -19,6 +17,8 @@
 .. Idris allows propositional equalities to be declared, allowing theorems about
 .. programs to be stated and proved. Equality is built in, but conceptually
 .. has the following definition:
+
+.. hints:: 本文复杂句式和术语较多，译者尚不能驾驭，因此给出部分原文，敬请谅解。
 
 Idris 可以声明命题的相等性，陈述并证明有关程序的定理。
 相等性已经内置，其概念上的定义如下：
