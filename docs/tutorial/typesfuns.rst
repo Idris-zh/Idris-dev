@@ -273,7 +273,7 @@ Idris 为原语类型定义了所有的普通算术和比较运算。它们通�
 主要的原因在于一进制数的结构非常便于推理，而且易与其它数据结构建立联系，
 我们之后就会看到。尽管如此，我们并不希望以牺牲效率为代价获得这种便捷。幸运的是，
 Idris 知道 ``Nat`` （以及类似的结构化类型）和数之间的联系，
-这意味着它可以优化它们的表示以及像 ``plus`` 和 ``mult`` 这样的函数。
+这意味着 Idris 可以优化它们的表示以及像 ``plus`` 和 ``mult`` 这样的函数。
 
 ``where`` 从句
 --------------
@@ -312,9 +312,9 @@ Idris 知道 ``Nat`` （以及类似的结构化类型）和数之间的联系�
 
 .. note:: 作用域
 
-    任何外部作用域中可见的名字，在 ``where`` 从句中也可见
-    （除非它们被重新定义过，例如这里的 ``xs``）。若某个名字是某个类型的
-    **形参（Parameter）**，那么仅当它在类型中出现时才会在 ``where``
+    任何外部作用域中可见，且没有被重新被定义过的名字，在 ``where`` 从句中也可见
+    （这里的 ``xs`` 被重新定义了）。若某个名字是某个类型的
+    **形参（Parameter）**，那么当它仅在类型中出现时才会在 ``where``
     从句的作用域中，即，它在整体结构中是固定不变的。
 
 .. As well as functions, ``where`` blocks can include local data
@@ -516,8 +516,8 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. can normally be resolved from context.
 
 注意我们使用了与 ``List`` 相同的构造器名。只要名字声明在不同的命名空间中
-（在实践中，通常在不同的模块内），像这样重载的专用名就会被 Idris 所接受。
-混淆的构造器名称通常可根据上下文来解决。
+（在实践中，通常在不同的模块内），Idris 可以接受像这样重载的专用名。
+有歧义的构造器名称通常可根据上下文来解决。
 
 .. This declares a family of types, and so the form of the declaration is
 .. rather different from the simple type declarations above. We
@@ -570,7 +570,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
     (++) : Vect n a -> Vect m a -> Vect (n + m) a
     (++) Nil       ys = ys
-    (++) (x :: xs) ys = x :: xs ++ xs -- BROKEN
+    (++) (x :: xs) ys = x :: xs ++ xs -- 有误
 
 .. When run through the Idris type checker, this results in the
 .. following:
@@ -714,7 +714,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. ``index`` as:
 
 它接受两个参数：一个类型为 ``n`` 元素有限集的元素，以及一个类型为 ``a`` 的 ``n``
-元素向量。不过这里还有两个名字：``n`` 和 ``a``，它们并未显示地声明。``index``
+元素向量。不过这里还有两个名字：``n`` 和 ``a``，它们并未显式地声明。``index``
 包含了 **隐式** 参数。我们也可以将 ``index`` 的类型写作：
 
 .. code-block:: idris
@@ -745,7 +745,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. In fact, any argument, implicit or explicit, may be given a name. We
 .. could have declared the type of ``index`` as:
 
-实际上，无论是隐式还是显式，任何参数都可以给定一个名称。我们可以将``index``
+实际上，无论是隐式还是显式，任何参数都可以给定一个名称。我们可以将 ``index``
 声明成这样：
 
 .. code-block:: idris
@@ -785,7 +785,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. in ``Data.Vect``, under the name ``Elem``):
 
 有时为隐式参数提供类型会十分有用，特别是存在依赖顺序，或隐式参数本身含有依赖的情况下。
-例如，我们可能希望在以下定义中描述隐式参数的类型，它为向量定义了谓词（它也在
+例如，我们可能希望在以下定义中描述隐式参数的类型，它为向量定义了前提（它也在
 ``Data.Vect`` 的 ``Elem`` 下定义）：
 
 .. code-block:: idris
@@ -799,7 +799,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. ``Here``, at the head of the vector, or ``There``, in the tail of the
 .. vector. For example:
 
-``IsElem x xs`` 的实例描述了 ``x`` 是 ``xs`` 中的一个元素。我们可以构造这样的谓词：
+``IsElem x xs`` 的实例描述了 ``x`` 是 ``xs`` 中的一个元素。我们可以构造这样的前提：
 若所需的元素在向量的头部时为 ``Here``，在向量的尾部中时则为 ``There``。例如：
 
 .. code-block:: idris
@@ -830,7 +830,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. gives the types and ordering of any implicit arguments which can
 .. appear within the block:
 
-如果相同的隐含参数被大量使用，会导致定义难以阅读。为避免此问题，可用 ``using``
+如果相同的隐式参数被大量使用，会导致定义难以阅读。为避免此问题，可用 ``using``
 块来为任何在块中出现的隐式参数指定类型和顺序：
 
 .. code-block:: idris
@@ -891,8 +891,8 @@ I/O
 ..     data IO a -- IO operation returning a value of type a
 
 如果计算机程序不以某种方式与用户或系统进行交互，那么它基本上没什么用。在 Idris
-这类的纯粹语言中，表达式没有副作用。而 I/O 的难点在于它本质上是带有副作用的。
-因此在 Idris 中，这样的交互被封装在 ``IO`` 类型中：
+这类的纯粹（Pure）语言中，表达式没有副作用（Side-Effect）。而 I/O
+的难点在于它本质上是带有副作用的。因此在 Idris 中，这样的交互被封装在 ``IO`` 类型中：
 
 .. code-block:: idris
 
@@ -903,7 +903,7 @@ I/O
 .. to execute them. The resulting operations are executed externally, by
 .. the run-time system. We’ve already seen one IO program:
 
-我们先无视 ``IO`` 抽象的定义，尽管它有效地描述了被执行的 I/O 操作是什么，
+我们先给出 ``IO`` 抽象的定义，它实质上描述了被执行的 I/O 操作是什么，
 而非如何去执行它们。最终操作则由运行时系统在外部执行。我们已经见过一个 IO
 程序了：
 
@@ -1067,7 +1067,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. lazy, and allows infinite data structures of type ``T`` to be built. One
 .. example of a codata type is Stream, which is defined as follows.
 
-余数据类型通过将递归参数标记为潜在无穷来定义无穷数据结构。对于一个余数据类型
+我们可以通过余数据类型，将递归参数标记为潜在无穷，来定义无穷数据结构。对于一个余数据类型
 ``T``，其每个构造器中类型为 ``T`` 的参数都会被转换成类型为 ``Inf T`` 的参数。
 这会让每个 ``T`` 类型的参数惰性化，使得类型为 ``T`` 的无穷数据结构得以构建。
 余数据类型的一个例子为 Stream，其定义如下：
@@ -1478,7 +1478,7 @@ Maybe
 .. be:
 
 依赖序对的一个用处就是返回依赖类型的值，其中的索引未必事先知道。例如，
-若按照某谓词过滤出  ``Vect`` 中的元素，我们不会事先知道结果向量的长度：
+若按照某前提过滤出 ``Vect`` 中的元素，我们不会事先知道结果向量的长度：
 
 .. code-block:: idris
 
@@ -1588,7 +1588,7 @@ Maybe
 .. are allowed to change the type of a field, provided that the result is
 .. well-typed.
 
-记录以及记录中的字段可拥有依赖类型。更新允许更改字段的类型，前提是结果是良定型的。
+记录以及记录中的字段可拥有依赖类型。更新允许更改字段的类型，前提是结果是良类型的。
 
 .. code-block:: idris
 
@@ -1856,7 +1856,7 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. auxiliary functions, and is also used internally to implement pattern
 .. matching ``let`` and lambda bindings. It will *only* work if:
 
-**限制：** ``case`` 构造用于中间表达式的简单分析，一次避免编写辅助函数，
+**限制：** ``case`` 构造用于中间表达式的简单分析，以此避免编写辅助函数，
 它也在内部用于实现 ``let`` 与 λ 绑定的模式匹配。它 **仅** 在以下情况中可用：
 
 .. - Each branch *matches* a value of the same type, and *returns* a
