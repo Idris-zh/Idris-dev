@@ -1011,7 +1011,7 @@ IO 操作中：
 .. itself (that is, Idris uses *eager* evaluation). However, this is
 .. not always the best approach. Consider the following function:
 
-通常，函数的参数会在函数之前求值（也就是说，Idris 采用了 **及早** 求值）。
+通常，函数的参数会在函数之前求值（也就是说，Idris 采用了 **及早（Eager）** 求值）。
 然而，这并不总是最佳方式。考虑以下函数：
 
 .. code-block:: idris
@@ -1102,7 +1102,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. mutually recursive data structures. For example the following will create an
 .. infinite loop and cause a stack overflow.
 
-要重点注意：codata 不允许创建无穷互用的递归数据结构。
+要重点注意：余数据类型不允许创建无穷互用的递归数据结构。
 例如，以下代码会创建一个无穷循环并导致栈溢出：
 
 .. code-block:: idris
@@ -1133,7 +1133,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. **different** type from the one being defined. For example, the following
 .. outputs "1".
 
-为了修复它，我们必须为构造器参数的类型显式地加上 ``Inf`` 声明，因为 codata
+为了修复它，我们必须为构造器参数的类型显式地加上 ``Inf`` 声明，因为余数据类型
 不会将它添加到与正在定义的构造器类型 **不同** 的构造器参数上。例如，以下程序输出「1」。
 
 .. code-block:: idris
@@ -1164,10 +1164,10 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 
 .. hint:: 「归纳数据类型」和「余归纳数据类型」
 
-    余数据类型（codata type）的全称为余归纳数据类型（coinductive data type），
+    余数据类型（Codata Type）的全称为余归纳数据类型（Coinductive Data Type），
     归纳数据类型和余归纳数据类型是对偶的关系。从语义上看，
-    inductive type 描述了如何从更小的 term 构造成更大的 term；而
-    coinductive type 则描述了如何从更大的 term 分解成更小的 term。
+    Inductive Type 描述了如何从更小的 term 构造成更大的 term；而
+    Coinductive Type 则描述了如何从更大的 term 分解成更小的 term。
     —— `Belleve <https://www.zhihu.com/question/60184579/answer/255291675>`_
 
 
@@ -1291,7 +1291,7 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 .. There are actually neater ways to write the above expression. One way
 .. would be to use an anonymous function:
 
-上面的表达式其实还有更加利落的写法。其中一种就是使用匿名函数（anonymous function）：
+上面的表达式其实还有更加利落的写法。其中一种就是使用匿名函数（Anonymous Function）：
 
 ::
 
@@ -1322,7 +1322,7 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 ``(*2)`` 是将数字乘以 2 的函数的简写，它会被展开为 ``\x => x * 2``。
 同样，``(2*)`` 会被展开为 ``\x => 2 * x``。
 
-.. hint:: 匿名函数在函数式编程中又称为 λ-表达式（lambda expression）。
+.. hint:: 匿名函数在函数式编程中又称为 λ-表达式（Lambda Expression）。
 
 Maybe
 -----

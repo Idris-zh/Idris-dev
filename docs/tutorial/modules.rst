@@ -125,9 +125,9 @@ Idris 允许对模块内容的可见性进行细粒度的控制。默认情况�
 .. - ``public export`` meaning that the entire definition is exported.
 
 - ``private`` 表示完全不被导出。这是默认的。
--
+
 - ``export`` 表示顶级类型是导出的。
--
+
 - ``public export`` 表示整个定义都是导出的。
 
 .. A further restriction in modifying the visibility is that definitions
@@ -154,9 +154,9 @@ Idris 允许对模块内容的可见性进行细粒度的控制。默认情况�
 ..   long name ``public export`` is intended to make you think twice
 ..   about doing this.
 
-- ``export`` 的类型是导出的
+- ``export`` 表示导出类型
 
-- ``public export`` 的类型和定义是导出的, 在导出之后定义可被使用。
+- ``public export`` 表示导出类型和定义, 导出之后的定义可被使用。
   换言之, 定义本身被认为是模块接口的一部分。名字 ``public export``
   比较长是为了让你三思而后行。
 
@@ -400,7 +400,7 @@ API 的一部分。因此，除非你确实想要导出函数的完整定义，�
 
     在数学中，对于函数 ``f(x)``，``f`` 为函数名，``x`` 则称作函数 ``f``
     的形式参数（Parameter），简称形参；在函数应用时，传输函数的参数则称作实际参数
-    （Argument），简称实参。例如 ``f(2)`` 中的 ``2`` 即为传入 ``f(x)`` 的形参。
+    （Argument），简称实参。例如 ``f(2)`` 中的 ``2`` 即为传入 ``f(x)`` 的实参。
 
     在英文原文中，有时并不明确区分形参与实参，一般统译作「参数」。只有当需要明确区分时，
     才分别译作「形参」与「实参」。

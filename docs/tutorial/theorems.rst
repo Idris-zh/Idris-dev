@@ -209,7 +209,7 @@ to look something like the following:
 
 Unfortunately, this fails with a type error:
 
-不幸的是，它会因类型错误而失败：
+不幸的是，它会因类型错误而无法通过编译：
 
 ::
 
