@@ -24,8 +24,8 @@
 .. interface, which is defined in the prelude and provides an interface for
 .. converting values to ``String``:
 
-为此，我们使用了 **接口（Interface）**，它类似于 Haskell 中的类型类或 Rust
-中的特性。为了定义接口，我们提供了一组可重载的的函数。``Show`` 接口就是个简单的例子，
+为此，我们使用了 **接口（Interface）**，它类似于 Haskell 中的类型类（Typeclass）或 Rust
+中的特性（Trait）。为了定义接口，我们提供了一组可重载的的函数。``Show`` 接口就是个简单的例子，
 它在 prelude 中定义，并提供了将值转换为 ``String`` 的接口：
 
 .. code-block:: idris
@@ -36,7 +36,7 @@
 .. This generates a function of the following type (which we call a
 .. *method* of the ``Show`` interface):
 
-这会生成一个以下类型的函数（我们称其为 ``Show`` 接口的 **方法（Method）** ）：
+这会生成一个以下类型的函数，我们称它为 ``Show`` 接口的 **方法（Method）**：
 
 .. code-block:: idris
 
@@ -48,8 +48,8 @@
 .. For example, the ``Show`` implementation for ``Nat`` could be defined as:
 
 我们可以把它读作：「在 ``a`` 拥有 ``Show`` 实现的约束下，该函数接受一个输入  ``a``
-并返回一个  ``String``。」接口是通过定义接口的方法来实现的。例如，``Nat`` 的 ``Show``
-实现可定义为：
+并返回一个  ``String``。」我们可以通过定义接口的方法来实现该接口。例如，``Nat``
+的 ``Show`` 实现可定义为：
 
 .. code-block:: idris
 
@@ -72,7 +72,7 @@
 .. going to use it to convert each element to a ``String``:
 
 一个类型只能被赋予某个接口的一个实现，即，实现无法被覆盖。实现的声明自身可以包含约束。
-为此，实现的参数必须是构造器（即数据或类型构造器）或变量（即，无法为函数赋予实现）。
+为此，实现的参数必须是构造器（即数据或类型构造器）或变量（即无法为函数赋予实现）。
 例如，要为向量定义一个 ``Show`` 的实现，我们需要确认其元素实现了 ``Show``，
 因为要用它来将每个元素都转换为 ``String``：
 
@@ -106,7 +106,7 @@
 .. To declare an implementation for a type, we have to give definitions of all
 .. of the methods. For example, for an implementation of ``Eq`` for ``Nat``:
 
-要为类型声明声明实现，我们必须给出所有方法的定义。例如，为 ``Nat`` 实现 ``Eq``：
+要为类型实现一个接口，我们必须给出所有方法的定义。例如，为 ``Nat`` 实现 ``Eq``：
 
 .. code-block:: idris
 
@@ -124,7 +124,7 @@
 .. each method in the interface declaration, in terms of the other method:
 
 很难想象出有哪些情况中 ``/=`` 方法不是应用 ``==`` 方法结果的否定。
-因此，为接口声明中的每个方法提供默认定义会很方便，对其它方法而言：
+因此，用其它的方法为接口声明中的每个方法提供默认定义会很方便：
 
 .. code-block:: idris
 
@@ -214,7 +214,7 @@
 .. method types on the first pass, and elaborates the method types and any
 .. default definitions on the second pass.
 
-Idris 是严格的「使用前先定义」，除了在 ``mutual`` 块中。在 ``mutual`` 块内，
+除 ``mutual`` 块外，Idris 严格遵循「先定义后使用」的规则。在 ``mutual`` 块中，
 Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当互用块包含接口声明时，
 它第一趟会解析接口的头部但不解析方法类型；第二趟解析方法类型以及任何默认定义。
 
@@ -345,7 +345,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. ``do`` notation.
 
 若 ``x`` 和 ``y`` 均可用，该函数会从二者中提取出值；若其中一个或二者均不可用
-（「速错原则」），则返回 ``Nothing``。``Nothing`` 的情况通过 ``>>=``
+（「fail-fast 速错原则」），则返回 ``Nothing``。``Nothing`` 的情况通过 ``>>=``
 操作符来管理，由 ``do`` 记法来隐藏。
 
 ::
@@ -479,10 +479,10 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. direct style, while still giving a notational clue as to which
 .. expressions are monadic.
 
-然而需要注意，仅从语法上来说，它并不是一个真的函数！在实践中，子表达式 ``!expr``
+然而需要注意，它并不是一个真的函数，而是一个语法！在实践中，子表达式 ``!expr``
 会在 ``expr`` 的当前作用域内尽可能地提升，将它绑定到一个全新的名字 ``x``，
-然后用它来代替 ``!expr``。首先表达式的深度会按从左到右的顺序上升。在实践中，``!``
-记法允许我们以更直接的方式来编程，同时仍能通过记法线索来标出单子性单子性的表达式。
+然后用它来代替 ``!expr``。首先表达式会按从左到右的顺序深度优先地上升。在实践中，``!``
+记法允许我们以更直接的方式来编程，同时仍能通过记法线索来标出单子性的表达式。
 
 .. For example, the expression:
 
@@ -758,7 +758,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. can use this, for example, to sort a list of ``Nat`` in reverse.
 .. Given the following list:
 
-它正常地声明了一个实现，不过带有显式的名字 ``myord``。语法 ``compare @{myord}``
+它如常声明了一个实现，不过带有显式的名字 ``myord``。语法 ``compare @{myord}``
 会为 ``compare`` 提供显式的实现，否则它会使用 ``Nat`` 的默认实现。
 我们可以用它来反向排序一个 ``Nat`` 列表。给定以下列表：
 

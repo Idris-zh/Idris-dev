@@ -1,52 +1,88 @@
 .. _sect-interactive:
 
-*******************
-Interactive Editing
-*******************
+**********
+交互式编辑
+**********
 
-By now, we have seen several examples of how Idris’ dependent type
-system can give extra confidence in a function’s correctness by giving
-a more precise description of its intended behaviour in its *type*. We
-have also seen an example of how the type system can help with EDSL
-development by allowing a programmer to describe the type system of an
-object language. However, precise types give us more than verification
-of programs — we can also exploit types to help write programs which
-are *correct by construction*.
+.. *******************
+.. Interactive Editing
+.. *******************
 
-The Idris REPL provides several commands for inspecting and
-modifying parts of programs, based on their types, such as case
-splitting on a pattern variable, inspecting the type of a
-hole, and even a basic proof search mechanism. In this
-section, we explain how these features can be exploited by a text
-editor, and specifically how to do so in `Vim
-<https://github.com/idris-hackers/idris-vim>`_. An interactive mode
-for `Emacs <https://github.com/idris-hackers/idris-mode>`_ is also
-available.
+.. By now, we have seen several examples of how Idris’ dependent type
+.. system can give extra confidence in a function’s correctness by giving
+.. a more precise description of its intended behaviour in its *type*. We
+.. have also seen an example of how the type system can help with EDSL
+.. development by allowing a programmer to describe the type system of an
+.. object language. However, precise types give us more than verification
+.. of programs — we can also exploit types to help write programs which
+.. are *correct by construction*.
+
+目前，我们已经见过几个 Idris 的例子了，它的依赖类型系统可以在函数的 **类型**
+中为期望的行为添加更精确的描述，为函数的正确性增加额外的信心。
+我们也见识过类型系统如何帮助开发 EDSL 了，它允许程序员来描述目标语言的类型系统。
+然而，精确的类型不止赋予了我们程序验证的能力，我们还可以利用类型来帮助 **构造**
+出 **正确** 的程序。
+
+.. The Idris REPL provides several commands for inspecting and
+.. modifying parts of programs, based on their types, such as case
+.. splitting on a pattern variable, inspecting the type of a
+.. hole, and even a basic proof search mechanism. In this
+.. section, we explain how these features can be exploited by a text
+.. editor, and specifically how to do so in `Vim
+.. <https://github.com/idris-hackers/idris-vim>`_. An interactive mode
+.. for `Emacs <https://github.com/idris-hackers/idris-mode>`_ is also
+.. available.
+
+Idris 的 REPL 提供了一些命令，可基于程序的类型来检查和修改程序的部分，
+如在模式变量中拆分情况，检查坑的类型，甚至基本的证明搜索机制。在本节中，
+我们解释了如何在文本编辑器中，特别是如何在
+`Vim <https://github.com/idris-hackers/idris-vim>`_ 中利用这些特性。
+`Emacs <https://github.com/idris-hackers/idris-mode>`_ 的交互式模式也可以。
 
 
-Editing at the REPL
-===================
+在 REPL 中编辑
+==============
 
-The REPL provides a number of commands, which we will describe
-shortly, which generate new program fragments based on the currently
-loaded module. These take the general form
+.. Editing at the REPL
+.. ===================
+
+.. The REPL provides a number of commands, which we will describe
+.. shortly, which generate new program fragments based on the currently
+.. loaded module. These take the general form
+
+.. ::
+
+..     :command [line number] [name]
+
+REPL 提供了许多命令，我们稍后会介绍它们。它们基于当前加载的模块来生成新的程序片段。
+其一般形式为：
 
 ::
 
-    :command [line number] [name]
+    :命令 [行号] [名称]
 
-That is, each command acts on a specific source line, at a specific
-name, and outputs a new program fragment. Each command has an
-alternative form, which *updates* the source file in-place:
+.. That is, each command acts on a specific source line, at a specific
+.. name, and outputs a new program fragment. Each command has an
+.. alternative form, which *updates* the source file in-place:
+
+.. ::
+
+..     :command! [line number] [name]
+
+也就是说，每条命令都会作用在源码中特定行的特定名称上，然后输出一个新的程序片段。
+每个命令都有一种就地 **更新** 源文件的形式：
 
 ::
 
-    :command! [line number] [name]
+    :命令! [行号] [名称]
 
-When the REPL is loaded, it also starts a background process which
-accepts and responds to REPL commands, using ``idris --client``. For
-example, if we have a REPL running elsewhere, we can execute commands
-such as:
+.. When the REPL is loaded, it also starts a background process which
+.. accepts and responds to REPL commands, using ``idris --client``. For
+.. example, if we have a REPL running elsewhere, we can execute commands
+.. such as:
+
+当 REPL 被加载时，它还会用 ``idris --client`` 在后台启动一个进程，该进程接受并相应
+REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这样的命令：
 
 ::
 
@@ -55,48 +91,68 @@ such as:
     $ idris --client '2+2'
     4 : Integer
 
-A text editor can take advantage of this, along with the editing
-commands, in order to provide interactive editing support.
+.. A text editor can take advantage of this, along with the editing
+.. commands, in order to provide interactive editing support.
 
-Editing Commands
-================
+文本编辑器可以利用这一点和编辑命令来提供交互式编辑。
+
+编辑命令
+========
+
+.. Editing Commands
+.. ================
 
 :addclause
 ----------
 
-The ``:addclause n f`` command (abbreviated ``:ac n f``) creates a
-template definition for the function named ``f`` declared on line
-``n``.  For example, if the code beginning on line 94 contains:
+.. The ``:addclause n f`` command (abbreviated ``:ac n f``) creates a
+.. template definition for the function named ``f`` declared on line
+.. ``n``.  For example, if the code beginning on line 94 contains:
+
+``:addclause n f`` 命令，缩写为 ``:ac n f``，它为声明在第 ``n`` 行的函数 ``f``
+创建一个模版定义。例如，若从第 94 行开始的代码包含：
 
 .. code-block:: idris
 
     vzipWith : (a -> b -> c) ->
                Vect n a -> Vect n b -> Vect n c
 
-then ``:ac 94 vzipWith`` will give:
+.. then ``:ac 94 vzipWith`` will give:
+
+那么 ``:ac 94 vzipWith`` 会给出：
 
 .. code-block:: idris
 
     vzipWith f xs ys = ?vzipWith_rhs
 
-The names are chosen according to hints which may be given by a
-programmer, and then made unique by the machine by adding a digit if
-necessary. Hints can be given as follows:
+.. The names are chosen according to hints which may be given by a
+.. programmer, and then made unique by the machine by adding a digit if
+.. necessary. Hints can be given as follows:
+
+名字会根据可能是程序员给定的提示来选择，必要时机器会添加数字使其唯一。
+提示可像下面这样给定：
 
 .. code-block:: idris
 
     %name Vect xs, ys, zs, ws
 
-This declares that any names generated for types in the ``Vect`` family
-should be chosen in the order ``xs``, ``ys``, ``zs``, ``ws``.
+.. This declares that any names generated for types in the ``Vect`` family
+.. should be chosen in the order ``xs``, ``ys``, ``zs``, ``ws``.
+
+它声明了为 ``Vect`` 族的类型生成的名字应按照 ``xs``、``ys``、``zs``、``ws``
+的顺序来选取。
 
 :casesplit
 ----------
 
-The ``:casesplit n x`` command, abbreviated ``:cs n x``, splits the
-pattern variable ``x`` on line ``n`` into the various pattern forms it
-may take, removing any cases which are impossible due to unification
-errors. For example, if the code beginning on line 94 is:
+.. The ``:casesplit n x`` command, abbreviated ``:cs n x``, splits the
+.. pattern variable ``x`` on line ``n`` into the various pattern forms it
+.. may take, removing any cases which are impossible due to unification
+.. errors. For example, if the code beginning on line 94 is:
+
+``:casesplit n x`` 命令，缩写为 ``:cs n x``，它将第 ``n`` 行的模式变量 ``x``
+拆分为能够形成它的多种模式，移除任何由于一致性错误而不可能出现的情况。
+例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
 
@@ -104,25 +160,34 @@ errors. For example, if the code beginning on line 94 is:
                Vect n a -> Vect n b -> Vect n c
     vzipWith f xs ys = ?vzipWith_rhs
 
-then ``:cs 96 xs`` will give:
+.. then ``:cs 96 xs`` will give:
+
+那么 ``:cs 96 xs`` 会给出：
 
 .. code-block:: idris
 
     vzipWith f [] ys = ?vzipWith_rhs_1
     vzipWith f (x :: xs) ys = ?vzipWith_rhs_2
 
-That is, the pattern variable ``xs`` has been split into the two
-possible cases ``[]`` and ``x :: xs``. Again, the names are chosen
-according to the same heuristic. If we update the file (using
-``:cs!``) then case split on ``ys`` on the same line, we get:
+.. That is, the pattern variable ``xs`` has been split into the two
+.. possible cases ``[]`` and ``x :: xs``. Again, the names are chosen
+.. according to the same heuristic. If we update the file (using
+.. ``:cs!``) then case split on ``ys`` on the same line, we get:
+
+即，模式变量 ``xs`` 被拆分成了 ``[]`` 和 ``x :: xs`` 两种可能的情况。和之前一样，
+名字的选取启发自相同的规则。若我们（用 ``:cs!``）更新文件后再拆分同一行的
+``ys``，就会得到：
 
 .. code-block:: idris
 
     vzipWith f [] [] = ?vzipWith_rhs_3
 
-That is, the pattern variable ``ys`` has been split into one case
-``[]``, Idris having noticed that the other possible case ``y ::
-ys`` would lead to a unification error.
+.. That is, the pattern variable ``ys`` has been split into one case
+.. ``[]``, Idris having noticed that the other possible case ``y ::
+.. ys`` would lead to a unification error.
+
+即，模式变量 ``ys`` 被拆分成了 ``[]`` 这一个情况，因为 Idris 发现另一种可能的情况
+ ``y :: ys`` 会导致一致性错误。
 
 :addmissing
 -----------
@@ -130,6 +195,9 @@ ys`` would lead to a unification error.
 The ``:addmissing n f`` command, abbreviated ``:am n f``, adds the
 clauses which are required to make the function ``f`` on line ``n``
 cover all inputs. For example, if the code beginning on line 94 is
+
+``:addmissing n f`` 命令，缩写为 ``:am n f``，它为第 ``n`` 行的函数 ``f``
+添加使其覆盖所有输入的从句。
 
 .. code-block:: idris
 
@@ -218,8 +286,11 @@ interactive editing significantly simplifies the implementation of
 dependent pattern matching by showing a programmer exactly what the
 valid patterns are.
 
-Interactive Editing in Vim
-==========================
+Vim 交互式编辑
+==============
+
+.. Interactive Editing in Vim
+.. ==========================
 
 The editor mode for Vim provides syntax highlighting, indentation and
 interactive editing support using the commands described above.
