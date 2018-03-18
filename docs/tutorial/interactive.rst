@@ -187,17 +187,17 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. ys`` would lead to a unification error.
 
 即，模式变量 ``ys`` 被拆分成了 ``[]`` 这一个情况，因为 Idris 发现另一种可能的情况
- ``y :: ys`` 会导致一致性错误。
+``y :: ys`` 会导致一致性错误。
 
 :addmissing
 -----------
 
-The ``:addmissing n f`` command, abbreviated ``:am n f``, adds the
-clauses which are required to make the function ``f`` on line ``n``
-cover all inputs. For example, if the code beginning on line 94 is
+.. The ``:addmissing n f`` command, abbreviated ``:am n f``, adds the
+.. clauses which are required to make the function ``f`` on line ``n``
+.. cover all inputs. For example, if the code beginning on line 94 is
 
 ``:addmissing n f`` 命令，缩写为 ``:am n f``，它为第 ``n`` 行的函数 ``f``
-添加使其覆盖所有输入的从句。
+添加使其覆盖所有输入的子句。例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
 
@@ -205,25 +205,34 @@ cover all inputs. For example, if the code beginning on line 94 is
                Vect n a -> Vect n b -> Vect n c
     vzipWith f [] [] = ?vzipWith_rhs_1
 
-then ``:am 96 vzipWith`` gives:
+.. then ``:am 96 vzipWith`` gives:
+
+那么 ``:am 96 vzipWith`` 会给出：
 
 .. code-block:: idris
 
     vzipWith f (x :: xs) (y :: ys) = ?vzipWith_rhs_2
 
-That is, it notices that there are no cases for non-empty vectors,
-generates the required clauses, and eliminates the clauses which would
-lead to unification errors.
+.. That is, it notices that there are no cases for non-empty vectors,
+.. generates the required clauses, and eliminates the clauses which would
+.. lead to unification errors.
+
+即，它注意到不存在空向量的情况，生成了需要的子句，并消除了会导致不一致性错误的子句。
 
 :proofsearch
 ------------
 
-The ``:proofsearch n f`` command, abbreviated ``:ps n f``, attempts to
-find a value for the hole ``f`` on line ``n`` by proof search,
-trying values of local variables, recursive calls and constructors of
-the required family. Optionally, it can take a list of *hints*, which
-are functions it can try applying to solve the hole. For
-example, if the code beginning on line 94 is:
+.. The ``:proofsearch n f`` command, abbreviated ``:ps n f``, attempts to
+.. find a value for the hole ``f`` on line ``n`` by proof search,
+.. trying values of local variables, recursive calls and constructors of
+.. the required family. Optionally, it can take a list of *hints*, which
+.. are functions it can try applying to solve the hole. For
+.. example, if the code beginning on line 94 is:
+
+``:proofsearch n f`` 命令，缩写为 ``:ps n f``，它试图通过证明搜索、
+尝试局部变量的值、递归调用和所需类型族的构造器来为第 ``n`` 行的坑 ``f``
+找一个值。该命令也可以接受一个可选的 **提示（Hint）** 列表，
+也就是可用于尝试解决此坑的函数列表。例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
 
@@ -232,59 +241,79 @@ example, if the code beginning on line 94 is:
     vzipWith f [] [] = ?vzipWith_rhs_1
     vzipWith f (x :: xs) (y :: ys) = ?vzipWith_rhs_2
 
-then ``:ps 96 vzipWith_rhs_1`` will give
+.. then ``:ps 96 vzipWith_rhs_1`` will give
+
+那么 ``:ps 96 vzipWith_rhs_1`` 会给出：
 
 .. code-block:: idris
 
     []
 
-This works because it is searching for a ``Vect`` of length 0, of
-which the empty vector is the only possibility. Similarly, and perhaps
-surprisingly, there is only one possibility if we try to solve ``:ps
-97 vzipWith_rhs_2``:
+.. This works because it is searching for a ``Vect`` of length 0, of
+.. which the empty vector is the only possibility. Similarly, and perhaps
+.. surprisingly, there is only one possibility if we try to solve ``:ps
+.. 97 vzipWith_rhs_2``:
+
+它能工作是因为它在为长度为 0 的 ``Vect`` 进行搜索，而空向量是唯一的可能。
+类似地，而且可能出乎意料，在试图解决 ``:ps 97 vzipWith_rhs_2`` 时也只有一种可能：
 
 .. code-block:: idris
 
     f x y :: (vzipWith f xs ys)
 
-This works because ``vzipWith`` has a precise enough type: The
-resulting vector has to be non-empty (a ``::``); the first element
-must have type ``c`` and the only way to get this is to apply ``f`` to
-``x`` and ``y``; finally, the tail of the vector can only be built
-recursively.
+.. This works because ``vzipWith`` has a precise enough type: The
+.. resulting vector has to be non-empty (a ``::``); the first element
+.. must have type ``c`` and the only way to get this is to apply ``f`` to
+.. ``x`` and ``y``; finally, the tail of the vector can only be built
+.. recursively.
+
+它能工作是因为 ``vzipWith`` 拥有足够精确的类型：其结果向量一定非空（至少有一个
+``::``）；第一个元素的类型必须为 ``c``，而得到它的唯一方法就是将 ``f`` 应用于
+``x`` 和 ``y``；最后，该向量的尾部只能递归地构造。
 
 :makewith
 ---------
 
-The ``:makewith n f`` command, abbreviated ``:mw n f``, adds a
-``with`` to a pattern clause. For example, recall ``parity``. If line
-10 is:
+.. The ``:makewith n f`` command, abbreviated ``:mw n f``, adds a
+.. ``with`` to a pattern clause. For example, recall ``parity``. If line
+.. 10 is:
+
+``:makewith n f`` 命令，缩写为 ``:mw n f``，它为模式添加一个 ``with`` 从句。
+例如，回想一下 ``parity``。若第 10 行为：
 
 .. code-block:: idris
 
     parity (S k) = ?parity_rhs
 
-then ``:mw 10 parity`` will give:
+.. then ``:mw 10 parity`` will give:
+
+那么 ``:mw 10 parity`` 会给出：
 
 .. code-block:: idris
 
     parity (S k) with (_)
       parity (S k) | with_pat = ?parity_rhs
 
-If we then fill in the placeholder ``_`` with ``parity k`` and case
-split on ``with_pat`` using ``:cs 11 with_pat`` we get the following
-patterns:
+.. If we then fill in the placeholder ``_`` with ``parity k`` and case
+.. split on ``with_pat`` using ``:cs 11 with_pat`` we get the following
+.. patterns:
+
+若我们在占位符 ``_`` 处填上 ``parity k``，并用 ``:cs 11 with_pat`` 拆分
+``with_pat`` 的情况，就会得到以下模式：
 
 .. code-block:: idris
 
       parity (S (plus n n)) | even = ?parity_rhs_1
       parity (S (S (plus n n))) | odd = ?parity_rhs_2
 
-Note that case splitting has normalised the patterns here (giving
-``plus`` rather than ``+``). In any case, we see that using
-interactive editing significantly simplifies the implementation of
-dependent pattern matching by showing a programmer exactly what the
-valid patterns are.
+.. Note that case splitting has normalised the patterns here (giving
+.. ``plus`` rather than ``+``). In any case, we see that using
+.. interactive editing significantly simplifies the implementation of
+.. dependent pattern matching by showing a programmer exactly what the
+.. valid patterns are.
+
+注意情况拆分规范化了该模式（即给出了 ``plus`` 而非 ``+``）。我们看到了，在任何情况下，
+使用交互式编辑向程序员展示有效的模式，都能够显著简化依赖模式匹配的实现。
 
 Vim 交互式编辑
 ==============
@@ -292,38 +321,64 @@ Vim 交互式编辑
 .. Interactive Editing in Vim
 .. ==========================
 
-The editor mode for Vim provides syntax highlighting, indentation and
-interactive editing support using the commands described above.
-Interactive editing is achieved using the following editor commands,
-each of which update the buffer directly:
+.. The editor mode for Vim provides syntax highlighting, indentation and
+.. interactive editing support using the commands described above.
+.. Interactive editing is achieved using the following editor commands,
+.. each of which update the buffer directly:
 
-- ``\d`` adds a template definition for the name declared on the
-   current line (using ``:addclause``).
+Vim 的编辑器模式提供了语法高亮和缩进，通过使用前面描述的命令提供了交互式编辑的支持。
+交互式编辑通过使用以下编辑器命令来进行，每一条都会直接更新缓冲区：
 
-- ``\c`` case splits the variable at the cursor (using
-   ``:casesplit``).
+.. - ``\d`` adds a template definition for the name declared on the
+..    current line (using ``:addclause``).
 
-- ``\m`` adds the missing cases for the name at the cursor (using
-   ``:addmissing``).
+.. - ``\c`` case splits the variable at the cursor (using
+..    ``:casesplit``).
 
-- ``\w`` adds a ``with`` clause (using ``:makewith``).
+.. - ``\m`` adds the missing cases for the name at the cursor (using
+..    ``:addmissing``).
 
-- ``\o`` invokes a proof search to solve the hole under the
-   cursor (using ``:proofsearch``).
+.. - ``\w`` adds a ``with`` clause (using ``:makewith``).
 
-- ``\p`` invokes a proof search with additional hints to solve the
-   hole under the cursor (using ``:proofsearch``).
+.. - ``\o`` invokes a proof search to solve the hole under the
+..    cursor (using ``:proofsearch``).
 
-There are also commands to invoke the type checker and evaluator:
+.. - ``\p`` invokes a proof search with additional hints to solve the
+..    hole under the cursor (using ``:proofsearch``).
 
-- ``\t`` displays the type of the (globally visible) name under the
-   cursor. In the case of a hole, this displays the context
-   and the expected type.
+- ``\d`` 使用 ``:addclause`` 为当前行声明的名字添加模版定义。
 
-- ``\e`` prompts for an expression to evaluate.
+- ``\c`` 使用 ``:casesplit`` 为光标处的变量执行情况拆分。
 
-- ``\r`` reloads and type checks the buffer.
+- ``\m`` 使用 ``:addmissing`` 为光标处的名字添加缺少的情况。
 
-Corresponding commands are also available in the Emacs mode. Support
-for other editors can be added in a relatively straightforward manner
-by using ``idris –client``.
+- ``\w`` 使用 ``:makewith`` 添加 ``with`` 从句。
+
+- ``\o`` 使用 ``:proofsearch`` 调用证明搜索来解决光标处的坑。
+
+- ``\p`` 使用 ``:proofsearch`` 根据附加的提示调用证明搜索来解决光标处的坑。
+
+.. There are also commands to invoke the type checker and evaluator:
+
+.. - ``\t`` displays the type of the (globally visible) name under the
+..    cursor. In the case of a hole, this displays the context
+..    and the expected type.
+
+.. - ``\e`` prompts for an expression to evaluate.
+
+.. - ``\r`` reloads and type checks the buffer.
+
+还有一些调用类型检查器和求值器的命令：
+
+- ``\t`` 显示光标下（全局可见的）名字的类型。对于坑的情况，它会显示其上下文及预期的类型。
+
+- ``\e`` 提示要求值的表达式。
+
+- ``\r`` 重新加载缓冲区并进行类型检查。
+
+.. Corresponding commands are also available in the Emacs mode. Support
+.. for other editors can be added in a relatively straightforward manner
+.. by using ``idris –client``.
+
+对应的命令在 Emacs 模式中也可用。对其它编辑器的支持可通过使用 ``idris –client``
+以相对直接的方式来添加。
