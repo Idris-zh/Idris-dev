@@ -45,7 +45,7 @@
 它简单地描述了零为偶数，一为奇数，并递归地描述了 ``k+2`` 的奇偶性与 ``k`` 相同。
 显式地标出 ``n`` 是奇数还是偶数对于类型推断来说是必须的。不幸的是，类型检查器却拒绝了它：
 
-::
+.. ::
 
     .. viewsbroken.idr:12:10:When elaborating right hand side of ViewsBroken.parity:
     .. Type mismatch between
@@ -275,8 +275,8 @@ C 库中）的属性时也是可以用的。使用了它的 ``views.parity_lemma
         exact believe_me value;
     }
 
-The ``exact`` tactic allows us to provide an exact value for the proof.
-In this case, we assert that the value we gave was correct.
+.. The ``exact`` tactic allows us to provide an exact value for the proof.
+.. In this case, we assert that the value we gave was correct.
 
 ``exact`` 策略允许我们为该证明提供一个确切的值。在本例中，我们断言给出的值是正确的。
 
