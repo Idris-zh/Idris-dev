@@ -516,7 +516,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. can normally be resolved from context.
 
 注意我们使用了与 ``List`` 相同的构造器名。只要名字声明在不同的命名空间中
-（在实践中，通常在不同的模块内），Idris 可以接受像这样重载的专用名。
+（在实践中，通常在不同的模块内），Idris 可以接受像这样的特设（ad-hoc）名重载。
 有歧义的构造器名称通常可根据上下文来解决。
 
 .. This declares a family of types, and so the form of the declaration is

@@ -1,10 +1,10 @@
 .. _sect-interp:
 
-.. Example: The Well-Typed Interpreter
-
 ********************
 例子：良类型的解释器
 ********************
+
+.. Example: The Well-Typed Interpreter
 
 .. In this section, we’ll use the features we’ve seen so far to write a
 .. larger example, an interpreter for a simple functional programming
