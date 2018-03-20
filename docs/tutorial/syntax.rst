@@ -15,7 +15,7 @@
 .. ways of extending the syntax: ``syntax`` rules and ``dsl`` notation.
 
 Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domain Specific Language, EDSL）** [1]_ 。
-我们见过的一种是通过扩展 ``do`` 记法。另一种重要的方式就是允许对核心语法的扩展。
+我们见过的一种方式是扩展 ``do`` 记法。另一种重要的方式是对核心语法进行扩展。
 在本节中，我们描述了两种扩展语法的方式：``syntax`` 规则和 ``dsl`` 记法。
 
 ``syntax`` 规则
@@ -28,8 +28,8 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. in. Instead, we can define a function in the prelude as follows (we
 .. have already seen this function in Section :ref:`sect-lazy`):
 
-我们已经见过 ``if...then...else`` 表达式了，但他们不是内建的。同样，
-我们可以定义一个 Prelude 中的函数（我们已经在 :ref:`sect-lazy` 一节中见过它了）：
+我们已经见过 ``if...then...else`` 表达式了，然而它们不是内建的。同样，
+我们可以定义一个 Prelude 中的函数（它在 :ref:`sect-lazy` 一节中出现过了）：
 
 .. code-block:: idris
 
@@ -64,7 +64,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 ..    also be used to include reserved words in syntax rules, such as
 ..    ``let`` or ``in``.
 
-``syntax`` 声明的等号左侧描述了语法规则，而右边描述了其展开式。语法规则的构成为：
+``syntax`` 声明的左式描述了语法规则，而右式描述了其展开式。语法规则的构成为：
 
 -  **关键字** — 在这里为 ``if``、``then`` 和 ``else``，它必须是有效的标识符。
 
@@ -147,7 +147,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. a bound variable, substituted on the right hand side. We have also put
 .. ``in`` in quotation marks since it is already a reserved word.
 
-注意，我们用 ``{x}`` 形式规定了 ``x`` 表示一个已绑定的变量，它在右侧会被替换。
+注意，我们用 ``{x}`` 形式描述了 ``x`` 表示一个已绑定的变量，它在右侧会被替换。
 我们还把 ``in`` 放在了引号中，因为它是保留字。
 
 ``dsl`` 记法
