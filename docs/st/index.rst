@@ -4,21 +4,21 @@
 在Idris中实现状态可感知的系统: ST教程
 ##########################################################
 
-##########################################################
-Implementing State-aware Systems in Idris: The ST Tutorial
-##########################################################
+.. ##########################################################
+.. Implementing State-aware Systems in Idris: The ST Tutorial
+.. ##########################################################
 
-A tutorial on implementing state-aware systems using 
-the `Control.ST` library in `Idris`.
+.. A tutorial on implementing state-aware systems using
+.. the `Control.ST` library in `Idris`.
 
 本教程叙述了如何用 `Idris` 中的 `Control.ST` 库实现状态可感知的系统。
 
 .. note::
 
-   The documentation for Idris has been published under the Creative
-   Commons CC0 License. As such to the extent possible under law, *The
-   Idris Community* has waived all copyright and related or neighbouring
-   rights to Documentation for Idris.
+   .. The documentation for Idris has been published under the Creative
+   .. Commons CC0 License. As such to the extent possible under law, *The
+   .. Idris Community* has waived all copyright and related or neighbouring
+   .. rights to Documentation for Idris.
 
    Idris 的文档按照 创作共用 CC0 许可协议 发布。因此根据法律规定，
    Idris 社区 已放弃对 Idris 文档的所有版权以及相关或邻接的权利。
