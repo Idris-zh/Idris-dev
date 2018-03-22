@@ -9,7 +9,7 @@ correctly (i.e. according to the specification in its type) simply
 because it compiles.
 
 像 `Idris <http://www.idris-lang.org/>` 这样支持直接在类型系统中进行程序推理
-的函数式语言，仅根据一个程序能够编译这一点，就能保证我们能够 *知道* 一个程序将会
+的函数式语言，仅根据一个程序能够编译这一点，就能保证我们能够 **知道** 一个程序将会
 正确地 (即: 根据其类型说明) 运行。
 
 Realistically, though,  software relies on state, and many components rely on state machines. For
@@ -104,7 +104,7 @@ user is logged in.
 我们一如既往地使用类型检查器来保证变量和参数被一致地使用。然而，主流的类型系统并不能
 很好地支持对于 操作仅在资源处于适当状态时才被执行 这类性质的静态检查。在数据存储的
 例子当中，比如，检查 用户在执行 ``读取数据`` 前成功登录了 这一性质非常重要。
-``ST`` 库允许我们在类型系统中表达这类 *协议* ，并且在 *编译阶段* 确保机密仅当用户
+``ST`` 库允许我们在类型系统中表达这类 **协议** ，并且在 **编译阶段** 确保机密仅当用户
 处于已登录状态时才能被读取。
 
 Outline
@@ -127,7 +127,7 @@ API in practice, implementing the POSIX network sockets API.
 
 这个教程以描述如何管理多个状态开始 (:ref:`introst`) ，引入了一个叫做 ``STrans``
 的数据类型以描述有状态的函数，以及 ``ST`` 用于描述顶层的状态转移。
-接下来的章节 (:ref:`smstypes`) 描述了如何用类型表示状态机，以及如何定义 *接口*
+接下来的章节 (:ref:`smstypes`) 描述了如何用类型表示状态机，以及如何定义 **接口**
 以描述有状态的系统。然后 (:ref:`composing`) 它描述了如何组合有多个状态机的系统。
 它解释了如何实现同时使用多个状态机的系统，以及如何基于一个低级的系统实现一个高级
 的有状态系统。
