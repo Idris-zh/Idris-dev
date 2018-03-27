@@ -11,7 +11,7 @@
 .. Further information about Idris programming, and programming with
 .. dependent types in general, can be obtained from various sources:
 
-有关 Idris 编程的更多信息，以及依赖类型编程的一般问题，可从多种来源获取：
+有关 Idris 编程的更多信息，以及依赖类型编程的一般问题解答，可从多种来源获取：
 
 .. -  The Idris web site (http://www.idris-lang.org/) and by asking
 ..    questions on the mailing list.
@@ -36,7 +36,7 @@
 .. - Various papers (e.g. [1]_, [2]_, and [3]_).  Although these mostly
 ..    describe older versions of Idris.
 
--  Idris 网站（http://www.idris-lang.org/）以及通过在邮件列表中提问。
+-  Idris 网站（http://www.idris-lang.org/）以及在邮件列表中提问。
 
 -  `chat.freenode.net <http://chat.freenode.net>`__ 上的 ``#idris`` IRC 频道。
 
@@ -47,10 +47,10 @@
 
    -  https://github.com/idris-lang/Idris-dev/wiki/Language-Features
 
-- 查看发行版中的 prelude 并浏览 ``samples`` 目录。Idris 的源码可在线获取：
-   https://github.com/idris-lang/Idris-dev。
+- 查看发行版中的 Prelude 并浏览 ``samples`` 目录。Idris 的源码可在线获取：
+   https://github.com/idris-lang/Idris-dev 。
 
--  ``Idris Hackers`` 网站上的既有项目： http://idris-hackers.github.io。
+-  ``Idris Hackers`` 网站上的既有项目： http://idris-hackers.github.io 。
 
 - 多篇论文（例如 [1]_、[2]_ 和 [3]_）。虽然它们大多描述的是旧版的 Idris。
 

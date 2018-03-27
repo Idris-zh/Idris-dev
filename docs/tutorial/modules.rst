@@ -17,7 +17,7 @@
 .. ``Btree.idr``):
 
 Idris 程序由一组模块构成。每个模块包含一个可选的 ``module`` 声明来命名模块，
-一系列 ``import`` 语句用于导入其它模块，还有一堆类型、接口和函数的声明与定义。
+一系列 ``import`` 语句用于导入其它模块，还有一组类型、接口和函数的声明与定义。
 例如，以下模块定义了二叉树类型 ``BTree`` （在 ``Btree.idr`` 文件中）：
 
 .. code-block:: idris
@@ -48,12 +48,13 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. from other modules. These are explained further below.
 
 修饰符 ``export`` 和 ``public export`` 说明了哪些名称在其它模块中可见。
-后面会有进一步的解释。
+之后会详细解释。
 
 .. Then, this gives a main program (in a file
 .. ``bmain.idr``) which uses the ``Btree`` module to sort a list:
 
-这里给出了一个 main 程序（在 ``bmain.idr`` 文件中），它利用 ``Btree`` 模块对列表排序：
+这里给出了一个 main 程序（在 ``bmain.idr`` 文件中），它利用 ``Btree``
+模块对列表排序：
 
 .. code-block:: idris
 
@@ -69,7 +70,7 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. the name of the module.  The names defined in the ``Btree`` module are, in
 .. full:
 
-同一名称可以在多个模块中定义：名称可以通过模块名来字 **限定**。
+同一名称可以在多个模块中定义：名称可以通过模块名来字 **限定（Qualified）**。
 ``Btree`` 模块中定义的全部名称如下：
 
 + ``Btree.BTree``
@@ -84,7 +85,7 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. qualification, or according to their type.
 
 如果名称可以区分，就没必要给出完整的限定名。通过明确的限定，或者根据它们的类型，
-可以消除名称歧义。
+可以消除名称的歧义。
 
 .. There is no formal link between the module name and its filename,
 .. although it is generally advisable to use the same name for each. An
@@ -95,13 +96,13 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. main module, with the ``main`` function, must be called
 .. ``Main``—although its filename need not be ``Main.idr``.
 
-模块名和文件名没有正式的联系，尽管通常会建议使用同一名字。引用文件名的 ``import``
-语句通过 ``.`` 来分割路径。例如，``import foo.bar`` 会导入文件 ``foo/bar.idr``，
-其中通常会有模块声明 ``module foo.bar``。对模块名字的唯一要求是，包含 ``main``
-函数的主模块必须命名为 ``Main``，然而文件名无需为 ``Main.idr``。
+模块名和文件名之间没有正式的联系，尽管通常会建议使用同一名字。``import``
+语句用于引用文件名，它通过 ``.`` 来分隔路径。例如，``import foo.bar`` 会导入文件
+``foo/bar.idr``，其中通常会有模块声明 ``module foo.bar``。对模块名字的唯一要求是，
+包含 ``main`` 函数的主模块必须命名为 ``Main``，而文件名无需为 ``Main.idr``。
 
 导出修饰符
-=============
+==========
 
 .. Export Modifiers
 .. ================
@@ -113,9 +114,10 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. types, and interfaces to be marked as: ``private``, ``export``, or
 .. ``public export``.  Their general meaning is as follows:
 
-Idris 允许对模块内容的可见性进行细粒度的控制。默认情况下，模块中定义的所有名字
-都是私有的。这有助于最小化接口并隐藏内部细节。Idris 允许将函数、类型和接口标记为：
-``private``、``export`` 或 ``public export``。它们的含义通常如下:
+Idris 允许对模块内容的可见性进行细粒度的控制。默认情况下，
+模块中定义的所有名称都是私有的。这有助于最小化接口并隐藏内部细节。Idris
+允许将函数、类型和接口标记为 ``private``、``export`` 或 ``public export``。
+它们的一般含义如下:
 
 .. - ``private`` meaning that it's not exported at all. This is the
 ..   default.
@@ -124,7 +126,7 @@ Idris 允许对模块内容的可见性进行细粒度的控制。默认情况�
 
 .. - ``public export`` meaning that the entire definition is exported.
 
-- ``private`` 表示完全不被导出。这是默认的。
+- ``private`` 表示完全不被导出。此为默认情况。
 
 - ``export`` 表示顶级类型是导出的。
 
@@ -138,7 +140,7 @@ Idris 允许对模块内容的可见性进行细粒度的控制。默认情况�
 
 更改可见性的另一限制是，定义无法引用可见性更低的名称。例如，
 ``public export`` 的定义无法使用私有名称, 而 ``export`` 的类型也无法使用私有名称。
-这是为了避免私有名称泄漏到模块的接口中。
+这是为了避免私有名称泄露到模块的接口中。
 
 对于函数的意义
 --------------
@@ -350,7 +352,7 @@ API 的一部分。因此，除非你确实想要导出函数的完整定义，�
 .. explicitly. The ``addAll`` function, when called from the REPL, will
 .. thus have the following type signature.
 
-``parameters`` 形参块的作用是为块中每个函数、类型和数据构造器添加形参声明。
+``parameters`` 形参块的作用是为块中的每个函数、类型和数据构造器添加形参声明。
 具体来说，就是将形参添加到参数列表的前面。在此块外，形参必须显式地给定。
 因此在 REPL 中调用 ``addAll`` 函数时，它会拥有以下函数声明：
 

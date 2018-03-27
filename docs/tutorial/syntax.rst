@@ -15,8 +15,8 @@
 .. ways of extending the syntax: ``syntax`` rules and ``dsl`` notation.
 
 Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domain Specific Language, EDSL）** [1]_ 。
-我们见过的一种方式是扩展 ``do`` 记法。另一种重要的方式是对核心语法进行扩展。
-在本节中，我们描述了两种扩展语法的方式：``syntax`` 规则和 ``dsl`` 记法。
+我们见过的一种方式是扩展 ``do`` 记法。另一种重要的方式就是对核心语法进行扩展。
+在本节中，我们描述了两种扩展语法的方式：``syntax`` 规则与 ``dsl`` 记法。
 
 ``syntax`` 规则
 ===============
@@ -28,7 +28,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. in. Instead, we can define a function in the prelude as follows (we
 .. have already seen this function in Section :ref:`sect-lazy`):
 
-我们已经见过 ``if...then...else`` 表达式了，然而它们不是内建的。同样，
+我们已经见过 ``if...then...else`` 表达式了，然而它并不是内建的。同样，
 我们可以定义一个 Prelude 中的函数（它在 :ref:`sect-lazy` 一节中出现过了）：
 
 .. code-block:: idris
@@ -68,13 +68,14 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 
 -  **关键字** — 在这里为 ``if``、``then`` 和 ``else``，它必须是有效的标识符。
 
--  **非终止符** — 括在方括号中，此处为 ``[test]``、``[t]`` 和 ``[e]``，它们表示任意表达式。
-   为避免解析歧义，这些表达式不能在顶层使用语法扩展（也就是说你可以在括号中使用）。
+-  **非终止符（Non-terminal）** — 位于方括号内，此处为 ``[test]``、``[t]`` 和
+   ``[e]``，它们表示任意表达式。为避免解析歧义，这些表达式不能在顶层使用语法扩展
+   （也就是说你可以在括号中使用）。
 
--  **名称** — 括在大括号中，它表示可在右侧被绑定的名字。
+-  **名称** — 位于大括号内，它表示可在右侧被绑定的名字。
 
--  **符号** — 引在引号中，例如 ``:=``。它也可用于在语法规则中用于保留字，例如
-   ``let`` 或 ``in``。
+-  **符号** — 位于引号内，例如 ``":="``。它也可在语法规则中包含保留字，例如
+   ``"let"`` 或 ``"in"``。
 
 .. The limitations on the form of a syntax rule are that it must include
 .. at least one symbol or keyword, and there must be no repeated
@@ -84,9 +85,9 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. expressions). Rules can use previously defined rules, but may not be
 .. recursive. The following syntax extensions would therefore be valid:
 
-语法规则形式的限制在于它必须包含至少一个符号或关键字，且表示非终止符的标量不能重复。
-任何表达式都可以使用，不过如果在一个规则的同一行中有两个非终止符，那么只有简单的表达式会被使用
-（即，变量、常量或方括号括起的表达式）。规则可在它的定义前使用，但无法递归地使用。
+语法规则形式的限制在于它必须包含至少一个符号或关键字，且表示非终止符的变量不能重复。
+任何表达式都可以使用，不过如果在一个规则的同一行内有两个非终止符，那么只有简单的表达式会被使用
+（即，变量、常量或方括号括起的表达式）。规则可在其定义之前使用，但无法递归地使用。
 因此以下语法扩展是有效的：
 
 .. code-block:: idris
@@ -105,7 +106,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 
 语法宏可被进一步限制为只能在模式（即，只能在模式匹配从句的左侧）中或只能在被标为
 ``pattern`` 或 ``term`` 语法规则的项（即除了模式匹配从句左侧的任何地方）中应用。
-例如，我们可能定义了一个区间，用 ``So`` 静态检查保证下界小于上界：
+例如，假设我们定义了一个区间 ``Interval``，用 ``So`` 静态检查以保证下界小于上界：
 
 .. code-block:: idris
 
@@ -116,7 +117,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. We can define a syntax which, in patterns, always matches ``Oh`` for
 .. the proof argument, and in terms requires a proof term to be provided:
 
-我们可以用 pattern 定义一个语法，它总是匹配 ``Oh`` 作为证明论据，用 term
+我们可以用 ``pattern`` 定义一个语法，它总是匹配 ``Oh`` 作为证明论据，用 ``term``
 请求提供一个证明项：
 
 .. code-block:: idris
@@ -127,12 +128,12 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. In terms, the syntax ``[x...y]`` will generate a proof obligation
 .. ``bounds_lemma`` (possibly renamed).
 
-在 term 中，语法 ``[x...y]`` 会生成一个证明义务 ``bounds_lemma`` （可能被重命名）。
+在 ``term`` 中，语法 ``[x...y]`` 会生成一个证明义务 ``bounds_lemma`` （可能被重命名）。
 
 .. Finally, syntax rules may be used to introduce alternative binding
 .. forms. For example, a ``for`` loop binds a variable on each iteration:
 
-最后，语法规则可用于引入另一种绑定形式。例如，``for`` 循环在每次迭代中绑定一个参数：
+最后，语法规则可引入另一种绑定形式。例如，``for`` 循环在每次迭代中绑定一个参数：
 
 .. code-block:: idris
 
@@ -147,7 +148,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. a bound variable, substituted on the right hand side. We have also put
 .. ``in`` in quotation marks since it is already a reserved word.
 
-注意，我们用 ``{x}`` 形式描述了 ``x`` 表示一个已绑定的变量，它在右侧会被替换。
+注意，我们用形式 ``{x}`` 指明 ``x`` 表示一个已绑定的变量，它在右侧会被替换。
 我们还把 ``in`` 放在了引号中，因为它是保留字。
 
 ``dsl`` 记法
@@ -165,15 +166,15 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. concurrent processes safely [3]_.
 
 :ref:`sect-interp` 一节中的良类型解释器是个依赖类型编程模式的简单例子。也就是说：
-先用依赖类型描述一个 **目标语言** 及其类型系统，保证只有良类型的程序可被表达，
-然后程序再以这种方式表达。通过这种方式，我们可以编写序列化二进制数据 [2]_
+先用依赖类型描述一个 **目标语言** 及其类型系统，保证只有良类型的程序可被表示，
+然后再通过这种方式表示程序。通过这种方式，我们可以编写序列化二进制数据 [2]_
 或安全运行并发过程 [3]_ 的程序。
 
 .. Unfortunately, the form of object language programs makes it rather
 .. hard to program this way in practice. Recall the factorial program in
 .. ``Expr`` for example:
 
-不幸的是，目标语言的形式使其难以在实践中编程。回想一下用 ``Expr`` 编写的阶乘程序：
+然而，目标语言的形式使其难以在实践中编程。回想一下用 ``Expr`` 编写的阶乘程序：
 
 .. code-block:: idris
 
@@ -212,10 +213,9 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 
 ``dsl`` 块描述了每个语法构造是如何在目标语言中表示的。在这里的 ``expr`` 语言中，
 任何变量都会被翻译为 ``Var`` 构造器，使用 ``Pop`` 和 ``Stop`` 来构造 de Bruijn
-索引（即，由于变量本身被绑定，所以要统计有多少个绑定）；而任何 lambda
-表达式都会被翻译为 ``Lam`` 构造器。``mkLam`` 函数会简单地忽略其第一个参数，
-它是用户为变量选择的名字。我们也可以通过这种方式来重载 ``let`` 与依赖函数的语法。
-现在可以将 ``fact`` 写成下面这样了：
+索引（即，由于变量本身被绑定，所以要统计有多少个绑定）；而任何 λ-表达式都会被翻译为
+``Lam`` 构造器。``mkLam`` 函数会简单地忽略其第一个参数，它是用户为变量选择的名字。
+我们也可以通过这种方式来重载 ``let`` 与依赖函数的语法。现在可以将 ``fact`` 写成下面这样了：
 
 .. code-block:: idris
 
@@ -243,7 +243,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. the names ``<*>`` and ``pure``, and ad-hoc type-directed overloading
 .. is allowed. We can now say:
 
-注意，它无需成为 ``Application`` 实现的一部分，因为惯用括号记法会直接被翻译为
+注意，它无需成为 ``Applicative`` 实现的一部分，因为惯用括号记法会直接被翻译为
 名字 ``<*>`` 和 ``pure``，针对特设（ad-hoc）类型的重载也被允许。现在我们可以写成：
 
 .. code-block:: idris

@@ -18,8 +18,8 @@
 .. are *correct by construction*.
 
 目前，我们已经见过几个 Idris 的例子了，它的依赖类型系统可以在函数的 **类型**
-中为期望的行为添加更精确的描述，为函数的正确性增加额外的信心。
-我们也见识过类型系统如何帮助开发 EDSL 了，它允许程序员来描述目标语言的类型系统。
+中为期望的行为添加更加精确的描述，为函数的正确性增加额外的信心。
+我们也见识过类型系统如何帮助开发 EDSL 了，它允许程序员描述目标语言的类型系统。
 然而，精确的类型不止赋予了我们程序验证的能力，我们还可以利用类型来帮助 **构造**
 出 **正确** 的程序。
 
@@ -33,8 +33,8 @@
 .. for `Emacs <https://github.com/idris-hackers/idris-mode>`_ is also
 .. available.
 
-Idris 的 REPL 提供了一些命令，可基于程序的类型来检查和修改程序的部分，
-如在模式变量中拆分情况，检查坑的类型，甚至基本的证明搜索机制。在本节中，
+Idris 的 REPL 提供了一些命令，可基于程序的类型来检查和修改程序的片段，
+例如在模式变量中拆分情况，检查坑的类型，甚至还有基本的证明搜索机制。在本节中，
 我们解释了如何在文本编辑器中，特别是如何在
 `Vim <https://github.com/idris-hackers/idris-vim>`_ 中利用这些特性。
 `Emacs <https://github.com/idris-hackers/idris-mode>`_ 的交互式模式也可以。
@@ -70,7 +70,7 @@ REPL 提供了许多命令，我们稍后会介绍它们。它们基于当前加
 ..     :command! [line number] [name]
 
 也就是说，每条命令都会作用在源码中特定行的特定名称上，然后输出一个新的程序片段。
-每个命令都有一种就地 **更新** 源文件的形式：
+每个命令都有一种原地 **更新** 源文件的形式：
 
 ::
 
@@ -81,7 +81,7 @@ REPL 提供了许多命令，我们稍后会介绍它们。它们基于当前加
 .. example, if we have a REPL running elsewhere, we can execute commands
 .. such as:
 
-当 REPL 被加载时，它还会用 ``idris --client`` 在后台启动一个进程，该进程接受并相应
+当 REPL 被加载时，它还会用 ``idris --client`` 在后台启动一个进程，该进程接受并响应
 REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这样的命令：
 
 ::
@@ -94,7 +94,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. A text editor can take advantage of this, along with the editing
 .. commands, in order to provide interactive editing support.
 
-文本编辑器可以利用这一点和编辑命令来提供交互式编辑。
+文本编辑器可以利用此特性与编辑命令来提供交互式编辑。
 
 编辑命令
 ========
@@ -109,8 +109,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. template definition for the function named ``f`` declared on line
 .. ``n``.  For example, if the code beginning on line 94 contains:
 
-``:addclause n f`` 命令，缩写为 ``:ac n f``，它为声明在第 ``n`` 行的函数 ``f``
-创建一个模版定义。例如，若从第 94 行开始的代码包含：
+``:addclause n f`` 命令，缩写为 ``:ac n f``，它为第 ``n`` 行声明的函数 ``f``
+创建一个模版定义。例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
 
@@ -129,8 +129,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. programmer, and then made unique by the machine by adding a digit if
 .. necessary. Hints can be given as follows:
 
-名字会根据可能是程序员给定的提示来选择，必要时机器会添加数字使其唯一。
-提示可像下面这样给定：
+名称可根据程序员给定的提示来选择，必要时机器还会添加数字使其唯一。
+我们可以像下面这样给出提示：
 
 .. code-block:: idris
 
@@ -139,7 +139,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. This declares that any names generated for types in the ``Vect`` family
 .. should be chosen in the order ``xs``, ``ys``, ``zs``, ``ws``.
 
-它声明了为 ``Vect`` 族的类型生成的名字应按照 ``xs``、``ys``、``zs``、``ws``
+它声明了 ``Vect`` 类型族的名字应按照 ``xs``、``ys``、``zs``、``ws``
 的顺序来选取。
 
 :casesplit
@@ -151,7 +151,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. errors. For example, if the code beginning on line 94 is:
 
 ``:casesplit n x`` 命令，缩写为 ``:cs n x``，它将第 ``n`` 行的模式变量 ``x``
-拆分为能够形成它的多种模式，移除任何由于一致性错误而不可能出现的情况。
+拆分为能构成它的多种模式，并移除任何由于一致性错误而不可能出现的情况。
 例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
@@ -174,8 +174,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. according to the same heuristic. If we update the file (using
 .. ``:cs!``) then case split on ``ys`` on the same line, we get:
 
-即，模式变量 ``xs`` 被拆分成了 ``[]`` 和 ``x :: xs`` 两种可能的情况。和之前一样，
-名字的选取启发自相同的规则。若我们（用 ``:cs!``）更新文件后再拆分同一行的
+即，模式变量 ``xs`` 被拆分成了 ``[]`` 和 ``x :: xs`` 两种情况。与之前一样，
+名称的选取启发自相同的规则。若我们（用 ``:cs!``）更新文件后再拆分同一行的
 ``ys``，就会得到：
 
 .. code-block:: idris
@@ -197,7 +197,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. cover all inputs. For example, if the code beginning on line 94 is
 
 ``:addmissing n f`` 命令，缩写为 ``:am n f``，它为第 ``n`` 行的函数 ``f``
-添加使其覆盖所有输入的子句。例如，若从第 94 行开始的代码为：
+添加能覆盖所有输入情况的从句。例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
 
@@ -217,7 +217,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. generates the required clauses, and eliminates the clauses which would
 .. lead to unification errors.
 
-即，它注意到不存在空向量的情况，生成了需要的子句，并消除了会导致不一致性错误的子句。
+即，它注意到不存在空向量的情况，然后生成了需要的从句，并消除了会导致不一致性错误的从句。
 
 :proofsearch
 ------------
@@ -230,8 +230,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. example, if the code beginning on line 94 is:
 
 ``:proofsearch n f`` 命令，缩写为 ``:ps n f``，它试图通过证明搜索、
-尝试局部变量的值、递归调用和所需类型族的构造器来为第 ``n`` 行的坑 ``f``
-找一个值。该命令也可以接受一个可选的 **提示（Hint）** 列表，
+尝试局部变量的值、递归调用以及所需类型族的构造器来为第 ``n`` 行的坑 ``f``
+查找一个值。该命令也可以接受一个可选的 **提示（Hint）** 列表，
 也就是可用于尝试解决此坑的函数列表。例如，若从第 94 行开始的代码为：
 
 .. code-block:: idris
@@ -254,8 +254,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. surprisingly, there is only one possibility if we try to solve ``:ps
 .. 97 vzipWith_rhs_2``:
 
-它能工作是因为它在为长度为 0 的 ``Vect`` 进行搜索，而空向量是唯一的可能。
-类似地，而且可能出乎意料，在试图解决 ``:ps 97 vzipWith_rhs_2`` 时也只有一种可能：
+它能工作是因为它在对长度为 0 的 ``Vect`` 进行搜索，而空向量是唯一的可能。
+同样，在试图解决 ``:ps 97 vzipWith_rhs_2`` 时也出乎意料地只有一种可能：
 
 .. code-block:: idris
 
@@ -267,7 +267,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. ``x`` and ``y``; finally, the tail of the vector can only be built
 .. recursively.
 
-它能工作是因为 ``vzipWith`` 拥有足够精确的类型：其结果向量一定非空（至少有一个
+它能工作是因为 ``vzipWith`` 拥有足够精确的类型：其结果向量一定非空（即至少有一个
 ``::``）；第一个元素的类型必须为 ``c``，而得到它的唯一方法就是将 ``f`` 应用于
 ``x`` 和 ``y``；最后，该向量的尾部只能递归地构造。
 
@@ -279,7 +279,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. 10 is:
 
 ``:makewith n f`` 命令，缩写为 ``:mw n f``，它为模式添加一个 ``with`` 从句。
-例如，回想一下 ``parity``。若第 10 行为：
+以之前的 ``parity`` 为例。若第 10 行为：
 
 .. code-block:: idris
 
@@ -312,8 +312,8 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 .. dependent pattern matching by showing a programmer exactly what the
 .. valid patterns are.
 
-注意情况拆分规范化了该模式（即给出了 ``plus`` 而非 ``+``）。我们看到了，在任何情况下，
-使用交互式编辑向程序员展示有效的模式，都能够显著简化依赖模式匹配的实现。
+注意情况拆分规范化了该模式（即给的是 ``plus`` 而非 ``+``）。我们会看到在任何情况下，
+使用交互式编辑向程序员展示有效的模式都能显著简化依赖模式匹配的实现。
 
 Vim 交互式编辑
 ==============
@@ -326,8 +326,8 @@ Vim 交互式编辑
 .. Interactive editing is achieved using the following editor commands,
 .. each of which update the buffer directly:
 
-Vim 的编辑器模式提供了语法高亮和缩进，通过使用前面描述的命令提供了交互式编辑的支持。
-交互式编辑通过使用以下编辑器命令来进行，每一条都会直接更新缓冲区：
+Vim 的编辑器模式提供语法高亮和缩进，通过前文所述的命令提供交互式编辑的支持。
+交互式编辑使用以下编辑器命令来进行，每一条都会直接更新缓冲区：
 
 .. - ``\d`` adds a template definition for the name declared on the
 ..    current line (using ``:addclause``).
@@ -356,7 +356,7 @@ Vim 的编辑器模式提供了语法高亮和缩进，通过使用前面描述�
 
 - ``\o`` 使用 ``:proofsearch`` 调用证明搜索来解决光标处的坑。
 
-- ``\p`` 使用 ``:proofsearch`` 根据附加的提示调用证明搜索来解决光标处的坑。
+- ``\p`` 使用 ``:proofsearch`` 根据附加的提示调用证明搜索以解决光标处的坑。
 
 .. There are also commands to invoke the type checker and evaluator:
 
@@ -368,17 +368,17 @@ Vim 的编辑器模式提供了语法高亮和缩进，通过使用前面描述�
 
 .. - ``\r`` reloads and type checks the buffer.
 
-还有一些调用类型检查器和求值器的命令：
+还有一些用来调用类型检查器与求值器的命令：
 
-- ``\t`` 显示光标下（全局可见的）名字的类型。对于坑的情况，它会显示其上下文及预期的类型。
+- ``\t`` 显示光标下（全局可见的）名称的类型。对坑而言，它会显示其上下文和预期的类型。
 
-- ``\e`` 提示要求值的表达式。
+- ``\e`` 提醒要求值的表达式。
 
-- ``\r`` 重新加载缓冲区并进行类型检查。
+- ``\r`` 重新加载缓冲区并执行类型检查。
 
 .. Corresponding commands are also available in the Emacs mode. Support
 .. for other editors can be added in a relatively straightforward manner
 .. by using ``idris –client``.
 
-对应的命令在 Emacs 模式中也可用。对其它编辑器的支持可通过使用 ``idris –client``
+对应的命令在 Emacs 模式中也可用。其它编辑器的支持可通过使用 ``idris –client``
 以相对直接的方式来添加。

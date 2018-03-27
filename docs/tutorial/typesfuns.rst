@@ -62,10 +62,10 @@ Idris 定义了一些原语（Primitive）类型：``Int``、``Integer`` 和 ``D
 .. hint:: 原语（Primitive）本意为不可分割的基本构件，原语类型即最基本的类型。
 
 Idris 文件由一个可选的模块声明（此处为 ``module Prims``），一个可选的导入列表，
-一组声明和它们的定义构成。在本例中并未指定导入。Idris 可由多个模块构成，
-每个模块中的每个定义都有它自己的命名空间。这一点会在 :ref:`sect-namespaces`
+一组声明及其定义构成。在本例中并未指定导入。Idris 可由多个模块构成，
+每个模块中的每个定义都有它自己的命名空间。这点会在 :ref:`sect-namespaces`
 一节中进一步讨论。在编写 Idris 程序时，声明的顺序和缩进都很重要。
-函数和数据类型必须先定义再使用，每个定义都必须有类型声明，例如之前列表中的
+函数和数据类型必须先定义再使用，每个定义都必须有类型声明，例如之前列出的
 ``x : Int`` 和 ``foo : String``。新声明的缩进级别必须与之前的声明相同。
 此外，分号 ``;`` 也可用于结束声明。
 
@@ -76,9 +76,9 @@ Idris 文件由一个可选的模块声明（此处为 ``module Prims``），一
 .. Evaluating things at the prompt gives an answer, and the type of the
 .. answer. For example:
 
-库模块 ``prelude`` 会在每个 Idris 程序中自动导入，包括 IO 设施，算术运算，
-数据结构以及多种通用函数。prelude 中定义了一些算术和比较运算符，
-我们可以在提示符中使用它们。在提示符中求值会给出一个答案及其类型。例如：
+库模块 ``Prelude`` 会在每个 Idris 程序中自动导入，包括 IO 功能，算术运算，
+数据结构以及多种通用函数。Prelude 中定义了一些算术和比较运算符，
+我们可以在提示符中使用它们。在提示符中进行求值会给出一个答案及其类型。例如：
 
 ::
 
@@ -135,7 +135,7 @@ Idris 为原语类型定义了所有的普通算术和比较运算。它们通�
 
 以上声明来自于标准库。一进制自然数要么为零（``Z``），
 要么就是另一个自然数的后继（``S k``）；列表要么为空（``Nil``），
-要么就是一个值加在另一个列表之前（``x :: xs``）。
+要么就是一个值被添加在另一个列表之前（``x :: xs``）。
 在 ``List`` 的声明中，我们使用了中缀操作符 ``::``。
 像这样的新操作符可通过缀序声明（Fixity Declaration）来添加，如下所示：
 
@@ -159,7 +159,7 @@ Idris 为原语类型定义了所有的普通算术和比较运算。它们通�
 .. ``:``,  ``=>``,  ``->``,  ``<-``,  ``=``,  ``?=``,  ``|``,  ``**``,
 .. ``==>``,  ``\``,  ``%``,  ``~``,  ``?``,  and ``!``.
 
-某些以这些符号构成的操作符无法被用户定义。它们是
+有些以这些符号构成的操作符无法被用户定义。它们是
 ``:``、``=>``、``->``、``<-``、``=``、``?=``、``|``、``**``、
 ``==>``、``\``、``%``、``~``、``?`` 以及 ``!``。
 
@@ -215,9 +215,9 @@ Idris 为原语类型定义了所有的普通算术和比较运算。它们通�
 .. We can test these functions at the Idris prompt:
 
 标准算术运算符 ``+`` 和 ``*`` 同样根据 ``Nat`` 的需要进行了重载，
-并使用上面的函数来定义。和 Haskell 不同的是，类型和函数名的字首字母并无大小写限制。
+它们使用上面的函数来定义。和 Haskell 不同的是，类型和函数名的首字母并无大小写限制。
 函数名（前面的 ``plus`` 和 ``mult`` ），数据构造器（``Z``、``S``、``Nil`` 和 ``::``）
-以及类型构造器（``Nat`` 和 ``List``）均为同一命名空间的一部分。不过按照约定，
+以及类型构造器（``Nat`` 和 ``List``）均属同一命名空间。不过按照约定，
 数据类型和构造器的名字通常以大写字母开头。我们可以在 Idris 提示符中测试这些函数：
 
 ::
@@ -314,14 +314,14 @@ Idris 知道 ``Nat`` （以及类似的结构化类型）和数之间的联系�
 
     任何外部作用域中可见，且没有被重新被定义过的名字，在 ``where`` 从句中也可见
     （这里的 ``xs`` 被重新定义了）。若某个名字是某个类型的
-    **形参（Parameter）**，那么当它仅在类型中出现时才会在 ``where``
+    **形参（Parameter）**，那么仅当它在类型中出现时才会在 ``where``
     从句的作用域中，即，它在整体结构中是固定不变的。
 
 .. As well as functions, ``where`` blocks can include local data
 .. declarations, such as the following where ``MyLT`` is not accessible
 .. outside the definition of ``foo``:
 
-除函数外，``where`` 块中也可包含局数据声明，如以下代码中的的 ``MyLT``
+除函数外，``where`` 块中也可包含局部数据声明，以下代码中的的 ``MyLT``
 就无法在 ``foo`` 的定义之外访问。
 
 .. code-block:: idris
@@ -433,6 +433,11 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 坑非常有用，因为它能帮助我们 **逐步地** 编写函数。我们无需一次写完整个函数，
 而是留下一些尚未编写的部分，让 Idris 告诉我们如何完成其定义。
 
+.. hint::
+
+    lhs（left hand side） 与 rhs（right hand side）分别表示等式中等号的左边和右边，
+    即左式和右式。
+
 依赖类型
 ========
 
@@ -452,7 +457,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. For example, we could write a function which computes a type:
 
 在 Idris 中，类型是一等（First-Class）的，即它们可以像其它的语言构造那样被计算和操作
-（以及传给函数）。例如，我们可以编写一个计算类型的函数：
+（以及传给函数）。例如，我们可以编写一个用来计算类型的函数：
 
 .. code-block:: idris
 
@@ -465,7 +470,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. to calculate a type anywhere that a type can be used. For example, it
 .. can be used to calculate a return type:
 
-该函数可从一个 ``Bool`` 值计算出适当的类型，布尔值表示其类型是否为一个单例。
+该函数可从一个 ``Bool`` 值计算出适当的类型，布尔值表示其类型是否为一个单例（Singleton）。
 我们可以在任何能够使用类型的地方用该函数计算出一个类型。例如，它可用于计算返回类型：
 
 .. code-block:: idris
@@ -478,7 +483,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. calculates either the sum of a list of ``Nat``, or returns the given
 .. ``Nat``, depending on whether the singleton flag is true:
 
-也可拥有不同的输入类型。以下函数能够计算 ``Nat`` 列表之和，或者返回给定的
+它也可拥有不同的输入类型。以下函数能够计算 ``Nat`` 列表之和，或者返回给定的
 ``Nat``，这取决于单例标记 ``single`` 是否为 ``True``：
 
 .. code-block:: idris
@@ -501,7 +506,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
 依赖类型的一个范例就是「带长度的列表」类型，在依赖类型的文献中，
 它通常被称作向量（Vector）。向量作为 Idris 库的一部分，可通过导入 ``Data.Vect``
-来使用，当然我们也可以像下面这样声明它：
+来使用，当然我们也自己声明它：
 
 .. code-block:: idris
 
@@ -515,8 +520,8 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. practice, normally in different modules). Ambiguous constructor names
 .. can normally be resolved from context.
 
-注意我们使用了与 ``List`` 相同的构造器名。只要名字声明在不同的命名空间中
-（在实践中，通常在不同的模块内），Idris 可以接受像这样的特设（ad-hoc）名重载。
+注意我们使用了与 ``List`` 相同的构造器名。只要名字声明在不同的命名空间内
+（在实践中，通常在不同的模块内），Idris 就能接受像这样的特设（ad-hoc）名重载。
 有歧义的构造器名称通常可根据上下文来解决。
 
 .. This declares a family of types, and so the form of the declaration is
@@ -531,13 +536,13 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. type ``a`` and a tail of type ``Vect k a`` (i.e., a vector of length
 .. ``k``) combine to make a vector of length ``S k``.
 
-这里声明了一个类型族，该声明的形式与之前的简单类型声明不太一样。
+这里声明了一个类型族（Type Family），该声明的形式与之前的简单类型声明不太一样。
 我们显式地描述了类型构造器 ``Vect`` 的类型，它接受一个 ``Nat``
 和一个类型作为参数，其中 ``Type`` 表示类型的类型。我们说 ``Vect``
 通过 ``Nat`` 来 **索引**，并被 ``Type`` **参数化** 。
 每个构造器会产生该类型家族的不同部分。 ``Nil`` 只能用于构造零长度的向量，
-而 ``::`` 用于构造非零长度的向量。在 ``::`` 的类型中，我们显式地描述了一个类型为
-``a`` 的元素和一个类型为 ``Vect k a`` 的尾部（即长度为 ``k`` 的向量），
+而 ``::`` 用于构造非零长度的向量。在 ``::`` 的类型中，我们显式地指定了一个类型为
+``a`` 的元素和一个类型为 ``Vect k a`` 的尾部（Tail）（即长度为 ``k`` 的向量），
 二者构成了一个长度为 ``S k`` 的向量。
 
 .. We can define functions on dependent types such as ``Vect`` in the same
@@ -546,10 +551,10 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. happens to the lengths of the vectors involved. For example, ``++``,
 .. defined as follows, appends two ``Vect``:
 
-同之前的 ``List`` 和 ``Nat`` 这类简单类型一样，我们可以用模式匹配以同样的方式为
+同 ``List`` 以及 ``Nat`` 这类简单类型一样，我们可以通过模式匹配以同样的方式为
 ``Vect`` 这样的依赖类型定义函数。
-``Vect`` 上函数的类型能够描述所涉及向量的长度会如何变化。例如，下面定义的 ``++``
-用于连接两个 ``Vect``：
+作用于 ``Vect`` 的函数的类型能够描述所涉及向量的长度会如何变化。例如，下面定义的
+``++`` 用于连接两个 ``Vect``：
 
 .. code-block:: idris
 
@@ -575,7 +580,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. When run through the Idris type checker, this results in the
 .. following:
 
-当通过 Idris 类型检查器时，其结果如下所示：
+在经由 Idris 类型检查器检查时，它会给出以下结果：
 
 ::
 
@@ -601,8 +606,8 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. two vectors — we needed a vector of length ``k + m``, but provided a
 .. vector of length ``k + k``.
 
-该错误信息指出了两个向量的长度不匹配：我们需要一个长度为 ``k + m`` 的向量，
-但提供了一个长度为 ``k + k`` 的向量。
+该错误信息指出两个向量的长度不匹配：我们需要一个长度为 ``k + m`` 的向量，
+而你提供了一个长度为 ``k + k`` 的向量。
 
 有限集
 ------
@@ -631,13 +636,14 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. For example, ``Fin 5`` can be thought of as the type of integers between 0 and 4.
 
 从它的签名中，我们可以看出该类型构造器接受一个 ``Nat``，然后产生一个 **类型** 。
-因此，它不是一个「对象的容器」意义上的集合，而是个未命名元素的一般集合。举例来说，
-就是「五个元素的集合」的那种集合。实际上，该类型捕获从零到 ``(n - 1)`` 范围内的整数，
-其中 ``n`` 是用于实例化 ``Fin`` 类型的参数。例如，``Fin 5`` 可被视作从 0 到 4 之间的整数的类型。
+因此，它不是一个「对象的容器」意义上的集合，而是个拥有无名元素的一般集合。举例来说，
+就是「存在一个包含五个元素的集合」的那种集合。实际上，它是一个捕获了所有落入零至
+``(n - 1)`` 范围内的整数的类型，其中 ``n`` 是用于实例化 ``Fin`` 类型的参数。例如，
+``Fin 5`` 可被视作从 0 到 4 之间的整数的类型。
 
 .. Let us look at the constructors in greater detail.
 
-我们来仔细地观察构造器。
+我们来仔细地观察一下它的构造器。
 
 .. ``FZ`` is the zeroth element of a finite set with ``S k`` elements;
 .. ``FS n`` is the ``n+1``\ th element of a finite set with ``S k``
@@ -647,7 +653,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
 对于拥有 ``S k`` 个元素的有限集来说，``FZ`` 是它的第零个元素，
 ``FS n`` 则是它的第 ``n+1`` 个元素。 ``Fin`` 通过 ``Nat`` 来索引，
-它表示该集合中的元素个数。由于我们无法构造出属于空集的元素，因此也就无法构造出
+它表示该集合中元素的个数。由于我们无法构造出属于空集的元素，因此也就无法构造出
 ``Fin Z``。
 
 .. As mentioned above, a useful application of the ``Fin`` family is to
@@ -655,7 +661,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. numbers form a finite set of ``n`` elements, we can treat ``Fin n`` as
 .. the set of integers greater than or equal to zero and less than ``n``.
 
-如之前提到的， ``Fin`` 家族的用途之一在于表示有界的自然数。由于前 ``n``
+如之前提到的， ``Fin`` 家族的用途之一在于表示有界的自然数集。由于前 ``n``
 个自然数构成了一个含有 ``n`` 个元素的有限集，我们可以将 ``Fin n``
 视作大于等于零且小于 ``n`` 的整数集。
 
@@ -664,7 +670,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. prelude:
 
 例如，下面的函数根据给定的有界索引 ``Fin n`` 找出 ``Vect`` 中的元素，
-它在 prelude 中定义：
+它在 Prelude 中定义为：
 
 .. code-block:: idris
 
@@ -678,8 +684,8 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. guarantees that the location is no larger than the length of the
 .. vector, and of course no less than zero.
 
-该函数从一个向量中找出给定位置的值。位置的边界由该向量的长度所限
-（每种情况都是 ``n`` ），因此无需在运行时进行边界检查。类型检查器保证了
+该函数从一个向量中找出给定位置的值。位置的边界由该向量的长度所界定
+（每种情况下都是 ``n`` ），因此无需在运行时进行边界检查。类型检查器保证了
 位置不会大于该向量的长度，当然也不会小于零。
 
 .. Note also that there is no case for ``Nil`` here. This is because it
@@ -689,9 +695,9 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. compile time type error, since it would force ``n`` to be ``Z``.
 
 注意这里也没有 ``Nil`` 的情况，因为这种情况不可能存在。
-由于没有类型为 ``Fin Z`` 且位置为 ``Fin n`` 的元素，因此 ``n`` 无法为 ``Z``。
-结果就是，试图在一个空向量中查找元素会给出一个编译时类型错误，因为它会强制
-``n`` 为 ``Z``。
+由于没有类型为 ``Fin Z`` 且位置为 ``Fin n`` 的元素，因此 ``n`` 不可能是 ``Z``。
+因此，如果你试图在一个空向量中查找元素，就会得到一个编译时的类型错误，
+因为这样做会强行令 ``n`` 为 ``Z``。
 
 隐式参数
 --------
@@ -701,7 +707,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
 .. Let us take a closer look at the type of ``index``:
 
-我们再仔细看一下 ``index`` 的类型：
+我们再仔细观察一下 ``index`` 的类型：
 
 .. code-block:: idris
 
@@ -714,7 +720,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. ``index`` as:
 
 它接受两个参数：一个类型为 ``n`` 元素有限集的元素，以及一个类型为 ``a`` 的 ``n``
-元素向量。不过这里还有两个名字：``n`` 和 ``a``，它们并未显式地声明。``index``
+元素向量。不过这里还有两个名字：``n`` 和 ``a``，它们未被显式地声明。``index``
 包含了 **隐式** 参数。我们也可以将 ``index`` 的类型写作：
 
 .. code-block:: idris
@@ -732,10 +738,10 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. explicitly in applications, using ``{a=value}`` and ``{n=value}``, for
 .. example:
 
-隐式参数在类型声明的大括号 ``{}`` 中给定，它并没有在 ``index`` 的应用中给出；
-它们的值可从 ``Fin n`` 和 ``Vect n a`` 的参数类型中推出。
+隐式参数在类型声明的大括号 ``{}`` 中给定，它们并没有在应用 ``index`` 时给出，
+因为它们的值可以从 ``Fin n`` 和 ``Vect n a`` 的参数类型中推导出来。
 任何以小写字母开头，在类型声明中作为形参和索引出现的名字都不会应用到任何实参上，
-它们 **总是** 会作为隐式参数被自动绑定。隐式参数仍然可以在应用中使用 ``{a=value}``
+它们 **总是** 会作为隐式参数被自动绑定。隐式参数仍然可以在应用时通过 ``{a=value}``
 和 ``{n=value}`` 来显式地给定，例如：
 
 .. code-block:: idris
@@ -756,14 +762,14 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. help document a function by making the purpose of an argument more
 .. clear.
 
-你写不写它纯属偏好问题，不过有时它能让参数更加明确，有助于函数文档的记录。
+写不写它纯属偏好问题，不过有时它能让参数更加明确，有助于函数文档的记录。
 
 .. Furthermore, ``{}`` can be used to pattern match on the left hand side, i.e.
 .. ``{var = pat}`` gets an implicit variable and attempts to pattern match on "pat";
 .. For example :
 
-此外， ``{}`` 在等号左边可用作模式匹配，即 ``{var = pat}`` 获取一个隐式变量并试图对
-「pat」进行模式匹配。例如：
+此外， ``{}`` 在等号左边时可用作模式匹配，即 ``{var = pat}`` 获取一个隐式变量，
+并试图对「pat」进行模式匹配。例如：
 
 .. code-block:: idris
 
@@ -785,7 +791,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. in ``Data.Vect``, under the name ``Elem``):
 
 有时为隐式参数提供类型会十分有用，特别是存在依赖顺序，或隐式参数本身含有依赖的情况下。
-例如，我们可能希望在以下定义中描述隐式参数的类型，它为向量定义了前提（它也在
+例如，我们可能希望在以下定义中指明隐式参数的类型，它为向量定义了前提（它也在
 ``Data.Vect`` 的 ``Elem`` 下定义）：
 
 .. code-block:: idris
@@ -799,7 +805,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. ``Here``, at the head of the vector, or ``There``, in the tail of the
 .. vector. For example:
 
-``IsElem x xs`` 的实例描述了 ``x`` 是 ``xs`` 中的一个元素。我们可以构造这样的前提：
+``IsElem x xs`` 的实例描述了 ``x`` 是 ``xs`` 中的一个元素。我们可以构造这样的谓词：
 若所需的元素在向量的头部时为 ``Here``，在向量的尾部中时则为 ``There``。例如：
 
 .. code-block:: idris
@@ -821,16 +827,16 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
 .. important:: 隐式参数与作用域
 
-    在类型签名中，类型检查器会将所有以小写字母开头 **且** 没有应用到别的东西上的变量
-    视作隐式变量。要让上面的代码示例可以编译，你需要为 ``testVec`` 提供一个限定名。
-    在前面的例子中，我们假设该代码在 ``Main`` 模块中。
+    在类型签名中，类型检查器会将所有以小写字母开头 **并且** 没有应用到别的东西上的变量
+    视作隐式变量。要让上面的代码示例能够编译，你需要为 ``testVec`` 提供一个限定名。
+    在前面的例子中，我们假设该代码处于 ``Main`` 模块内。
 
 .. If the same implicit arguments are being used a lot, it can make a
 .. definition difficult to read. To avoid this problem, a ``using`` block
 .. gives the types and ordering of any implicit arguments which can
 .. appear within the block:
 
-如果相同的隐式参数被大量使用，会导致定义难以阅读。为避免此问题，可用 ``using``
+如果大量使用相同的隐式参数，就会导致定义难以阅读。为避免此问题，可使用 ``using``
 块来为任何在块中出现的隐式参数指定类型和顺序：
 
 .. code-block:: idris
@@ -855,7 +861,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. which allows data types and functions to be defined simultaneously:
 
 通常，函数与数据类型必须在使用前定义，因为依赖类型允许函数作为类型的一部分出现，
-而类型检查可依赖于特定函数如何定义（尽管这只对全函数成立，见 :ref:`sect-totality`）。
+而类型检查会依赖于特定的函数如何定义（尽管这只对全函数成立，见 :ref:`sect-totality`）。
 然而，此限制可通过使用 ``mutual`` 互用块来放宽，它允许数据类型和函数同时定义：
 
 .. code-block:: idris
@@ -890,8 +896,8 @@ I/O
 
 ..     data IO a -- IO operation returning a value of type a
 
-如果计算机程序不以某种方式与用户或系统进行交互，那么它基本上没什么用。在 Idris
-这类的纯粹（Pure）语言中，表达式没有副作用（Side-Effect）。而 I/O
+如果计算机程序不能通过某种方式与用户或系统进行交互，那么它基本上没什么用。在 Idris
+这样纯粹（Pure）的语言中，表达式没有副作用（Side-Effect）。而 I/O
 的难点在于它本质上是带有副作用的。因此在 Idris 中，这样的交互被封装在 ``IO`` 类型中：
 
 .. code-block:: idris
@@ -903,9 +909,9 @@ I/O
 .. to execute them. The resulting operations are executed externally, by
 .. the run-time system. We’ve already seen one IO program:
 
-我们先给出 ``IO`` 抽象的定义，它实质上描述了被执行的 I/O 操作是什么，
-而非如何去执行它们。最终操作则由运行时系统在外部执行。我们已经见过一个 IO
-程序了：
+我们先给出 ``IO`` 抽象的定义，它本质上描述了被执行的 I/O 操作是什么，
+而非如何去执行它们。最终操作则由运行时系统在外部执行。我们已经见过一个带 IO
+的程序了：
 
 .. code-block:: idris
 
@@ -916,8 +922,8 @@ I/O
 .. an element of the unit type ``()`` via an I/O action. There is a
 .. variant ``putStr`` which outputs a string without a newline:
 
-``putStrLn`` 的类型解释了它接受一个字符串，然后通过 I/O 活动返回了一个 ``()``
-单元类型的元素。它还有一个变体 ``putStr`` 用来输出字符串但不换行。
+``putStrLn`` 的类型描述了它接受一个字符串，然后通过 I/O 活动返回一个单元类型
+``()`` 的元素。它还有一个变体 ``putStr`` 用来输出字符串但不换行。
 
 .. code-block:: idris
 
@@ -926,7 +932,7 @@ I/O
 
 .. We can also read strings from user input:
 
-我们可以从用户输入中读取字符串：
+我们可以从用户的输入中读取字符串：
 
 .. code-block:: idris
 
@@ -935,7 +941,7 @@ I/O
 .. A number of other I/O operations are defined in the prelude, for
 .. example for reading and writing files, including:
 
-prelude 中定义了很多 I/O 操作，例如为了读写文件，需要包括：
+Prelude 中定义了很多 I/O 操作，例如为了读写文件，需要包含：
 
 .. code-block:: idris
 
@@ -986,7 +992,7 @@ I/O 程序通常需要串连起多个活动，将一个计算的输出送入下�
 
 语法 ``x <- iovalue`` 执行 ``IO a`` 类型的 I/O 操作 ``iovalue``，然后将类型为
 ``a`` 的结果送入变量 ``x`` 中。在这种情况下，``getLine`` 会返回一个
-``IO String``，因此 ``name`` 拥有类型 ``String``。缩进十分重要：
+``IO String``，因此 ``name`` 的类型为 ``String``。缩进十分重要：
 do 语句块中的每个语句都必须从同一列开始。``pure`` 操作允许我们将值直接注入到
 IO 操作中：
 
@@ -997,7 +1003,7 @@ IO 操作中：
 .. As we will see later, ``do`` notation is more general than this, and
 .. can be overloaded.
 
-之后我们会看到，``do`` 记法比这里展示的更加通用，并且可以被重载。
+后面我们会看到，``do`` 记法比这里的展示更加通用，并且可以被重载。
 
 .. _sect-lazy:
 
@@ -1011,8 +1017,8 @@ IO 操作中：
 .. itself (that is, Idris uses *eager* evaluation). However, this is
 .. not always the best approach. Consider the following function:
 
-通常，函数的参数会在函数之前求值（也就是说，Idris 采用了 **及早（Eager）** 求值）。
-然而，这并不总是最佳方式。考虑以下函数：
+通常，函数的参数会在函数被调用前求值（也就是说，Idris 采用了 **及早（Eager）**
+求值策略）。然而，这并不总是最佳的方式。考虑以下函数：
 
 .. code-block:: idris
 
@@ -1026,9 +1032,9 @@ IO 操作中：
 .. used was evaluated. To achieve this, Idris provides a ``Lazy``
 .. data type, which allows evaluation to be suspended:
 
-该函数使用参数 ``t`` 或 ``e`` 之一，而非二者都用（我们之后会看到它实际上被用来实现
+该函数会使用参数 ``t`` 或 ``e`` 二者之一，而非二者都用（我们之后会看到其实它被用于实现
 ``if...then...else`` 构造）。我们更希望 **只有** 用到的参数才被求值。为此，
-Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
+Idris 提供了 ``Lazy`` 数据类型，它允许暂缓求值：
 
 .. code-block:: idris
 
@@ -1043,7 +1049,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. and vice versa. We can therefore write ``ifThenElse`` as follows,
 .. without any explicit use of ``Force`` or ``Delay``:
 
-类型为 ``Lazy a`` 的值直到被 ``Force`` 强制求值前都不会被求值。Idris
+类型为 ``Lazy a`` 的值只有通过 ``Force`` 强制求值时才会被求值。Idris
 类型检查器知道 ``Lazy`` 类型，并会在必要时在 ``Lazy a`` 和 ``a`` 之间插入转换，
 反之亦同。因此我们可以将 ``ifThenElse`` 写成下面这样，无需任何 ``Force``
 或 ``Delay`` 的显式使用：
@@ -1067,10 +1073,10 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. lazy, and allows infinite data structures of type ``T`` to be built. One
 .. example of a codata type is Stream, which is defined as follows.
 
-我们可以通过余数据类型，将递归参数标记为潜在无穷，来定义无穷数据结构。对于一个余数据类型
+我们可以通过余数据类型，将递归参数标记为潜在无穷来定义无穷数据结构。对于一个余数据类型
 ``T``，其每个构造器中类型为 ``T`` 的参数都会被转换成类型为 ``Inf T`` 的参数。
 这会让每个 ``T`` 类型的参数惰性化，使得类型为 ``T`` 的无穷数据结构得以构建。
-余数据类型的一个例子为 Stream，其定义如下：
+余数据类型的一个例子为 ``Stream``，其定义如下：
 
 .. code-block:: idris
 
@@ -1090,7 +1096,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. form an infinite data structure. In this case we are creating an infinite stream
 .. of ones.
 
-以下是余数据类型 ``Stream`` 如何用于构建无穷数据结构的一个例子。
+以下是如何用余数据类型 ``Stream`` 来构建无穷数据结构的例子。
 在这里我们创建了一个 1 的无穷流：
 
 .. code-block:: idris
@@ -1102,7 +1108,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. mutually recursive data structures. For example the following will create an
 .. infinite loop and cause a stack overflow.
 
-要重点注意：余数据类型不允许创建无穷互用的递归数据结构。
+要重点注意：余数据类型不允许创建互用的无穷递归数据结构。
 例如，以下代码会创建一个无穷循环并导致栈溢出：
 
 .. code-block:: idris
@@ -1134,7 +1140,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. outputs "1".
 
 为了修复它，我们必须为构造器参数的类型显式地加上 ``Inf`` 声明，因为余数据类型
-不会将它添加到与正在定义的构造器类型 **不同** 的构造器参数上。例如，以下程序输出「1」。
+不会将它添加到和正在定义的构造器类型 **不同** 的构造器参数上。例如，以下程序输出「1」。
 
 .. code-block:: idris
 
@@ -1166,7 +1172,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 
     余数据类型（Codata Type）的全称为余归纳数据类型（Coinductive Data Type），
     归纳数据类型和余归纳数据类型是对偶的关系。从语义上看，
-    Inductive Type 描述了如何从更小的 term 构造成更大的 term；而
+    Inductive Type 描述了如何从更小的 term 构造出更大的 term；而
     Coinductive Type 则描述了如何从更大的 term 分解成更小的 term。
     —— `Belleve <https://www.zhihu.com/question/60184579/answer/255291675>`_
 
@@ -1184,8 +1190,8 @@ Idris 提供了 ``Lazy`` 数据类型，它允许延缓求值：
 .. automatically by every Idris program, as part of ``Prelude.idr``.
 
 Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``libs/`` 目录及
-`文档 <https://www.idris-lang.org/documentation/>`_ ）。本节描述了其中一部分。
-下面描述的函数都会作为 ``Prelude.idr`` 的一部分被每个 Idris 程序自动导入，
+`文档 <https://www.idris-lang.org/documentation/>`_ ）。本节描述了其中的一部分。
+作为 ``Prelude.idr`` 的一部分，下面描述的函数都会被每个 Idris 程序自动导入，
 
 .. ``List`` and ``Vect``
 
@@ -1212,7 +1218,7 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 .. ``Nil`` and ``::`` can be written in list form. For example:
 
 注意它们的构造器名称是相同的：只要构造器名称在不同的命名空间中声明，
-它们可以被重载（其实一般的名字都可以），并且通常会根据其类型来确定。
+它们就可以被重载（其实一般的名字都可以），并且通常会根据其类型来确定。
 作为一种语法糖，任何带有 ``Nil`` 和 ``::`` 构造其名的类型都可被写成列表的形式。
 例如：
 
@@ -1220,16 +1226,16 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 
 .. -  ``[1,2,3]`` means ``1 :: 2 :: 3 :: Nil``
 
--  ``[]`` 意为 ``Nil``
+-  ``[]`` 表示 ``Nil``
 
--  ``[1,2,3]`` 意为 ``1 :: 2 :: 3 :: Nil``
+-  ``[1,2,3]`` 表示 ``1 :: 2 :: 3 :: Nil``
 
 .. The library also defines a number of functions for manipulating these
 .. types. ``map`` is overloaded both for ``List`` and ``Vect`` and
 .. applies a function to every element of the list or vector.
 
-该库中还定义了一些用于操作这些类型的函数。 ``map`` 对 ``List`` 和 ``Vect``
-都进行了重载，它将一个函数应用到列表或向量中每个元素上。
+库中还定义了一些用于操作这些类型的函数。 ``map`` 对 ``List`` 和 ``Vect``
+都进行了重载，它将一个函数应用到列表或向量中的每个元素上。
 
 .. code-block:: idris
 
@@ -1267,7 +1273,7 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 .. For more details of the functions available on ``List`` and
 .. ``Vect``, look in the library files:
 
-更多可用于 ``List`` 与 ``Vect`` 的函数详情请参阅以下库文件：
+更多可用于 ``List`` 和 ``Vect`` 的函数的详情请参阅以下库文件：
 
 -  ``libs/prelude/Prelude/List.idr``
 
@@ -1306,8 +1312,8 @@ Idris 包含了很多常用的数据类型和库函数（见发行版中的 ``li
 .. e.g. ``\(x, y) => x + y``. We could also use an operator section:
 
 记法 ``\x => val`` 构造了一个匿名函数，它接受一个参数 ``x`` 并返回表达式 ``val``。
-匿名函数可接受多个参数，以逗号分隔，如  ``\x, y, z => val``。
-参数也可显式地给定类型，如 ``\x : Int => x * 2``，也可使用模式匹配，如
+匿名函数可以接受多个参数，它们以逗号分隔，如 ``\x, y, z => val``。
+参数也可以显式地给定类型，如 ``\x : Int => x * 2``，也可使用模式匹配，如
 ``\(x, y) => x + y``。
 
 ::
@@ -1340,8 +1346,8 @@ Maybe
 .. fail. For example, looking something up in a ``List`` (rather than a
 .. vector) may result in an out of bounds error:
 
-``Maybe`` 是为可能失败的操作赋予类型的一种方式。例如，在 ``List``
-（而非向量）中查找可能会产生越界错误：
+``Maybe`` 是一种为可能失败的操作赋予类型的方式。例如，在 ``List``
+（而非向量）中查找时可能会产生越界错误：
 
 .. code-block:: idris
 
@@ -1367,7 +1373,7 @@ Maybe
 .. would be wasteful to compute and then discard them.
 
 注意前两个参数的类型被封装在 ``Lazy`` 内。由于二者只有其一会被使用，
-计算大型表达式然后丢弃会造成浪费，因此我们将它们标记为 ``Lazy``。
+而计算完大型表达式之后就丢弃会造成浪费，因此我们将它们标记为 ``Lazy``。
 
 元组
 ----
@@ -1377,7 +1383,7 @@ Maybe
 
 .. Values can be paired with the following built-in data type:
 
-值可通过以下内建数据类型构成序对（Pair）：
+值可以通过以下内建的数据类型构成序对（Pair）：
 
 .. code-block:: idris
 
@@ -1388,7 +1394,7 @@ Maybe
 .. contain an arbitrary number of values, represented as nested pairs:
 
 序对的语法糖可以写成 ``(a, b)``，根据上下文，其意思为 ``Pair a b``
-或 ``MkPair a b``。元组（Tuple）可包含任意个数的值，表示为嵌套的序对：
+或 ``MkPair a b``。元组（Tuple）可包含任意个数的值，它通过嵌套的序对来表示：
 
 .. code-block:: idris
 
@@ -1429,9 +1435,9 @@ Maybe
 .. pair a number with a ``Vect`` of a particular length.
 
 
-同样，它也有语法糖。``(a : A ** P)`` 为 A 和 P 构成的序对的类型，其中名字
+同样，它也有语法糖。``(a : A ** P)`` 表示由 A 和 P 构成的序对的类型，其中名字
 ``a`` 可出现在 ``P`` 中。``( a ** p )`` 会构造一个该类型的值。例如，
-我们可以将一个数和一个特定长度的 ``Vect`` 构成一个序对：
+我们可以将一个数和一个特定长度的 ``Vect`` 构造成一个序对：
 
 .. code-block:: idris
 
@@ -1464,7 +1470,7 @@ Maybe
 .. We might also prefer to omit the type of the first element of the
 .. pair, since, again, it can be inferred:
 
-我们也可能更偏向于省略该序对第一个元素的类型，同样，它也可以被推断出来：
+有时我们也更倾向于省略该序对第一个元素的类型，同样，它也可以被推断出来：
 
 .. code-block:: idris
 
@@ -1478,7 +1484,7 @@ Maybe
 .. be:
 
 依赖序对的一个用处就是返回依赖类型的值，其中的索引未必事先知道。例如，
-若按照某前提过滤出 ``Vect`` 中的元素，我们不会事先知道结果向量的长度：
+若按照某谓词过滤出 ``Vect`` 中的元素，我们不会事先知道结果向量的长度：
 
 .. code-block:: idris
 
@@ -1538,7 +1544,6 @@ Maybe
     fred : Person
     fred = MkPerson "Fred" "Joe" "Bloggs" 30
 
-
 .. The constructor name is provided using the ``constructor`` keyword,
 .. and the *fields* are then given which are in an indented block
 .. following the `where` keyword (here, ``firstName``, ``middleName``,
@@ -1576,13 +1581,13 @@ Maybe
 .. updates the given fields in a record. ``=`` assigns a new value to a field,
 .. and ``$=`` applies a function to update its value.
 
-语法 ``record { field = val, ... }`` 会生成一个更新记录中给定字段的函数。``=``
-为字段赋予新值，而 ``$=`` 应用一个函数以更新其值。
+语法 ``record { field = val, ... }`` 会生成一个更新了记录中给定字段的函数。``=``
+为字段赋予新值，而 ``$=`` 通过应用一个函数来更新其值。
 
 .. Each record is defined in its own namespace, which means that field names
 .. can be reused in multiple records.
 
-每个记录在其自己的命名空间中定义，这意味着字段名可在多个记录中重用。
+每个记录在它自己的命名空间中定义，这意味着字段名可在多个记录中重用。
 
 .. Records, and fields within records, can have dependent types. Updates
 .. are allowed to change the type of a field, provided that the result is
@@ -1600,7 +1605,7 @@ Maybe
 .. It is safe to update the ``students`` field to a vector of a different
 .. length because it will not affect the type of the record:
 
-将 ``students`` 的字段更新为不同长度的向量是安全的，因此它不会影响该记录的类型：
+将 ``students`` 的字段更新为不同长度的向量是安全的，因为它不会影响该记录的类型：
 
 .. code-block:: idris
 
@@ -1632,8 +1637,8 @@ Maybe
 .. expression ``c (b (a x))``, it can be updated using the following
 .. syntax:
 
-Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一个字段可通过表达式
-``c (b (a x))`` 访问，那么它可通过以下语法更新：
+Idris 也提供了便于访问和更新嵌套记录的语法。例如，若一个字段可以通过表达式
+``c (b (a x))`` 访问，那么它就可通过以下语法更新：
 
 .. code-block:: idris
 
@@ -1668,7 +1673,7 @@ Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一�
 .. name. For example, a pair type could be defined as follows:
 
 记录也可依赖于值。记录拥有 **形参**，它无法像其它字段那样更新。
-形参作为结果类型的参数出现，写在记录类型名之后。例如，一个类型序对可定义如下：
+形参作为结果类型的参数出现，写在记录类型名之后。例如，一个序对类型可定义如下：
 
 .. code-block:: idris
 
@@ -1682,7 +1687,7 @@ Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一�
 .. the record with the size.  For example:
 
 使用前面的 ``class`` 记录，班级的大小可用 ``Vect`` 及通过 size
-参数化该记录的大小来限制类型。例如：
+参数化该记录的大小来限制其类型。例如：
 
 .. code-block:: idris
 
@@ -1699,7 +1704,7 @@ Idris 也提供了方便访问和更新嵌套记录的语法。例如，若一�
 .. ``S`` constructor.
 
 **注意** 它无法再使用之前的 ``addStudent`` 函数了，因为这会改变班级的大小。
-现在添加学生的函数必须在类型中指定班级的大小加一。
+现在用于添加学生的函数必须在类型中指定班级的大小加一。
 
 .. code-block:: idris
 
@@ -1782,9 +1787,9 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. ``Int`` and ``Integer``, using the ``enumFromTo`` and ``enumFromThenTo``
 .. function from the prelude.
 
-``[a..b]`` 记法是另一种构建 ``a`` 和 ``b`` 之间的数的列表的简便方法。此外，
-``[a,b..c]`` 用于构建 ``a`` 和 ``c`` 之间，以 ``a`` 和 ``b`` 之差为增量的列表。
-它可作用于 ``Nat``、``Int`` 与 ``Integer``，它们使用了 prelude 中的 ``enumFromTo``
+``[a..b]`` 是另一种构建从 ``a`` 到 ``b`` 的数列的简便记法。此外，
+``[a,b..c]`` 以 ``a``，``b`` 之差为增量，构建从 ``a`` 到 ``c`` 的数列。
+它可作用于 ``Nat``、``Int`` 以及 ``Integer``，它们使用了 Prelude 中的 ``enumFromTo``
 与 ``enumFromThenTo`` 函数。
 
 .. hint:: 推导式
@@ -1804,8 +1809,8 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. use a ``case`` expression. The following function, for example, splits
 .. a string into two at a given character:
 
-另一种检查 **简单** 类型中间值的方法是使用 ``case`` 表达式。例如，
-以下函数从给定的字符处将字符串分为两部分：
+另一种检查 **简单** 类型的中间值的方法是使用 ``case`` 表达式。例如，
+以下函数在给定的字符处将字符串分为两部分：
 
 .. code-block:: idris
 
@@ -1856,8 +1861,8 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. auxiliary functions, and is also used internally to implement pattern
 .. matching ``let`` and lambda bindings. It will *only* work if:
 
-**限制：** ``case`` 构造用于中间表达式的简单分析，以此避免编写辅助函数，
-它也在内部用于实现 ``let`` 与 λ 绑定的模式匹配。它 **仅** 在以下情况中可用：
+**限制：** ``case`` 构造用于对中间表达式进行简单的分析，以此避免编写辅助函数，
+它也在内部用于实现 ``let`` 和 λ-绑定的模式匹配。它 **仅** 在以下情况中可用：
 
 .. - Each branch *matches* a value of the same type, and *returns* a
 ..   value of the same type.
@@ -1866,10 +1871,10 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 ..   can be determined *without* type checking the ``case``-expression
 ..   itself.
 
-- 每个分支 **匹配** 一个相同类型的值，并返回一个相同类型的值。
+- 每个分支 **匹配** 一个相同类型的值，并 **返回** 一个相同类型的值。
 
 - 结果的类型是「已知」的，即表达式的类型无需对该 ``case``
-  表达式本身进行类型检查就能确定。
+  表达式进行类型检查就能确定。
 
 完全性
 ======
@@ -1895,7 +1900,7 @@ Idris 区分 **完全（全，Total）** 函数与 **部分（偏，Partial）**
 .. it's total:
 
 若一个函数是完全的，我们可以认为其类型精确描述了该函数会做什么。例如，
-若我们有一个返回类型为 ``String`` 的函数，根据它是否完全，我们能知道一些不同的东西：
+若我们有一个返回类型为 ``String`` 的函数，根据它是否完全，我们能知道的东西会有所不同：
 
 .. + If it's total, it will return a value of type ``String`` in finite time
 .. + If it's partial, then as long as it doesn't crash or enter an infinite loop,
@@ -1913,6 +1918,6 @@ Idris 区分 **完全（全，Total）** 函数与 **部分（偏，Partial）**
 .. further.
 
 Idris 对此作了区分，因此它知道在进行类型检查（正如我们在 :ref:`sect-fctypes`
-一节所见）时，哪些函数可以安全地求值。毕竟，若它在类型检查时试图对一个不终止的函数求值，
+一节所见）的时候，哪些函数可以安全地求值。毕竟，若它在类型检查时试图对一个不终止的函数求值，
 那么类型检查将无法终止！因此，在类型检查时只有全函数才会被求值。偏函数仍然可在类型中使用，
 但它们不会被进一步求值。

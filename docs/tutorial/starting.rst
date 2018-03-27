@@ -8,8 +8,8 @@
 .. Getting Started
 .. ***************
 
-前提
-====
+前提需求
+========
 
 .. Prerequisites
 .. =============
@@ -22,7 +22,7 @@
 .. - A fairly recent version of `GHC <https://www.haskell.org/ghc/>`_. The
 ..   earliest version we currently test with is 7.10.3.
 
-- 近期版本的 `GHC <https://www.haskell.org/ghc/>`_ 。当前测试过的最早版本为 7.10.3.
+- 近期版本的 `GHC <https://www.haskell.org/ghc/>`_ 。目前测试过的最早版本为 7.10.3.
 
 .. - The *GNU Multiple Precision Arithmetic Library* (GMP) is available
 ..   from MacPorts/Homebrew and all major Linux distributions.
@@ -38,7 +38,7 @@
 .. The easiest way to install Idris, if you have all of the
 .. prerequisites, is to type:
 
-如果你满足所有的前提，那么安装 Idris 最简单的方式就是输入：
+如果你满足所有的前提需求，那么安装 Idris 的最简方式就是在命令行输入：
 
 ::
 
@@ -60,7 +60,7 @@
 .. ``~/Library/Haskell/bin`` instead, and Windows users will typically
 .. find that Cabal installs programs in ``%HOME%\AppData\Roaming\cabal\bin``.
 
-如果你之前从未安装过使用 Cabal 的东西，Idris 可能不在你的路径中。
+如果你之前从未安装过使用 Cabal 的东西，Idris 可能不在你的 PATH 中。
 如果 Idris 可执行文件无法找到，请将 ``~/.cabal/bin`` 添加到 ``$PATH``
 环境变量中。Mac OS X 用户则需要添加 ``~/Library/Haskell/bin``，Windows
 用户通常会发现 Cabal 将程序安装在 ``%HOME%\AppData\Roaming\cabal\bin`` 中。
@@ -69,7 +69,7 @@
 .. Idris program, create a file called ``hello.idr`` containing the
 .. following text:
 
-为了检查是否安装成功，你需要编写第一个程序。请创建一个名为 ``hello.idr`` 的文件，
+为了检查安装是否成功，你需要编写第一个程序。请创建一个名为 ``hello.idr`` 的文件，
 其中包含以下文本：
 
 .. code-block:: idris
@@ -140,8 +140,8 @@
 .. (in this case ``hello.ibc``) to speed up loading in future. The
 .. bytecode is regenerated if the source file changes.
 
-它会提供一个 ``ghci`` 风格的界面，可以：像类型检查那样求值表达式、进行定理证明、
-编译、编辑、以及多种其它操作。命令 ``:?`` 会列出所支持的命令。在以下示例中
+它会提供一个 ``ghci`` 风格的界面，可以像类型检查那样求值表达式、进行定理证明、
+编译、编辑、以及执行多种其它操作。命令 ``:?`` 会列出所支持的命令。在以下示例中，
 ``hello.idr`` 已被加载，``main`` 的类型已通过检查，之后该程序被编译成了可执行的 ``hello``。
 在对某文件类型检查时，如果通过，就会创建它的的字节码版本（本例中为 ``hello.ibc``）
 以提升未来的加载速度。在源文件被修改之后，字节码会重新生成。

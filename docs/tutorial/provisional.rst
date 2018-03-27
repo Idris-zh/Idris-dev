@@ -15,8 +15,8 @@
 .. function:
 
 在依赖类型编程中，有时类型检查器需要的类型会和我们编写的程序的类型不同
-（在这里是它们的形式不同），但尽管如此它们在证明上是等价的。例如，回想一下
-``parity`` 函数：
+（在这里是它们的形式不同），然而尽管如此，它们在证明上依然是等价的。
+例如，回想一下 ``parity`` 函数：
 
 .. code-block:: idris
 
@@ -26,7 +26,7 @@
 
 .. We’d like to implement this as follows:
 
-我们想要把它实现为：
+我们要把它实现为：
 
 .. code-block:: idris
 
@@ -42,8 +42,8 @@
 .. the value of ``n`` is even and odd is necessary to help type inference.
 .. Unfortunately, the type checker rejects this:
 
-它简单地描述了零为偶数，一为奇数，并递归地描述了 ``k+2`` 的奇偶性与 ``k`` 相同。
-显式地标出 ``n`` 是奇数还是偶数对于类型推断来说是必须的。不幸的是，类型检查器却拒绝了它：
+它简单地指定了零为偶数，一为奇数，然后递归地说明了 ``k+2`` 的奇偶性与 ``k`` 相同。
+显式地标出 ``n`` 是奇数还是偶数对于类型推断来说是必须的。然而，类型检查器却拒绝了它：
 
 .. ::
 
@@ -94,7 +94,8 @@
 .. the proof details until a later point. There are two main reasons why
 .. they are useful.
 
-**临时定义** 通过允许我们将证明细节推迟到后面来帮助解决此问题。它主要有两个作用：
+**临时定义（Provisional Definition）** 允许我们推迟证明的细节以帮助解决此问题。
+它主要有两个作用：
 
 .. -  When *prototyping*, it is useful to be able to test programs before
 ..    finishing all the details of proofs.
@@ -103,15 +104,15 @@
 ..    details so that they do not distract the reader from the underlying
 ..    algorithm.
 
--  在 **成型** 时，它可用于在结束证明的所有细节前测试程序。
+-  在 **成型（Prototyping）** 时，它可在所有的证明细节结束前测试程序。
 
--  在 **阅读** 程序时，推迟证明的详情通常会让过程更清晰，避免读者从底层算法中分心。
+-  在 **阅读** 程序时，推迟证明的细节通常会让过程更清晰，避免读者从底层算法中分心。
 
 .. Provisional definitions are written in the same way as ordinary
 .. definitions, except that they introduce the right hand side with a
 .. ``?=`` rather than ``=``. We define ``parity`` as follows:
 
-临时定义的写法和普通定义相同，只是它以 ``?=`` 而非 ``=`` 引入右侧。我们将 ``parity``
+临时定义的写法和普通定义相同，只是它以 ``?=`` 而非 ``=`` 引入右式。我们将 ``parity``
 定义为：
 
 .. code-block:: idris
@@ -128,7 +129,7 @@
 .. type error. Idris tells us we have two proof obligations, with names
 .. generated from the module and function names:
 
-当以这种形式编写时，Idris 不会报告类型错误，而是为定理插入一个坑，以此来修正类型错误。
+当写成这种形式时，Idris 不会报告类型错误，而是在定理中挖一个坑，以此来修正类型错误。
 Idris 会告诉我们有两个证明义务，其名字根据模块和函数名生成：
 
 .. code-block:: idris
@@ -139,7 +140,7 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 
 .. The first of these has the following type:
 
-其中第一个类型如下：
+其中第一个坑的类型如下：
 
 .. code-block:: idris
 
@@ -158,7 +159,7 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 
 它的两个参数为 ``j``，一个是模式匹配作用域中的变量，另一个是 ``value``，
 它是我们在临时定义右侧给出的值。我们的目标是重写类型以便让我们能使用该值。
-我们可以使用 prelude 中的以下定理来达到这个目的：
+我们可以用 Prelude 中的以下定理来达到此目的：
 
 .. code-block:: idris
 
@@ -167,7 +168,7 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 
 .. We need to use ``compute`` again to unfold the definition of ``plus``:
 
-我们需要再使用 ``compute`` 来展开 ``plus`` 的定义：
+还要再用 ``compute`` 来展开 ``plus`` 的定义：
 
 .. code-block:: idris
 
@@ -207,7 +208,7 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 .. ``sym`` is a function, defined in the library, which reverses the order
 .. of the rewrite:
 
-``sym`` 是一个在库中定义的函数，它用于反转重写的顺序：
+``sym`` 是一个在库中定义的函数，它可以反转重写的顺序：
 
 .. code-block:: idris
 
@@ -219,7 +220,7 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 .. exactly the same way.
 
 我们可以用 ``trivial`` 策略来完成此证明，它会在前提中找到 ``value``。
-第二个引理的证明以完全相同的方式进行。
+第二个引理的证明方式完全相同。
 
 .. We can now test the ``natToBin`` function from Section :ref:`sect-nattobin`
 .. at the prompt. The number 42 is 101010 in binary. The binary digits are
@@ -247,8 +248,8 @@ Idris 会告诉我们有两个证明义务，其名字根据模块和函数名�
 .. better not waste your time proving something!
 
 Idris 在编译程序前需要完成证明（尽管在提示符中求值可以无需详细证明）。然而有时候，
-特别在成型时，不去完成证明反而更容易。在尝试证明它们前测试程序甚至可能会更好，
-如果测试找到了一个错误，你就会知道最好不要花时间去证明某些事了！
+特别在成型时，不去完成证明反而更容易。在尝试证明它们之前就测试程序甚至可能会更好，
+如果测试找到了一个错误，你就会知道最好不要花时间去证明某些东西了！
 
 .. Therefore, Idris provides a built-in coercion function, which allows
 .. you to use a value of the incorrect types:
@@ -264,8 +265,8 @@ Idris 在编译程序前需要完成证明（尽管在提示符中求值可以�
 .. external code (perhaps in an external C library). The “proof” of
 .. ``views.parity_lemma_1`` using this is:
 
-很明显，它必须非常小心地使用。在确定原型时它非常有用，在断言外部代码（可能在外部的
-C 库中）的属性时也是可以用的。使用了它的 ``views.parity_lemma_1`` 「证明」为：
+显然，它的使用必须要非常小心。在成型时它非常有用，在断言外部代码（可能在外部的
+C 库中）的性质时也是可以用的。使用了它的 ``views.parity_lemma_1`` 的「证明」为：
 
 .. code-block:: idris
 
@@ -293,9 +294,9 @@ C 库中）的属性时也是可以用的。使用了它的 ``views.parity_lemma
 .. representation (in this case ``Binary``) with a meaning (in this case
 .. ``Nat``):
 
-我们在前面通过 ``Parity`` 视角实现了到二进制数的转换。在这里，
-我们会展示如何用同样的视角来实现验证过的到二进制的转换。我们先从与其等价的 ``Nat``
-上索引二进制数开始。这是一种通用的模式，将一种表示（这里为 ``Binary``）与其含义
+我们在前面通过 ``Parity`` 视角实现了 Nat 到二进制数的转换。在这里，
+我们会展示如何用同样的视角来实现已验证的二进制转换。我们首先在与其等价的 ``Nat``
+上索引二进制数。这是一种通用的模式，即将它的表示（这里为 ``Binary``）与其含义
 （这里为 ``Nat``）关联起来：
 
 .. code-block:: idris
@@ -320,7 +321,7 @@ C 库中）的属性时也是可以用的。使用了它的 ``views.parity_lemma
 .. that the resulting binary number is a faithful representation of the
 .. original Nat:
 
-现在，将 Nat 转换为二进制的函数在类型中描述了其结果二进制数为原始 Nat 的忠实表示：
+现在，将 Nat 转换为二进制的函数在其类型中描述了结果二进制数为原始 Nat 的正确表示：
 
 .. code-block:: idris
 
@@ -330,8 +331,8 @@ C 库中）的属性时也是可以用的。使用了它的 ``views.parity_lemma
 .. number is effectively a right shift after all — although we need to use
 .. a provisional definition in the Odd case:
 
-``Parity`` 视角让定义变得相当简单：把数除以二其实就是进行一次右移，尽管我们需要在
-Odd 的情况中使用临时定义：
+``Parity`` 视角让定义变得相当简单：把数折半其实就是进行一次右移，尽管我们需要在
+Odd 的情况下使用临时定义：
 
 .. code-block:: idris
 
@@ -358,7 +359,7 @@ Odd 情况的问题与 ``parity`` 定义中的相同，其证明过程也一样�
 .. To finish, we’ll implement a main program which reads an integer from
 .. the user and outputs it in binary.
 
-最后，我们来实现一个主程序，它读取用户输入的整数并按照二进制输出：
+最后，我们来实现一个 main 程序，它读取用户输入的整数并输出为二进制：
 
 .. code-block:: idris
 
@@ -370,7 +371,7 @@ Odd 情况的问题与 ``parity`` 定义中的相同，其证明过程也一样�
 .. For this to work, of course, we need a ``Show`` implementation for
 .. ``Binary n``:
 
-当然，为了让它能够工作，我们需要为 ``Binary n`` 实现 ``Show``：
+当然，为了能让它工作，我们需要为 ``Binary n`` 实现 ``Show``：
 
 .. code-block:: idris
 

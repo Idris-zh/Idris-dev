@@ -37,7 +37,7 @@
 然而，在带有 **依赖类型（Dependent Type）** 的语言中，它们的区别并不明显。
 依赖类型允许类型「依赖」于值，换句话说，类型是 **一等（First-Class）** 的语言构造，
 即它可以像值一样进行操作。标准范例就是带长度的列表类型 [1]_ ``Vect n a``，
-其中 ``a`` 为元素的类型，而 ``n`` 为该列表的长度且可以为任意项。
+其中 ``a`` 为元素的类型，而 ``n`` 为该列表的长度且可以任意长。
 
 .. When types can contain values, and where those values describe
 .. properties, for example the length of a list, the type of a function
@@ -84,7 +84,7 @@
 
 本教程面向已经熟悉函数式语言（如 `Haskell <http://www.haskell.org>`_
 或 `OCaml <http://ocaml.org>`_ ）的读者，旨在简要地介绍该语言。
-尽管大多数概念都会被简要解释，读者仍需熟悉 Haskell 的语法。
+尽管大多数概念都会有简单的解释，读者仍须熟悉 Haskell 的语法。
 我们亦假设读者有兴趣使用依赖类型来编写和验证系统软件。
 
 .. For a more in-depth introduction to Idris, which proceeds at a much slower
@@ -92,8 +92,8 @@
 .. `Type-Driven Development with Idris <https://www.manning.com/books/type-driven-development-with-idris>`_
 .. by Edwin Brady, available from `Manning <https://www.manning.com>`_.
 
-对 Idris 更加深入的介绍，见 Edwin Brady 所著的 `Idris 类型驱动开发
-<https://www.manning.com/books/type-driven-development-with-idris>`_ ，
+对 Idris 更加深入的介绍，见 Edwin Brady 所著的《 `Idris 类型驱动开发
+<https://www.manning.com/books/type-driven-development-with-idris>`_ 》，
 其进度要慢得多，涵盖了交互式程序开发以及更多的例子。本书可从
 `Manning <https://www.manning.com>`_ 获取。
 
@@ -110,7 +110,7 @@
 .. them in yourself, rather than simply loading and reading them.
 
 本教程中的示例代码通过了 Idris 的测试。这些文件可在 Idris 发行版的 ``samples``
-目录中找到，因此您可以轻松尝试它们。然而，我们强烈建议您不要只是载入后阅读，
+目录中找到，因此您可以轻松使用它们。然而，我们强烈建议您不要只是载入后阅读，
 而是亲自输入它们。
 
 .. .. [1]

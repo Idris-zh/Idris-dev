@@ -21,12 +21,12 @@
 在本节中，我们讨论了多种附加特性：
 
 + 自动、隐式与默认参数
-+ 文学编程
++ 文学编程（Literate Programming）
 + 通过外部函数与外部库交互
 + 接口
-+ 类型提供器
++ 类型提供器（Type Provider）
 + 代码生成，以及
-+ 全域层级
++ 全域层级（Universe Hierarchy）
 
 隐式参数
 ========
@@ -37,7 +37,7 @@
 .. We have already seen implicit arguments, which allows arguments to be
 .. omitted when they can be inferred by the type checker, e.g.
 
-我们已经见过隐式参数了，它允许忽略可被类型检查器推断出来的参数，例如：
+我们已经见过隐式参数了，它允许忽略能够被类型检查器推断出来的参数，例如：
 
 .. code-block:: idris
 
@@ -54,7 +54,7 @@
 .. constructing a proof. For example, the following definition of ``head``
 .. which requires a proof that the list is non-empty:
 
-在其它情况下，可以不通过类型检查，而是通过在上下文中搜索恰当的值，
+在其它情况下，可以不通过类型检查来推断参数，而是通过在上下文中搜索恰当的值，
 或通过构造证明来推断参数。例如，以下 ``head`` 的定义需要证明列表非空：
 
 .. code-block:: idris
@@ -71,7 +71,7 @@
 .. proof can be constructed automatically. Auto implicit arguments allow
 .. this to happen silently. We define ``head`` as follows:
 
-如果可以静态地获知列表非空，那是因为它的值是已知的，或上下文中存在对它的证明。
+如果可以静态地获知列表非空，那是由于它的值是已知的，或上下文中存在对它的证明。
 证明可以自动地构造，自动隐式参数允许它静默地发生。我们将 ``head`` 定义为：
 
 .. code-block:: idris
@@ -84,7 +84,7 @@
 .. of the appropriate type. It will try the following, in order:
 
 将隐式参数注解为 ``auto``，表示 Idris 会试图搜索与其类型对应的值来填充它。
-它会按顺序尝试：
+它会按照以下顺序尝试：
 
 .. - Local variables, i.e. names bound in pattern matches or ``let`` bindings,
 ..   with exactly the right type.
@@ -96,13 +96,13 @@
 ..   ``%hint`` annotation.
 
 - 局部变量，即类型正确的，在模式匹配中绑定的名字或 ``let`` 绑定。
-- 所需类型的构造器。若它们有参数，就会递归地搜索到最高 100 的深度。
+- 所需类型的构造器。若它们有参数，就会递归地搜索到最深 100 层的深度。
 - 带函数类型的局部变量，对参数进行递归地搜索。
 - 任何标出 ``%hint`` 注解的，带有相应返回类型的函数。
 
 .. In the case that a proof is not found, it can be provided explicitly as normal:
 
-在找不到证明的情况下，它会像往常一样被显式提供：
+在找不到证明的情况下，它会像往常一样被显式地给出：
 
 .. code-block:: idris
 
@@ -122,7 +122,7 @@
 
 除了让 Idris 自动查找给定类型的值外，有时我们还想要带有具体默认值的隐式参数。在
 Idris 中，我们可以用 ``default`` 注解来做这件事。尽管它主要是为了在 auto
-自动构造证明失败，或找到的值没有帮助时起辅助作用，然而首先考虑一个更简单的，
+自动构造证明失败，或找到的值没有帮助时起辅助作用。然而，首先考虑一个更简单的，
 不涉及证明的情况可能会更容易。
 
 .. If we want to compute the n'th fibonacci number (and defining the 0th fibonacci
@@ -142,7 +142,7 @@ Idris 中，我们可以用 ``default`` 注解来做这件事。尽管它主要�
 .. only. Usually, ``default`` is used to provide things like a custom proof search script.
 
 定义完之后，``fibonacci 5`` 等价于 ``fibonacci {lag=0} {lead=1} 5``，它会返回第 5
-个斐波那契数。注意虽然它可以工作，但这并不是 ``default`` 注解的用途。在这里它只用作展示。
+个斐波那契数。注意虽然它可以工作，但这并不是 ``default`` 注解的用途，在这里它只用作展示。
 通常，``default`` 用于提供定制证明搜索脚本的东西。
 
 隐式转换
@@ -156,9 +156,9 @@ Idris 中，我们可以用 ``default`` 注解来做这件事。尽管它主要�
 .. make a term type correct. This is intended to increase convenience and
 .. reduce verbosity. A contrived but simple example is the following:
 
-Idris 支持创建 **隐式转换** ，在需要某项为正确的类型时，
-它允许将一个类型的值自动转换成另一个类型。这是为了增加便利性并减少冗长。
-下面是个精心设计的简单例子：
+Idris 支持创建 **隐式转换** ，在需要某项的类型能够匹配时，
+它允许将一个类型的值自动转换成另一个类型。这是为了增强便利性并减少冗余。
+下面是个故意构造的简单例子：
 
 .. code-block:: idris
 
@@ -243,8 +243,8 @@ Idris 支持创建 **隐式转换** ，在需要某项为正确的类型时，
 .. the ``gcc`` compiler. First, we define a datatype which describes the
 .. external types we can handle:
 
-在编程实践中，我们经常需要使用外部库，特别是与操作系统、文件系统、网络 **等等**
-进行交互。Idris 为此提供了轻量的外部函数接口作为 Prelude 的一部分。在这里，
+在编程实践中，我们经常需要使用外部库，特别在与操作系统、文件系统、网络 **等等**
+进行交互时。作为 Prelude 的一部分，Idris 提供了轻量的外部函数接口。
 我们假定读者有一定的 C 和 ``gcc`` 编译器的知识。首先，我们来定一个数据类型，
 它描述了我们能够处理的外部类型：
 
@@ -257,8 +257,8 @@ Idris 支持创建 **隐式转换** ，在需要某项为正确的类型时，
 .. translation to a concrete Idris type, described by the following
 .. function:
 
-它们每一个都直接对应 C 的类型。分别为：``int``、``double``、``char``、``char*``、
-``void*`` 与 ``void``。以下函数还描述了它们到具体 Idris 类型的翻译：
+它们每一个都与 C 的类型直接对应。分别为：``int``、``double``、``char``、
+``char*``、``void*`` 和 ``void``。以下函数还描述了它们到对应的 Idris 类型的翻译：
 
 .. code-block:: idris
 
@@ -297,8 +297,8 @@ Idris 支持创建 **隐式转换** ，在需要某项为正确的类型时，
 .. construct ``mkForeign`` converts this description to a function callable
 .. by Idris:
 
-我们通过为函数赋予名字、一个参数类型的列表和返回值构建了一个外部函数调用。
-内建的构造 ``mkForeign`` 将其描述转换为一个可由 Idris 调用的函数：
+我们通过为函数赋予名字、一系列参数的类型和返回值构建了一个外部函数调用。
+内建的构造 ``mkForeign`` 将该函数的描述转换为一个可由 Idris 调用的函数：
 
 .. code-block:: idris
 
@@ -333,7 +333,7 @@ include 与链接器指令
 .. to be linked in, or extra header and object files. This is made possible
 .. through the following directives:
 
-外部函数调用的值根据 Idris 表示和 C 表示之间对应的转换，会被直接翻译为 C 函数的调用。
+外部函数调用会按照 Idris 和 C 的值的表示之间对应的转换，被直接翻译为 C 函数的调用。
 通常这会需要将额外的库、头文件或目标文件链接进来。我们可以通过以下指令来完成：
 
 .. -  ``%lib target x`` — include the ``libx`` library. If the target is
@@ -352,7 +352,7 @@ include 与链接器指令
 ..    object ``x.so``.
 
 -  ``%lib target x`` — 将 ``libx`` 库包含进来。如果目标为 C，它等价于向
-   ``gcc`` 传递 ``-lx`` 选项。如果目标为 Java，该库会被解释为 maven 的依赖关系定位
+   ``gcc`` 传递 ``-lx`` 选项。如果目标为 Java，该库会被解释为 maven 的依赖关系定位符
    ``groupId:artifactId:packaging:version``。
 
 -  ``%include target x`` — 使用头文件或为给定的后端目标导入 ``x``。
@@ -377,7 +377,7 @@ include 与链接器指令
 .. command or the ``%dynamic`` directive. For example:
 
 一般来说，Idris 解释器（用于类型检查和 REPL）不会处理 IO 活动。除此之外，它既不会生成
-C 代码也不会将其编译为机器码，因此 ``%lib``、``%include`` 与 ``%link`` 是没有效果的。
+C 代码，也不会将它编译成机器码，因此 ``%lib``、``%include`` 与 ``%link`` 是没有效果的。
 IO 活动与 FFI 调用可使用特殊的 REPL 命令 ``:x EXPR`` 来测试，而 C 库可通过 ``:dynamic``
 命令或 ``%dynamic`` 指令来动态地加载到解释器中。例如：
 
@@ -399,9 +399,9 @@ IO 活动与 FFI 调用可使用特殊的 REPL 命令 ``:x EXPR`` 来测试，�
 .. is checked against it, a type provider could read the schema of a real
 .. database during type checking.
 
-Idris 类型提供器，启发自 F# 的类型提供器，它能让我们的类型与 Idris
-之外的世界建立「联系」。例如，给定一个表示数据库模式的类型和一个对它进行检查的查询，
-类型提供器可以在进行类型检查时读取真实数据库的模式。
+Idris 类型提供器，灵感来自 F# 的类型提供器，它能让我们的类型与 Idris
+之外的世界建立「联系」。例如，给定一个表示数据库模式（Schema）的类型，
+和一个针对它检查过的查询，类型提供器可以在进行类型检查时读取真实数据库的模式。
 
 .. Idris type providers use the ordinary execution semantics of Idris to
 .. run an IO action and extract the result. This result is then saved as a
@@ -409,14 +409,14 @@ Idris 类型提供器，启发自 F# 的类型提供器，它能让我们的类�
 .. used like any other type, or it can be a value, in which case it can be
 .. used as any other value, including as an index in types.
 
-Idris 类型提供器使用 Idris 普通的的可执行语义来运行 IO 活动并提取出结果。
+Idris 类型提供器使用普通的 Idris 可执行语义来运行 IO 活动并提取出结果。
 该结果会作为编译代码时的常量被保存。它可以是个类型，此时它能像其它类型一样使用；
-它也可以是个值，此时它也可以像其它值一样使用，作为一个索引被包含在类型中。
+它也可以是个值，此时它也可以像其它值一样使用，并作为一个索引被包含在类型中。
 
 .. Type providers are still an experimental extension. To enable the、
 .. extension, use the ``%language`` directive:、
 
-类型提供器还是个实验性的扩展。要启用它，请使用 ``%language`` 指令：
+类型提供器尚且是个实验性的扩展。要启用它，请使用 ``%language`` 指令：
 
 .. code-block:: idris
 
@@ -433,7 +433,7 @@ Idris 类型提供器使用 Idris 普通的的可执行语义来运行 IO 活动
 某个类型 ``t`` 的提供器 ``p`` 不过就是个类型为 ``IO (Provider t)`` 的表达式。
 ``%provide`` 指令会导致类型检查器去执行该活动，并将其结果绑定到一个名字上。
 我们最好用一个简单的例子来展示它。类型提供器 ``fromFile`` 用于读取文本文件。
-如果该文件由一串 ``Int`` 构成，那么它就会提供 ``Int`` 类型。否则，它就会提供
+如果该文件由字符串 ``Int`` 构成，那么它就会提供 ``Int`` 类型。否则，它就会提供
 ``Nat`` 类型。
 
 .. code-block:: idris
@@ -465,7 +465,7 @@ Idris 类型提供器使用 Idris 普通的的可执行语义来运行 IO 活动
 .. the provider. If the result is ``Provide t``, then ``T1`` is defined as
 .. ``t``. Otherwise, the result is an error.
 
-如果名为 ``theType`` 的文件由一个个 ``Int`` 构成，那么 ``foo`` 的类型会是 ``Int``。
+如果名为 ``theType`` 的文件由单词 ``Int`` 构成，那么 ``foo`` 的类型会是 ``Int``。
 否则，它会是 ``Nat``。当 Idris 遇到该指令时，它首先会检查确认提供器表达式
 ``fromFile theType`` 的类型为 ``IO (Provider Type)``。接着它会执行该提供器。
 如果其结果为 ``Provide t``，那么 ``T1`` 就会被定义为 ``t``。否则，就会产生一个错误。
@@ -485,9 +485,9 @@ Idris 类型提供器使用 Idris 普通的的可执行语义来运行 IO 活动
 .. provider implementations, including a statically-checked SQLite binding,
 .. are available in an external collection [1]_.
 
-我们已经见过 ``Provide`` 构造器了。``Error`` 构造器允许类型提供器返回有用的错误信息。
-本节中的示例为的是简单。更加复杂的类型提供器实现，包括一个静态检查的 SQLite 绑定，
-可从外部收集 [1]_ 中获取。
+我们已经见过 ``Provide`` 构造器了。``Error`` 构造器允许类型提供器返回有用的错误信息，
+本节中的示例为了简单并未提供。更加复杂的类型提供器实现，包括一个静态检查的 SQLite 绑定，
+可从外部链接 [1]_ 获取。
 
 以 C 为编译目标
 ===============
@@ -547,7 +547,7 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
 .. ``gdb`` to debug segmentation faults in Idris programs, use the
 .. ``%flag C`` pragma to include debugging symbols, as is shown below :
 
-要编译生成的 C 代码时带上调试信息，例如使用 ``gdb`` 在 Idris 程序中调试段错误时，
+要在编译生成的 C 代码时加上调试信息，例如使用 ``gdb`` 在 Idris 程序中调试段错误时，
 请使用 ``%flag C`` 编译指令来包括调试符号，如下所示：
 
 .. code-block:: idris
@@ -564,8 +564,8 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
 .. browser as well as in the *NodeJS* environment or alike. One can use the
 .. FFI to communicate with the *JavaScript* ecosystem.
 
-Idris 可生成能够运行在浏览器以及 *NodeJS* 等类似环境的 *JavaScript* 代码。
-它可以使用 FFI 与 *JavaScript* 生态进行交互。
+Idris 可生成能够运行在浏览器以及 *NodeJS* 等类似环境中的 *JavaScript* 代码。
+它可以通过 FFI 与 *JavaScript* 生态进行交互。
 
 代码生成
 --------
@@ -576,7 +576,7 @@ Idris 可生成能够运行在浏览器以及 *NodeJS* 等类似环境的 *JavaS
 .. Code generation is split into two separate targets. To generate code
 .. that is tailored for running in the browser issue the following command:
 
-代码生成分为两个独立目标。要生成适合在浏览器中运行的代码，请使用以下命令：
+代码生成分为两种独立的目标。要生成适合在浏览器中运行的代码，请使用以下命令：
 
 ::
 
@@ -585,12 +585,12 @@ Idris 可生成能够运行在浏览器以及 *NodeJS* 等类似环境的 *JavaS
 .. The resulting file can be embedded into your HTML just like any other
 .. *JavaScript* code.
 
-产生的文件可像其它 *JavaScript* 代码那样嵌入到你的 HTML 中。
+产生的文件可以像其它 *JavaScript* 代码那样嵌入到 HTML 中。
 
 .. Generating code for *NodeJS* is slightly different. Idris outputs a
 .. *JavaScript* file that can be directly executed via ``node``.
 
-生成 *NodeJS* 代码的方式有点不同。Idris 会输出一个可直接通过 ``node`` 运行的
+生成 *NodeJS* 代码的方式有点不同。Idris 会输出一个可直接调用 ``node`` 运行的
 *JavaScript* 文件。
 
 ::
@@ -651,7 +651,7 @@ FFI 以将函数作为参数来传入。
 .. argument given to our foreign function starting from 0. When you need a
 .. percent sign rather than a position simply use ``%%`` instead.
 
-注意 ``%n`` 记法确定了从 0 开始的第 ``n`` 个给定外部函数的参数。
+注意 ``%n`` 记法确定了从 0 开始的第 ``n`` 个给定的外部函数的参数。
 当你需要一个百分号而非位置时，请使用 ``%%`` 来代替。
 
 .. Passing functions to a foreign function is very similar. Let’s assume
@@ -669,8 +669,8 @@ FFI 以将函数作为参数来传入。
 .. the way we use ``f`` in ``twice``, it would be more obvious if
 .. *JavaScript* had types).
 
-显然我们需要在这里传入一个函数 ``f`` （我们可以从在 ``twice`` 中使用 ``f``
-的方式中推断出它，如果 *JavaScript* 有类型的话会更加明显）。
+显然我们需要在这里传入一个函数 ``f`` （我们可以从 ``twice`` 中使用 ``f``
+的方式推断出来，如果 *JavaScript* 有类型的话会更加明显）。
 
 .. The *JavaScript* FFI is able to understand functions as arguments when
 .. you give it something of type ``FFunction``. The following example code
@@ -713,7 +713,7 @@ FFI 以将函数作为参数来传入。
 .. target. This means that you can include different files for *JavaScript*
 .. and *NodeJS* in the same Idris source file.
 
-只要某人是否使用 *JavaScript*，他就有可能想要包含外部库，或者通过 FFI
+只要某人使用 *JavaScript*，他就有可能想要包含外部库，或者通过 FFI
 调用存储在外部文件中的函数。*JavaScript* 和 *NodeJS* 代码生成器能够理解
 ``%include`` 指令。请注意 *JavaScript* 和 *NodeJS* 是由不同的代码生成器处理的，
 因此你需要指明所需的目标。这也就表示你可以在同一个 Idris 源文件中分别为
@@ -744,8 +744,8 @@ FFI 以将函数作为参数来传入。
 .. For library packages you can also use the ipkg objs option to include the
 .. js file in the installation, and use
 
-给定的文件会被添加的生成代码的顶部。对于库包，你也可以 ipkg 的 objs 选项来将
-js 文件包含在安装中，并使用：
+给定的文件会被添加的生成代码的顶部。对于库包，你也可以使用 ipkg 文件中的 objs
+选项来将 js 文件包含在安装中，并使用：
 
 .. code-block:: idris
 
@@ -831,7 +831,7 @@ Idris 会产生非常大的 *JavaScript* 代码块。然而，生成的代码可
 
 如果 ``Type`` 是它自己的类型，那么它会因为
 `Girard 悖论 <http://www.cs.cmu.edu/afs/cs.cmu.edu/user/kw/www/scans/girard72thesis.pdf>`_
-而导致不一致性，因此在内部存在类型的 **层级（Hierarchy）**（或 **全域**，Universe）：
+而导致不一致性，因此在内部存在类型的 **层级（Hierarchy）** （或 **全域**，Universe）：
 
 .. code-block:: idris
 
@@ -843,8 +843,8 @@ Idris 会产生非常大的 *JavaScript* 代码块。然而，生成的代码可
 .. are found. Ordinarily, a programmer does not need to worry about this,
 .. but it does prevent (contrived) programs such as the following:
 
-全域类型是 **累积（cumulative）** 的，也就是说，如果有 ``x : Type n``，
-我们也可以有 ``x : Type m`` 使得 ``n < m``。如果类型检查器找到了任何的不一致性，
+全域类型是 **累积（Cumulative）** 的，也就是说，如果有 ``x : Type n``，
+我们也可以有 ``x : Type m`` 使得 ``n < m``。如果类型检查器发现了任何不一致性，
 它就会生成这种全域约束并报告一个错误。一般来说，程序员无须担心它，
 但它确实可以防止（构造出）如下的程序：
 

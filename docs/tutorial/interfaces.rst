@@ -26,7 +26,7 @@
 
 为此，我们使用了 **接口（Interface）**，它类似于 Haskell 中的类型类（Typeclass）或 Rust
 中的特性（Trait）。为了定义接口，我们提供了一组可重载的的函数。``Show`` 接口就是个简单的例子，
-它在 prelude 中定义，并提供了将值转换为 ``String`` 的接口：
+它在 Prelude 中定义，并提供了将值转换为 ``String`` 的接口：
 
 .. code-block:: idris
 
@@ -36,7 +36,7 @@
 .. This generates a function of the following type (which we call a
 .. *method* of the ``Show`` interface):
 
-这会生成一个以下类型的函数，我们称它为 ``Show`` 接口的 **方法（Method）**：
+它会生成一个类型如下的函数，我们称之为 ``Show`` 接口的 **方法（Method）**：
 
 .. code-block:: idris
 
@@ -47,8 +47,8 @@
 .. of an interface is defined by giving definitions of the methods of the interface.
 .. For example, the ``Show`` implementation for ``Nat`` could be defined as:
 
-我们可以把它读作：「在 ``a`` 拥有 ``Show`` 实现的约束下，该函数接受一个输入  ``a``
-并返回一个  ``String``。」我们可以通过定义接口的方法来实现该接口。例如，``Nat``
+我们可以把它读作：「在 ``a`` 实现了 ``Show`` 的约束下，该函数接受一个输入  ``a``
+并返回一个  ``String``。」我们可以通过为它定义接口的方法来实现该接口。例如，``Nat``
 的 ``Show`` 实现可定义为：
 
 .. code-block:: idris
@@ -71,8 +71,8 @@
 .. that there is a ``Show`` implementation for the element type, because we are
 .. going to use it to convert each element to a ``String``:
 
-一个类型只能被赋予某个接口的一个实现，即，实现无法被覆盖。实现的声明自身可以包含约束。
-为此，实现的参数必须是构造器（即数据或类型构造器）或变量（即无法为函数赋予实现）。
+一个类型只能实现一次某个接口，也就是说，实现无法被覆盖。实现的声明自身可以包含约束。
+为此，实现的参数必须为构造器（即数据或类型构造器）或变量（也就是说，你无法为函数赋予实现）。
 例如，要为向量定义一个 ``Show`` 的实现，我们需要确认其元素实现了 ``Show``，
 因为要用它来将每个元素都转换为 ``String``：
 
@@ -85,6 +85,13 @@
             show' (x :: Nil) = show x
             show' (x :: xs)  = show x ++ ", " ++ show' xs
 
+.. hint::
+
+    译者更愿意将它读作：对于一个实现了 ``Show`` 的 ``a``， ``Vect n a`` 对
+    ``Show`` 的实现为……
+
+
+
 默认定义
 ========
 
@@ -95,7 +102,7 @@
 .. comparing values for equality or inequality, with implementations for all of
 .. the built-in types:
 
-库中定义了一个 ``Eq`` 接口，它提供了比较值是否相等的方法，所有内建类型都实现了它：
+库中定义了 ``Eq`` 接口，它提供了比较值是否相等的方法，所有内建类型都实现了它：
 
 .. code-block:: idris
 
@@ -123,8 +130,8 @@
 .. method. It is therefore convenient to give a default definition for
 .. each method in the interface declaration, in terms of the other method:
 
-很难想象出有哪些情况中 ``/=`` 方法不是应用 ``==`` 方法结果的否定。
-因此，用其它的方法为接口声明中的每个方法提供默认定义会很方便：
+很难想象在哪些情况下 ``/=`` 方法不是应用了 ``==`` 方法的结果的否定。
+因此，利用接口声明中的某个方法为其它方法提供默认的定义会很方便：
 
 .. code-block:: idris
 
@@ -141,7 +148,7 @@
 .. the default is used instead.
 
 ``Eq`` 的最小完整实现只需要定义 ``==`` 或 ``/=`` 二者之一，而不需要二者都定义。
-若缺少某个方法定义，且存在它的默认定义，那么就会使用默认定义。
+若缺少某个方法定义，且存在它的默认定义，那么就会使用该默认定义。
 
 扩展接口
 ========
@@ -181,10 +188,10 @@
 .. give the constraints on the type variables left of the fat arrow
 .. ``=>``, and the function type to the right of the fat arrow:
 
- ``Ord`` 接口允许我们比较两个值并确定二者的顺序。只有 ``compare`` 方法是必须的，
+ ``Ord`` 接口允许我们比较两个值并确定二者的顺序。其中只有 ``compare`` 方法是必须的，
  其它方法都有默认定义。我们可以用它来编写 ``sort`` 之类的函数，它将一个列表按升序排列，
  只要列表中的元素类型实现了 ``Ord`` 接口即可。我们为宽箭头 ``=>`` 左侧的类型变量加上约束，
- 为宽箭头右侧加上函数类型：
+ 为右侧加上函数的类型：
 
 .. code-block:: idris
 
@@ -215,8 +222,8 @@
 .. default definitions on the second pass.
 
 除 ``mutual`` 块外，Idris 严格遵循「先定义后使用」的规则。在 ``mutual`` 块中，
-Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当互用块包含接口声明时，
-它第一趟会解析接口的头部但不解析方法类型；第二趟解析方法类型以及任何默认定义。
+Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟为定义。当互用块中包含接口声明时，
+第一趟会繁释接口的头部而不繁释方法类型；第二趟则繁释方法类型以及所有的默认定义。
 
 函子与应用子
 ============
@@ -233,7 +240,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 
 目前，我们已经见过形参类型为 ``Type`` 的单形参接口了。通常，形参的个数可为任意个
 （甚至零个），而形参也可为 **任意** 类型。若形参的类型不为 ``Type``，
-我们则需要提供显式的类型声明。例如，prelude 中定义的函子接口 ``Functor`` 为：
+我们则需要提供显式的类型声明。例如，Prelude 中定义的函子接口 ``Functor`` 为：
 
 .. code-block:: idris
 
@@ -283,8 +290,8 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. :ref:`sect-do`. It extends ``Applicative`` as defined above, and is
 .. defined as follows:
 
-单子接口 ``Monad`` 允许我们封装绑定和计算，它也是 :ref:`sect-do` 一节中 ``do``
-记法的基础。它扩展了前面定义的 ``Applicative``，其定义如下：
+单子接口 ``Monad`` 允许我们对绑定和计算进行封装，它也是 :ref:`sect-do` 一节中
+``do`` 记法的基础。单子扩展了前面定义的 ``Applicative``，其定义如下：
 
 .. code-block:: idris
 
@@ -311,7 +318,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. ``IO`` has an implementation of ``Monad``, defined using primitive functions.
 .. We can also define an implementation for ``Maybe``, as follows:
 
-``IO`` 拥有 ``Monad`` 的实现，它使用原语函数定义。我们也可以为 ``Maybe`` 定义实现，
+``IO`` 实现了 ``Monad``，它使用原语函数定义。我们也可以为 ``Maybe`` 定义实现，
 其实现如下：
 
 .. code-block:: idris
@@ -344,8 +351,8 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. ``Nothing`` cases is achieved by the ``>>=`` operator, hidden by the
 .. ``do`` notation.
 
-若 ``x`` 和 ``y`` 均可用，该函数会从二者中提取出值；若其中一个或二者均不可用
-（「fail-fast 速错原则」），则返回 ``Nothing``。``Nothing`` 的情况通过 ``>>=``
+若 ``x`` 和 ``y`` 均可用，该函数会从二者中提取出值；若其中一个或二者均不可用，
+则返回 ``Nothing`` （「fail-fast 速错原则」）。``Nothing`` 的情况通过 ``>>=``
 操作符来管理，由 ``do`` 记法来隐藏。
 
 ::
@@ -402,7 +409,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. So instead, we can combine the bind and the pattern match in one line. For example,
 .. we could try pattern matching on values of the form ``Just x_ok``:
 
-如果有很多错误处理，它的嵌套层很快就会变得非常深！我们不如将绑定和模式匹配组合成一行。
+如果有很多错误需要处理，它的嵌套层次很快就会变得非常深！我们不妨将绑定和模式匹配组合成一行。
 例如，我们可以对 ``Just x_ok`` 的形式进行模式匹配：
 
 .. code-block:: idris
@@ -417,8 +424,8 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. ``Nothing`` so ``readNumbers`` is no longer total! We can add the ``Nothing``
 .. case back as follows:
 
-然而问题仍然存在，我们现在忽略了 ``Nothing`` 的情况，所以该函数不再完全了！
-我们可以像下面这样把 ``Nothing`` 的情况加回去：
+然而问题仍然存在，我们现在忽略了 ``Nothing`` 的情况，所以该函数不再是完全的了！
+我们可以把 ``Nothing`` 的情况添加回去：
 
 .. code-block:: idris
 
@@ -435,10 +442,10 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. of the ``do`` block. The second part gives the alternative bindings, of which
 .. there may be more than one.
 
-此版本的 ``readNumbers`` 的效果与初版完全一样（实际上，它是初版的语法糖，
+此版本的 ``readNumbers`` 效果与初版完全一样（实际上，它是初版的语法糖，
 并且会直接被翻译回初版的形式）。每条语句的第一部分（``Just x_ok <-`` 和
-``Just y_ok <-``）给出了优先的绑定：若能匹配，``do`` 块的剩余部分就会继续执行。
-第二部分给出了替代的绑定，其中的绑定可以不止一个。
+``Just y_ok <-``）给出了首选的绑定：若能匹配，``do`` 块的剩余部分就会继续执行。
+第二部分给出了替代的绑定，其中的绑定可以有不止一个。
 
 ``!`` 记法
 ~~~~~~~~~~
@@ -451,9 +458,8 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. bound is used once, immediately. In these cases, we can use a
 .. shorthand version, as follows:
 
-很多情况下，使用 ``do`` 记法会让程序不必要地啰嗦，前面 ``m_add``
-这种将值绑定一次就立即使用的情况下尤甚。在这些情况下，我们可以使用简短的版本，
-如下：
+在很多情况下，``do`` 记法会让程序不必要地啰嗦，在将值绑定一次就立即使用的情况下尤甚，
+例如前面的 ``m_add``。此时我们可以使用更加简短的方式：
 
 .. code-block:: idris
 
@@ -479,10 +485,10 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. direct style, while still giving a notational clue as to which
 .. expressions are monadic.
 
-然而需要注意，它并不是一个真的函数，而是一个语法！在实践中，子表达式 ``!expr``
+然而请注意，它并不是一个真的函数，而只是一个语法！在实践中，子表达式 ``!expr``
 会在 ``expr`` 的当前作用域内尽可能地提升，将它绑定到一个全新的名字 ``x``，
 然后用它来代替 ``!expr``。首先表达式会按从左到右的顺序深度优先地上升。在实践中，``!``
-记法允许我们以更直接的方式来编程，同时仍能通过记法线索来标出单子性的表达式。
+记法允许我们以更直接的方式来编程，同时该记法也标出了哪些表达式为单子。
 
 .. For example, the expression:
 
@@ -514,7 +520,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. has an implementation of both ``Monad`` and ``Alternative``:
 
 我们之间在 :ref:`sect-more-expr` 一节中看到的列表推导记法其实更通用，
-它可应用于任何拥有 ``Monad`` 和 ``Alternative`` 实现的东西。
+它可应用于任何实现了 ``Monad`` 和 ``Alternative`` 的东西：
 
 .. code-block:: idris
 
@@ -535,7 +541,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 
 - 一个生成式 ``x <- e``
 
-- 一个 **守卫式**，它是一个类型为 ``Bool`` 的表达式
+- 一个 **守卫式（Guard）**，它是一个类型为 ``Bool`` 的表达式
 
 - 一个 let 绑定 ``let x = e``
 
@@ -561,7 +567,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. Using monad comprehensions, an alternative definition for ``m_add``
 .. would be:
 
-使用单子推导式，``m_add`` 的替代定义为：
+使用单子推导式，``m_add`` 的另一种定义为：
 
 .. code-block:: idris
 
@@ -588,7 +594,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. could abstract out the application:
 
 首先，让我们回顾一下前面的 ``m_add``。它所做的只是将一个操作符应用到两个从
-``Maybe Int`` 提取的值。我们可以抽象出该应用：
+``Maybe Int`` 中提取的值。我们可以抽象出该应用：
 
 .. code-block:: idris
 
@@ -600,8 +606,8 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. alternative notion of function application, with explicit calls to
 .. ``m_app``:
 
-我们可以用它来编写另一个 ``m_add``，它使用了函数应用的另一种记法，以及显式地调用
-``m_app``：
+我们可以用它来编写另一种 ``m_add``，它使用了函数应用的另一种记法，带有显式的
+``m_app`` 调用：
 
 .. code-block:: idris
 
@@ -649,7 +655,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. to the following:
 
 惯用记法在定义求值器时通常很有用。McBride 和 Paterson
-就为下面这样的语言描述了一种求值器 [1]_ ：
+就为下面这样的语言描述了求值器 [1]_ ：
 
 .. .. code-block:: idris
 
@@ -679,7 +685,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. implementations of interfaces for it later. We begin by defining a function to
 .. retrieve values from the context during evaluation:
 
-将求值器包装在数据类型中意味着我们之后可以为它提供接口实现。我们首先定义一个函数，
+将求值器包装在数据类型中意味着我们之后可以为它提供接口的实现。我们首先定义一个函数，
 它在求值过程中从上下文取出值。
 
 .. code-block:: idris
@@ -698,9 +704,9 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. ``Applicative`` it is necessary for ``Eval`` to have an implementation of
 .. ``Functor``:
 
-在为该语言定义求值器时，我们会应用 ``Eval`` 上下文中的函数，这样它自然会为
-``Eval`` 提供一个 ``Applicative`` 的实现。在 ``Eval`` 可拥有 ``Applicative``
-的实现之前，必须为 ``Eval`` 提供 ``Functor`` 的实现。
+在定义该语言的求值器时，我们会应用 ``Eval`` 上下文中的函数，这样它自然会为
+``Eval`` 提供 ``Applicative`` 的实现。在 ``Eval`` 能够实现 ``Applicative``
+之前，我们必须为 ``Eval`` 实现 ``Functor``：
 
 .. code-block:: idris
 
@@ -741,7 +747,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. same type, for example to provide alternative methods for sorting or printing
 .. values.  To achieve this, implementations can be *named* as follows:
 
-有时希望一个类型可以拥有一个接口的多个实现，例如为排序或打印提供可选的方法：
+有时我们希望一个类型可以拥有一个接口的多个实现，例如为排序或打印提供另一种方法。
 为此，实现可以像下面这样 **命名**：
 
 .. code-block:: idris
@@ -758,9 +764,9 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. can use this, for example, to sort a list of ``Nat`` in reverse.
 .. Given the following list:
 
-它如常声明了一个实现，不过带有显式的名字 ``myord``。语法 ``compare @{myord}``
-会为 ``compare`` 提供显式的实现，否则它会使用 ``Nat`` 的默认实现。
-我们可以用它来反向排序一个 ``Nat`` 列表。给定以下列表：
+它像往常一样声明了一个实现，不过带有显式的名字 ``myord``。语法
+``compare @{myord}`` 会为 ``compare`` 提供显式的实现，否则它会使用 ``Nat``
+的默认实现。我们可以用它来反向排序一个 ``Nat`` 列表。给定以下列表：
 
 .. code-block:: idris
 
@@ -783,7 +789,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. Sometimes, we also need access to a named parent implementation. For example,
 .. the prelude defines the following ``Semigroup`` interface:
 
-有时，我们也需要访问命名的父级实现。例如 prelude 中定义的半群 ``Semigroup`` 接口：
+有时，我们也需要访问命名的父级实现。例如 Prelude 中定义的半群 ``Semigroup`` 接口：
 
 .. code-block:: idris
 
@@ -793,7 +799,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 .. Then it defines ``Monoid``, which extends ``Semigroup`` with a "neutral"
 .. value:
 
-接着又定义了幺半群 ``Monoid``，它以「幺元」扩展了 ``Semigroup``：
+接着又定义了幺半群 ``Monoid``，它用「幺元」 ``neutral`` 扩展了 ``Semigroup``：
 
 .. code-block:: idris
 
@@ -860,7 +866,7 @@ Idris 会分两趟进行解析：第一趟为类型，第二趟为定义。当�
 
 在此接口中，查找该接口的实现只需要知道 ``m`` 即可，而 ``s`` 可根据实现来确定。
 它通过在接口声明之后添加 ``| m`` 来声明。我们将 ``m`` 称为 ``MonadState``
-接口的 **确定形参** ，因为它是用于查找实现的参数。
+接口的 **确定形参（Determining Parameter）** ，因为它是用于查找实现的形参。
 
 
 .. [1] Conor McBride and Ross Paterson. 2008. Applicative programming

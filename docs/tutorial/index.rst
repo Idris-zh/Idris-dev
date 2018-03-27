@@ -13,8 +13,8 @@ Idris 教程
 .. It covers the core language features, and assumes some familiarity with an
 .. existing functional programming language such as Haskell or OCaml.
 
-本文档为 Idris 教程，简单介绍了如何用 Idris 语言编程。
-文档覆盖了该语言的核心特性，并假定你至少熟悉一门函数式编程语言，如 Haskell 或 OCaml。
+本文档为 Idris 的教程，它简单介绍了如何用 Idris 语言编程。
+文档中覆盖了该语言的核心特性，并假定你至少熟悉一门函数式编程语言，如 Haskell 或 OCaml。
 
 .. .. note::
 
