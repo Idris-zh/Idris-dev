@@ -2,15 +2,14 @@
 Overview
 ********
 
-Pure functional languages with dependent types such as `Idris
-<http://www.idris-lang.org/>`_ support reasoning about programs directly
-in the type system, promising that we can *know* a program will run
-correctly (i.e. according to the specification in its type) simply
-because it compiles.
+.. Pure functional languages with dependent types such as `Idris
+.. <http://www.idris-lang.org/>`_ support reasoning about programs directly
+.. in the type system, promising that we can *know* a program will run
+.. correctly (i.e. according to the specification in its type) simply
+.. because it compiles.
 
-像 `Idris <http://www.idris-lang.org/>` 这样支持直接在类型系统中进行程序推理
-的函数式语言，仅根据一个程序能够编译这一点，就能保证我们能够 **知道** 一个程序将会
-正确地 (即: 根据其类型说明) 运行。
+像 `Idris <http://www.idris-lang.org/>` 这样支持直接用类型系统对程序进行推理的函数式语言，
+仅凭程序能够编译这一点，就能保证我们 **知道** 一个程序会正确地（即，按照类型描述的规范）运行。
 
 Realistically, though,  software relies on state, and many components rely on state machines. For
 example, they describe network transport protocols like TCP, and
@@ -138,7 +137,7 @@ The ``Control.ST`` library is also described in a draft paper by
 `Edwin Brady <https://edwinb.wordpress.com/>`_, "State Machines All The Way
 Down", available `here <https://www.idris-lang.org/drafts/sms.pdf>`_.
 This paper presents many of the examples from this tutorial, and describes
-the motivation, design and implementation of the library in more depth. 
+the motivation, design and implementation of the library in more depth.
 
 本 ``Control.ST`` 库在 `Edwin Brady <https://edwinb.wordpress.com/>`_ 的一篇
 文章草稿 "State Machines All The Way Down" 中亦有提及，你可以从 `这里 <https://www.idris-lang.org/drafts/sms.pdf>`_

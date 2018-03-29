@@ -843,7 +843,7 @@ Idris 会产生非常大的 *JavaScript* 代码块。然而，生成的代码可
 .. are found. Ordinarily, a programmer does not need to worry about this,
 .. but it does prevent (contrived) programs such as the following:
 
-全域类型是 **累积（Cumulative）** 的，也就是说，如果有 ``x : Type n``，
+全域类型是 **积累（Cumulative）** 的，也就是说，如果有 ``x : Type n``，
 我们也可以有 ``x : Type m`` 使得 ``n < m``。如果类型检查器发现了任何不一致性，
 它就会生成这种全域约束并报告一个错误。一般来说，程序员无须担心它，
 但它确实可以防止（构造出）如下的程序：
