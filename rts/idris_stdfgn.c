@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <dirent.h>
+#include <unistd.h>
 
 #ifdef _WIN32
 int win_fpoll(void* h);
@@ -60,6 +61,42 @@ int fileSize(void* h) {
     }
 }
 
+VAL fileAccessTime(void* h) {
+    FILE* f = (FILE*)h;
+    int fd = fileno(f);
+
+    struct stat buf;
+    if (fstat(fd, &buf) == 0) {
+        return MKBIGI(buf.st_atime);
+    } else {
+        return MKBIGI(-1);
+    }
+}
+
+VAL fileModifiedTime(void* h) {
+    FILE* f = (FILE*)h;
+    int fd = fileno(f);
+
+    struct stat buf;
+    if (fstat(fd, &buf) == 0) {
+        return MKBIGI(buf.st_mtime);
+    } else {
+        return MKBIGI(-1);
+    }
+}
+
+VAL fileStatusTime(void* h) {
+    FILE* f = (FILE*)h;
+    int fd = fileno(f);
+
+    struct stat buf;
+    if (fstat(fd, &buf) == 0) {
+        return MKBIGI(buf.st_ctime);
+    } else {
+        return MKBIGI(-1);
+    }
+}
+
 typedef struct {
     DIR* dirptr;
     int error;
@@ -102,6 +139,10 @@ int idris_mkdir(char* dname) {
 #else
     return mkdir(dname, S_IRWXU | S_IRGRP | S_IROTH);
 #endif
+}
+
+int idris_chdir(char* dname) {
+    return chdir(dname);
 }
 
 int idris_dirError(void *dptr) {
