@@ -32,7 +32,7 @@ Agda 跟 Idris 有啥不一样啊？
 .. ability to add more via plugins) and has a reference run time system, written
 .. in C, with a garbage collector and built-in message passing concurrency.
 
-Idris 支持多种后端（默认为 C 和 JavaScript，可以通过插件添加更逗），拥有一个 C
+Idris 支持多种后端（默认为 C 和 JavaScript，可以通过插件添加更多），拥有一个 C
 编写的，带有垃圾收集器和内建并发消息传递的参考运行时系统。
 
 
