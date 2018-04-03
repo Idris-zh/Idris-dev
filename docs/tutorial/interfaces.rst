@@ -445,7 +445,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 此版本的 ``readNumbers`` 效果与初版完全一样（实际上，它是初版的语法糖，
 并且会直接被翻译回初版的形式）。每条语句的第一部分（``Just x_ok <-`` 和
 ``Just y_ok <-``）给出了首选的绑定：若能匹配，``do`` 块的剩余部分就会继续执行。
-第二部分给出了替代的绑定，其中的绑定可以有不止一个。
+第二部分给出了选取的绑定，其中的绑定可以有不止一个。
 
 ``!`` 记法
 ~~~~~~~~~~
@@ -550,7 +550,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. qual``, using the following function:
 
 要翻译一个推导式 ``[exp | qual1, qual2, …, qualn]``，首先任何作为 **守卫式** 的限定式
-``qual`` 会用以下函数翻译为 ``guard qual``：
+``qual`` 会使用以下函数翻译为 ``guard qual``：
 
 .. code-block:: idris
 
@@ -567,7 +567,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. Using monad comprehensions, an alternative definition for ``m_add``
 .. would be:
 
-使用单子推导式，``m_add`` 的另一种定义为：
+使用单子推导式，``m_add`` 的选取（alternative）定义为：
 
 .. code-block:: idris
 
@@ -606,7 +606,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. alternative notion of function application, with explicit calls to
 .. ``m_app``:
 
-我们可以用它来编写另一种 ``m_add``，它使用了函数应用的另一种记法，带有显式的
+我们可以用它来编写另一种 ``m_add``，它使用了函数应用的选取概念，带有显式的
 ``m_app`` 调用：
 
 .. code-block:: idris

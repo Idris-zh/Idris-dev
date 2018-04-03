@@ -1174,7 +1174,9 @@ Idris 提供了 ``Lazy`` 数据类型，它允许暂缓求值：
     归纳数据类型和余归纳数据类型是对偶的关系。从语义上看，
     Inductive Type 描述了如何从更小的 term 构造出更大的 term；而
     Coinductive Type 则描述了如何从更大的 term 分解成更小的 term。
-    —— `Belleve <https://www.zhihu.com/question/60184579/answer/255291675>`_
+    二者即为塔斯基不动点定理中的最大不动点（对应余归纳）和最小不动点（对应归纳）。
+    参考自 `Belleve <https://www.zhihu.com/question/60184579/answer/255291675>`_
+    的回答。
 
 
 常用数据类型

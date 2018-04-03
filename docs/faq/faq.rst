@@ -488,5 +488,5 @@ Idris 有社区准则不？
 .. GitHub which answers more technical questions and may be updated more often.
 
 Github 的维基上还有个\ `非官方 FAQ
-<https://github.com/idris-lang/Idris-dev/wiki/Unofficial-FAQ>`_，
+<https://github.com/Idris-zh/Idris-dev/wiki/Unofficial-FAQ>`_，
 其中解答了更多技术问题，而且经常更新。
