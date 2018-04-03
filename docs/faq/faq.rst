@@ -1,5 +1,5 @@
 ********************
-常见问题解答（FA♂Q）
+常见问题解答（FAQ）
 ********************
 
 .. **************************
@@ -370,20 +370,11 @@ C 风格的约定。也就是说名称 ``Double`` 用于描述双精度浮点数
 .. IDRIS_TOOLCHAIN_DIR environment variable is optional, if that is set,
 .. Idris will use that path to find the C compiler. For example:
 
-.. ::
-
-..    IDRIS_LIB_DIR="./libs" \
-..    IDRIS_TOOLCHAIN_DIR="./mingw/bin" \
-..    CABALFLAGS="-fffi -ffreestanding -frelease" \
-..    make
-
 在相对路径中拥有自己的库和编译器时，可使用 ``freestanding`` 命令行参数来构建
 Idris 二进制文件。当构建过程中的安装目录未知时，它对于构建二进制文件来说非常有用。
 当传入此参数时，``IDRIS_LIB_DIR`` 环境变量需要设置为相对与 ``idris`` 可执行文件所在的
 Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果设置了它，Idris
-就会在该路径下寻找 C 编译器。
-
-例如：
+就会在该路径下寻找 C 编译器。例如：
 
 ::
 
