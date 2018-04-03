@@ -159,8 +159,8 @@ Idris 可以声明命题的相等性，陈述并证明有关程序的定理。
 
 .. Even for trivial theorems like these, the proofs are a little tricky to
 .. construct in one go. When things get even slightly more complicated, it
-.. becomes too much to think about to construct proofs in this ‘batch
-.. mode’.
+.. becomes too much to think about to construct proofs in this “batch
+.. mode”.
 
 即便对于如此平凡的定理，一口气构造出证明也有点棘手。当事情变得更复杂时，
 需要考虑的就太多了，此时根本无法在这种「批量模式」下构造证明。
@@ -567,10 +567,10 @@ Idris 会在内部检查所有函数的完全性，我们可在提示符中用 `
        = qsort (filter (< x) xs) ++
           (x :: qsort (filter (>= x) xs))
 
-.. The function ``assert_smaller``, defined in the Prelude, is intended to
+.. The function ``assert_smaller``, defined in the prelude, is intended to
 .. address this problem:
 
-Prelude 中定义的 ``assert_smaller`` 旨在解决这个问题：
+prelude 中定义的 ``assert_smaller`` 旨在解决这个问题：
 
 .. code-block:: idris
 

@@ -143,7 +143,7 @@
 
     Var : HasType i G t -> Expr G t
 
-.. So, in an expression ``\x,\y. x y``, the variable ``x`` would have a
+.. So, in an expression ``\x. \y. x y``, the variable ``x`` would have a
 .. de Bruijn index of 1, represented as ``Pop Stop``, and ``y 0``,
 .. represented as ``Stop``. We find these by counting the number of
 .. lambdas between the definition and the use.
@@ -259,7 +259,7 @@
     interp env (If x t e)  = if interp env x then interp env t
                                              else interp env e
 
-.. Let us look at each case in turn.  To translate a variable, we simply look it
+.. Let us look at each case in turn. To translate a variable, we simply look it
 .. up in the environment:
 
 我们来逐一观察每一种情况。对于一个变量，我们只要从环境中找出它：

@@ -19,8 +19,8 @@
 我们想要以一种统一的方式来显示不同的类型。
 
 .. To achieve this, we use *interfaces*, which are similar to type classes in
-.. Haskell or traits in Rust.  To define an interface, we provide a collection of
-.. overloadable functions.  A simple example is the ``Show``
+.. Haskell or traits in Rust. To define an interface, we provide a collection of
+.. overloadable functions. A simple example is the ``Show``
 .. interface, which is defined in the prelude and provides an interface for
 .. converting values to ``String``:
 
@@ -66,7 +66,7 @@
 .. not overlap. Implementation declarations can themselves have constraints.
 .. To help with resolution, the arguments of an implementation must be
 .. constructors (either data or type constructors) or variables
-.. (i.e. you cannot give an implementation for a function).  For
+.. (i.e. you cannot give an implementation for a function). For
 .. example, to define a ``Show`` implementation for vectors, we need to know
 .. that there is a ``Show`` implementation for the element type, because we are
 .. going to use it to convert each element to a ``String``:
@@ -745,7 +745,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 
 .. It can be desirable to have multiple implementations of an interface for the
 .. same type, for example to provide alternative methods for sorting or printing
-.. values.  To achieve this, implementations can be *named* as follows:
+.. values. To achieve this, implementations can be *named* as follows:
 
 有时我们希望一个类型可以拥有一个接口的多个实现，例如为排序或打印提供另一种方法。
 为此，实现可以像下面这样 **命名**：
@@ -796,7 +796,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
     interface Semigroup ty where
       (<+>) : ty -> ty -> ty
 
-.. Then it defines ``Monoid``, which extends ``Semigroup`` with a "neutral"
+.. Then it defines ``Monoid``, which extends ``Semigroup`` with a “neutral”
 .. value:
 
 接着又定义了幺半群 ``Monoid``，它用「幺元」 ``neutral`` 扩展了 ``Semigroup``：

@@ -105,9 +105,9 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 :addclause
 ----------
 
-.. The ``:addclause n f`` command (abbreviated ``:ac n f``) creates a
+.. The ``:addclause n f`` command, abbreviated ``:ac n f``, creates a
 .. template definition for the function named ``f`` declared on line
-.. ``n``.  For example, if the code beginning on line 94 contains:
+.. ``n``. For example, if the code beginning on line 94 contains:
 
 ``:addclause n f`` 命令，缩写为 ``:ac n f``，它为第 ``n`` 行声明的函数 ``f``
 创建一个模版定义。例如，若从第 94 行开始的代码为：
@@ -194,7 +194,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 
 .. The ``:addmissing n f`` command, abbreviated ``:am n f``, adds the
 .. clauses which are required to make the function ``f`` on line ``n``
-.. cover all inputs. For example, if the code beginning on line 94 is
+.. cover all inputs. For example, if the code beginning on line 94 is:
 
 ``:addmissing n f`` 命令，缩写为 ``:am n f``，它为第 ``n`` 行的函数 ``f``
 添加能覆盖所有输入情况的从句。例如，若从第 94 行开始的代码为：
@@ -213,7 +213,7 @@ REPL 命令。例如，如果我们在某处运行着 REPL，就可以执行这�
 
     vzipWith f (x :: xs) (y :: ys) = ?vzipWith_rhs_2
 
-.. That is, it notices that there are no cases for non-empty vectors,
+.. That is, it notices that there are no cases for empty vectors,
 .. generates the required clauses, and eliminates the clauses which would
 .. lead to unification errors.
 

@@ -267,8 +267,10 @@ Idris 使用「大小改变终止（size change termination）」来寻找从函
 在此路径上，至少必有一个参数会收敛到基本情况。
 
 .. - Mutually recursive functions are supported
+
 .. - However, all functions on the path must be fully applied. In particular,
 ..   higher order applications are not supported
+
 .. - Idris identifies arguments which converge to a base case by looking for
 ..   recursive calls to syntactically smaller arguments of inputs. e.g.
 ..   ``k`` is syntactically smaller than ``S (S k)`` because ``k`` is a
@@ -359,23 +361,27 @@ C 风格的约定。也就是说名称 ``Double`` 用于描述双精度浮点数
 .. What is -ffreestanding?
 .. =======================
 
+
 .. The freestanding flag is used to build Idris binaries which have their
 .. libs and compiler in a relative path. This is useful for building binaries
 .. where the install directory is unknown at build time. When passing this
 .. flag, the IDRIS_LIB_DIR environment variable needs to be set to the path
 .. where the Idris libs reside relative to the idris executable. The
 .. IDRIS_TOOLCHAIN_DIR environment variable is optional, if that is set,
-.. Idris will use that path to find the C compiler.
+.. Idris will use that path to find the C compiler. For example:
+
+.. ::
+
+..    IDRIS_LIB_DIR="./libs" \
+..    IDRIS_TOOLCHAIN_DIR="./mingw/bin" \
+..    CABALFLAGS="-fffi -ffreestanding -frelease" \
+..    make
 
 在相对路径中拥有自己的库和编译器时，可使用 ``freestanding`` 命令行参数来构建
 Idris 二进制文件。当构建过程中的安装目录未知时，它对于构建二进制文件来说非常有用。
 当传入此参数时，``IDRIS_LIB_DIR`` 环境变量需要设置为相对与 ``idris`` 可执行文件所在的
 Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果设置了它，Idris
 就会在该路径下寻找 C 编译器。
-
-.. .. Example::
-
-   .. IDRIS_LIB_DIR="./libs" IDRIS_TOOLCHAIN_DIR="./mingw/bin" CABALFLAGS="-fffi -ffreestanding -frelease" make
 
 例如：
 
@@ -390,7 +396,7 @@ Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果�
 话说「Idris」是个啥名儿 O_O？
 =============================
 
-.. What does the name ‘Idris’ mean?
+.. What does the name “Idris” mean?
 .. ================================
 
 .. British people of a certain age may be familiar with this
@@ -412,16 +418,20 @@ Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果�
 .. - It's hard to type (this is important if you're using someone else's code, for
 ..   example). Various editors have their own input methods, but you have to know
 ..   what they are.
+
 .. - Not every piece of software easily supports it. Rendering issues have been
 ..   noted on some mobile email clients, terminal-based IRC clients, web browsers,
 ..   etc. There are ways to resolve these rendering issues but they provide a
 ..   barrier to entry to using Idris.
+
 .. - Even if we leave it out of the standard library (which we will in any case!)
 ..   as soon as people start using it in their library code, others have to deal
 ..   with it.
+
 .. - Too many characters look too similar. We had enough trouble with confusion
 ..   between 0 and O without worrying about all the different kinds of colons and
 ..   brackets.
+
 .. - There seems to be a tendency to go over the top with use of Unicode. For
 ..   example, using sharp and flat for delay and force (or is it the other way
 ..   around?) in Agda seems gratuitous. We don't want to encourage this sort of
@@ -431,10 +441,13 @@ Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果�
 
  - 它难以输入（如果你在使用别人的代码，这点就很重要）。很多编辑器都有它自己的输入法，
    不过你必须知道怎么输入。
+
  - 并不是任何软件都能轻松支持它。在一些移动 Email 客户端、基于终端的 IRC 客户端、
    以及 Web 浏览器等软件中都会出现渲染问题。
+
  - 即便我们不在标准库中使用它（绝对不会！），然而只要有人在他们的库代码中用了它，
    别人就得去处理它。
+
  - 有太多字符看起来太像了。单是分不清 0 和 O 就会造成很多麻烦，更不说各式各样的冒号和括号了。
 
 .. 他们肯定不认识一只叫 O0 的中国猫= =||
@@ -452,7 +465,7 @@ Idris 库的路径。 ``IDRIS_TOOLCHAIN_DIR`` 环境变量是可选的，如果�
 Idris 不会为操作符提供任何 Unicode 符号。
 
 .. This seems like an instance of `Wadler's
-.. Law <http://www.haskell.org/haskellwiki/Wadler%27s_Law>`__ in action.
+.. Law <http://www.haskell.org/haskellwiki/Wadler%27s_Law>`_ in action.
 
 这似乎是个 `Wadler 定律 <http://www.haskell.org/haskellwiki/Wadler%27s_Law>`_
 在工作中的实例。
@@ -460,11 +473,12 @@ Idris 不会为操作符提供任何 Unicode 符号。
 .. 鸡毛蒜皮定律（Law of triviality）了解一下？
 
 .. This answer is based on Edwin Brady's response in the following
-.. `pull request <https://github.com/idris-lang/Idris-dev/pull/694#issuecomment-29559291>`__.
+.. `pull request <https://github.com/idris-lang/Idris-dev/pull/694#issuecomment-29559291>`_.
 
 本答案基于 Edwin Brady 对此
 `推送请求 <https://github.com/idris-lang/Idris-dev/pull/694#issuecomment-29559291>`_
 的回应。
+
 
 Idris 有社区准则不？
 ====================

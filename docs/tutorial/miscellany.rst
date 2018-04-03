@@ -12,7 +12,7 @@
 
 .. + auto, implicit, and default arguments;
 .. + literate programming;
-.. + interfacing with external libraries through the foreign function
+.. + interfacing with external libraries through the foreign function;
 .. + interface;
 .. + type providers;
 .. + code generation; and
@@ -495,7 +495,7 @@ Idris 类型提供器使用普通的 Idris 可执行语义来运行 IO 活动并
 .. C Target
 .. ========
 
-.. The default target of Idris is C. Compiling via :
+.. The default target of Idris is C. Compiling via:
 
 Idris 的默认编译目标为 C。它通过以下命令编译：
 
@@ -503,7 +503,7 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
 
     $ idris hello.idr -o hello
 
-.. is equivalent to :
+.. is equivalent to:
 
 此命令等价于：
 
@@ -517,7 +517,7 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
 当使用以上命令编译时，它会生成一个临时的 C 源码，接着再编译成名为 ``hello``
 的可执行文件。
 
-.. In order to view the generated C code, compile via :
+.. In order to view the generated C code, compile via:
 
 要查看生成的 C 代码，请通过以下命令编译：
 
@@ -526,7 +526,7 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
     $ idris hello.idr -S -o hello.c
 
 .. To turn optimisations on, use the ``%flag C`` pragma within the code, as
-.. is shown below :
+.. is shown below:
 
 要开启优化，请在代码中使用 ``%flag C`` 编译指令：
 
@@ -545,7 +545,7 @@ Idris 的默认编译目标为 C。它通过以下命令编译：
 
 .. To compile the generated C with debugging information e.g. to use
 .. ``gdb`` to debug segmentation faults in Idris programs, use the
-.. ``%flag C`` pragma to include debugging symbols, as is shown below :
+.. ``%flag C`` pragma to include debugging symbols, as is shown below:
 
 要在编译生成的 C 代码时加上调试信息，例如使用 ``gdb`` 在 Idris 程序中调试段错误时，
 请使用 ``%flag C`` 编译指令来包括调试符号，如下所示：
@@ -742,7 +742,7 @@ FFI 以将函数作为参数来传入。
 
 .. The given files will be added to the top of the generated code.
 .. For library packages you can also use the ipkg objs option to include the
-.. js file in the installation, and use
+.. js file in the installation, and use:
 
 给定的文件会被添加的生成代码的顶部。对于库包，你也可以使用 ipkg 文件中的 objs
 选项来将 js 文件包含在安装中，并使用：
@@ -751,7 +751,7 @@ FFI 以将函数作为参数来传入。
 
       %include Node "package/external.js"
 
-.. This javascript and node backends idris will also lookup for the file on
+.. The *JavaScript* and *NodeJS* backends of Idris will also lookup for the file
 .. on that location.
 
 Idris 的 *JavaScript* 和 *NodeJS* 后端也会在此位置查找文件。
@@ -816,7 +816,7 @@ Idris 会产生非常大的 *JavaScript* 代码块。然而，生成的代码可
     *universe> :t Vect
     Vect : Nat -> Type -> Type
 
-.. But what about the type of ``Type``? If we ask Idris it reports
+.. But what about the type of ``Type``? If we ask Idris it reports:
 
 但是 ``Type`` 的类型呢？如果我们询问 Idris，它会报告：
 
@@ -826,7 +826,7 @@ Idris 会产生非常大的 *JavaScript* 代码块。然而，生成的代码可
     Type : Type 1
 
 .. If ``Type`` were its own type, it would lead to an inconsistency due to
-.. `Girard’s paradox <http://www.cs.cmu.edu/afs/cs.cmu.edu/user/kw/www/scans/girard72thesis.pdf>`_ ,
+.. `Girard’s paradox <http://www.cs.cmu.edu/afs/cs.cmu.edu/user/kw/www/scans/girard72thesis.pdf>`_,
 .. so internally there is a *hierarchy* of types (or *universes*):
 
 如果 ``Type`` 是它自己的类型，那么它会因为

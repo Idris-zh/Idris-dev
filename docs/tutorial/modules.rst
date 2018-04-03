@@ -67,8 +67,7 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
               print (Btree.toList t)
 
 .. The same names can be defined in multiple modules: names are *qualified* with
-.. the name of the module.  The names defined in the ``Btree`` module are, in
-.. full:
+.. the name of the module. The names defined in the ``Btree`` module are, in full:
 
 同一名称可以在多个模块中定义：名称可以通过模块名来字 **限定（Qualified）**。
 ``Btree`` 模块中定义的全部名称如下：
@@ -94,7 +93,7 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. ``foo/bar.idr``, which would conventionally have the module declaration
 .. ``module foo.bar``. The only requirement for module names is that the
 .. main module, with the ``main`` function, must be called
-.. ``Main``—although its filename need not be ``Main.idr``.
+.. ``Main`` — although its filename need not be ``Main.idr``.
 
 模块名和文件名之间没有正式的联系，尽管通常会建议使用同一名字。``import``
 语句用于引用文件名，它通过 ``.`` 来分隔路径。例如，``import foo.bar`` 会导入文件
@@ -110,9 +109,9 @@ Idris 程序由一组模块构成。每个模块包含一个可选的 ``module``
 .. Idris allows for fine-grained control over the visibility of a
 .. module's contents. By default, all names defined in a module are kept
 .. private.  This aides in specification of a minimal interface and for
-.. internal details to be left hidden.  Idris allows for functions,
+.. internal details to be left hidden. Idris allows for functions,
 .. types, and interfaces to be marked as: ``private``, ``export``, or
-.. ``public export``.  Their general meaning is as follows:
+.. ``public export``. Their general meaning is as follows:
 
 Idris 允许对模块内容的可见性进行细粒度的控制。默认情况下，
 模块中定义的所有名称都是私有的。这有助于最小化接口并隐藏内部细节。Idris
@@ -124,7 +123,7 @@ Idris 允许对模块内容的可见性进行细粒度的控制。默认情况�
 
 .. - ``export`` meaning that its top level type is exported.
 
-.. - ``public export`` meaning that the entire definition is exported.
+.. - ``private`` meaning that it's not exported at all. This is the default.
 
 - ``private`` 表示完全不被导出。此为默认情况。
 
@@ -193,10 +192,9 @@ API 的一部分。因此，除非你确实想要导出函数的完整定义，�
 
 .. For data types, the meanings are:
 
-.. - ``export``  the type constructor is exported
+.. - ``export`` the type constructor is exported
 
-.. - ``public export`` the type constructor and data constructors are
-..   exported
+.. - ``public export`` the type constructor and data constructors are exported
 
 对于数据类型，其涵义如下：
 
@@ -213,10 +211,9 @@ API 的一部分。因此，除非你确实想要导出函数的完整定义，�
 
 .. For interfaces, the meanings are:
 
-.. - ``export`` the interface name is exported
+.. - ``export`` the type constructor is exported
 
-.. - ``public export`` the interface name, method names and default
-..   definitions are exported
+.. - ``public export`` the type constructor and data constructors are exported
 
 对于接口，其涵义如下：
 

@@ -50,7 +50,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. itself consists of:
 
 .. -  **Keywords** — here, ``if``, ``then`` and ``else``, which must be
-..    valid identifiers
+..    valid identifiers.
 
 .. -  **Non-terminals** — included in square brackets, ``[test]``, ``[t]``
 ..    and ``[e]`` here, which stand for arbitrary expressions. To avoid
@@ -60,9 +60,9 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. -  **Names** — included in braces, which stand for names which may be
 ..    bound on the right hand side.
 
-.. -  **Symbols** — included in quotations marks, e.g. ``:=``. This can
+.. -  **Symbols** — included in quotations marks, e.g. ``":="``. This can
 ..    also be used to include reserved words in syntax rules, such as
-..    ``let`` or ``in``.
+..    ``"let"`` or ``"in"``.
 
 ``syntax`` 声明的左式描述了语法规则，而右式描述了其展开式。语法规则的构成为：
 
@@ -97,7 +97,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
     syntax select [x] from [t] "where" [w] = SelectWhere x t w;
     syntax select [x] from [t]             = Select x t;
 
-.. Syntax macros can be further restricted to apply only in patterns (i.e.,
+.. Syntax macros can be further restricted to apply only in patterns (i.e.
 .. only on the left hand side of a pattern match clause) or only in terms
 .. (i.e. everywhere but the left hand side of a pattern match clause) by
 .. being marked as ``pattern`` or ``term`` syntax rules. For example, we

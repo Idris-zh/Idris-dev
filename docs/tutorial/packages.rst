@@ -1,3 +1,5 @@
+.. _sect-packages:
+
 **
 包
 **
@@ -6,9 +8,9 @@
 .. Packages
 .. ********
 
-
-.. Idris includes a simple build system for building packages and executables from a named package description file.
-.. These files can be used with the Idris compiler to manage the development process .
+.. Idris includes a simple build system for building packages and executables
+.. from a named package description file. These files can be used with the
+.. Idris compiler to manage the development process .
 
 Idris 包括一套简单的构建系统，它会根据已命名的包描述文件来构建包以及可执行文件。
 描述文件可以配合 Idris 编译器来管理开发过程。
@@ -21,22 +23,24 @@ Idris 包括一套简单的构建系统，它会根据已命名的包描述文�
 
 .. A package description includes the following:
 
-.. + A header, consisting of the keyword package followed by the package
+.. + A header, consisting of the keyword ``package`` followed by a package
 ..   name. Package names can be any valid Idris identifier. The iPKG
 ..   format also takes a quoted version that accepts any valid filename.
-.. + Fields describing package contents, ``<field> = <value>``
+
+.. + Fields describing package contents, ``<field> = <value>``.
 
 包的描述包含以下内容：
 
 + 包头，由关键字 ``package`` 后跟一个包名构成。包名可以是任何有效的 Idris 标识符。
   iPKG 格式也可包含一个带引号的 ``version``，它接受任何有效的文件名。
+
 + 描述包内容的字段，``<field> = <value>``
 
 .. At least one field must be the modules field, where the value is a
-.. comma separated list of modules.  For example, given an idris package
+.. comma separated list of modules. For example, given an idris package
 .. ``maths`` that has modules ``Maths.idr``, ``Maths.NumOps.idr``,
 .. ``Maths.BinOps.idr``, and ``Maths.HexOps.idr``, the corresponding
-.. package file would be::
+.. package file would be:
 
 其中至少有一个 modules 字段，对应的值为逗号分隔的模块列表。例如，
 给定一个 Idris 包 ``maths``，包含 ``Maths.idr`` 、``Maths.NumOps.idr``
@@ -77,12 +81,6 @@ Idris 包括一套简单的构建系统，它会根据已命名的包描述文�
 .. + ``idris --clean maths.ipkg`` will delete all intermediate code and
 ..   executable files generated when building.
 
-.. Once the maths package has been installed, the command line option
-.. ``--package maths`` makes it accessible (abbreviated to ``-p maths``).
-.. For example::
-
-..     idris -p maths Main.idr
-
 Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安装以及清除包。
 例如，对于前面给出的 ``maths`` 包，我们可以像下面这样使用 Idris：
 
@@ -92,8 +90,12 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
 
 + ``idris --clean maths.ipkg`` 会删除构建时候产生的所有代码及可执行文件。
 
+.. Once the maths package has been installed, the command line option
+.. ``--package maths`` makes it accessible (abbreviated to ``-p maths``).
+.. For example:
+
 一旦 maths 包安装完成，命令行选项 ``--package maths``
-（简写为 ``-p maths``）就可以使用了。例如
+（简写为 ``-p maths``）就可以使用了。例如：
 
 ::
 
@@ -129,7 +131,8 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
 测试本身负责报告它们的成功或失败。测试函数通常用 ``putStrLn`` 报告测试结果。
 测试框架不强加任何报告标准，因此也不会合计测试结果。
 
-.. For example, lets take the following list of functions that are defined in a module called ``NumOps`` for a sample package ``maths``.
+.. For example, lets take the following list of functions that are defined in a
+.. module called ``NumOps`` for a sample package ``maths``:
 
 我们以下面的函数列表为例，它们在样本包 ``maths`` 中名为 ``NumOps`` 的模块内定义：
 
@@ -146,7 +149,7 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
     triple : Num a => a -> a
     triple a = a + double a
 
-.. A simple test module, with a qualified name of ``Test.NumOps`` can be declared as
+.. A simple test module, with a qualified name of ``Test.NumOps`` can be declared as:
 
 一个限定名为 ``Test.NumOps`` 的简单测试模块可声明为：
 
@@ -175,8 +178,9 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
     testTriple : IO ()
     testTriple = assertNotEq (triple 2) 5
 
-.. The functions ``assertEq`` and ``assertNotEq`` are used to run expected passing, and failing, equality tests.
-.. The actual tests are ``testDouble`` and ``testTriple``, and are declared in the ``maths.ipkg`` file as follows::
+.. The functions ``assertEq`` and ``assertNotEq`` are used to run expected passing,
+.. and failing, equality tests. The actual tests are ``testDouble`` and ``testTriple``,
+.. and are declared in the ``maths.ipkg`` file as follows:
 
 函数 ``assertEq`` 和 ``assertNotEq`` 分别用于运行预期为通过和失败的相等性测试。
 实际上的测试为 ``testDouble`` 和 ``testTriple``，它们在 ``maths.ipkg`` 文件中的声明如下
@@ -191,7 +195,7 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
     tests = Test.NumOps.testDouble
           , Test.NumOps.testTriple
 
-.. The testing framework can then be invoked using ``idris --testpkg maths.ipkg``::
+.. The testing framework can then be invoked using ``idris --testpkg maths.ipkg``:
 
 测试框架可通过 ``idris --testpkg maths.ipkg`` 命令调用：
 
@@ -221,7 +225,7 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
 .. you need to let Atom know that it should be loaded. The easiest way to
 .. accomplish that is with a .ipkg file. The general contents of an ipkg file
 .. will be described in the next section of the tutorial, but for now here is
-.. a simple recipe for this trivial case.
+.. a simple recipe for this trivial case:
 
 如果你在使用 Atom 编辑器，并且依赖了另一个包，例如 ``import Lightyear``
 或者 ``import Pruviloj``，那么你需要让 Atom 知道它应该加载什么。最简单的方式是通过
@@ -232,9 +236,11 @@ Idris 本身是知晓包的，还有一些专门的命令来帮助构建、安�
 
 .. - Add a file myProject.ipkg containing just a couple of lines:
 
-.. ``package myProject``
+.. .. code-block:: idris
 
-.. ``pkgs = pruviloj, lightyear``
+..     package myProject
+
+..     pkgs = pruviloj, lightyear
 
 .. - In Atom, use the File menu to Open Folder myProject.
 

@@ -20,8 +20,7 @@
 .. also several data types declared in the library, including ``Bool``,
 .. with values ``True`` and ``False``. We can declare some constants with
 .. these types. Enter the following into a file ``Prims.idr`` and load it
-.. into the Idris interactive environment by typing ``idris
-.. Prims.idr``:
+.. into the Idris interactive environment by typing ``idris Prims.idr``:
 
 Idris 定义了一些原语（Primitive）类型：``Int``、``Integer`` 和 ``Double`` 用于数值类型，
 ``Char`` 和 ``String`` 用于文本操作，``Ptr`` 则表示外部指针。库中还声明了一些数据类型，
@@ -51,7 +50,7 @@ Idris 定义了一些原语（Primitive）类型：``Int``、``Integer`` 和 ``D
 .. have been specified. However Idris programs can consist of several
 .. modules and the definitions in each module each have their own
 .. namespace. This is discussed further in Section
-.. :ref:`sect-namespaces`). When writing Idris programs both the order in which
+.. :ref:`sect-namespaces`. When writing Idris programs both the order in which
 .. definitions are given and indentation are significant. Functions and
 .. data types must be defined before use, incidentally each definition must
 .. have a type declaration, for example see ``x : Int``, ``foo :
@@ -498,10 +497,9 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 
 .. Vectors
 .. -------
-
 .. A standard example of a dependent data type is the type of “lists with
 .. length”, conventionally called vectors in the dependent type
-.. literature.  They are available as part of the Idris library, by
+.. literature. They are available as part of the Idris library, by
 .. importing ``Data.Vect``, or we can declare them as follows:
 
 依赖类型的一个范例就是「带长度的列表」类型，在依赖类型的文献中，
@@ -765,8 +763,8 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 写不写它纯属偏好问题，不过有时它能让参数更加明确，有助于函数文档的记录。
 
 .. Furthermore, ``{}`` can be used to pattern match on the left hand side, i.e.
-.. ``{var = pat}`` gets an implicit variable and attempts to pattern match on "pat";
-.. For example :
+.. ``{var = pat}`` gets an implicit variable and attempts to pattern match on “pat”;
+.. For example:
 
 此外， ``{}`` 在等号左边时可用作模式匹配，即 ``{var = pat}`` 获取一个隐式变量，
 并试图对「pat」进行模式匹配。例如：
@@ -856,7 +854,7 @@ Idris 程序中可以挖 **坑（Hole）** 来表示未完成的部分。例如�
 .. In general, functions and data types must be defined before use, since
 .. dependent types allow functions to appear as part of types, and type
 .. checking can rely on how particular functions are defined (though this
-.. is only true of total functions; see Section :ref:`sect-totality`)).
+.. is only true of total functions; see Section :ref:`sect-totality`).
 .. However, this restriction can be relaxed by using a ``mutual`` block,
 .. which allows data types and functions to be defined simultaneously:
 
@@ -970,7 +968,7 @@ Prelude 中定义了很多 I/O 操作，例如为了读写文件，需要包含�
 .. I/O programs will typically need to sequence actions, feeding the
 .. output of one computation into the input of the next. ``IO`` is an
 .. abstract type, however, so we can’t access the result of a computation
-.. directly.  Instead, we sequence operations with ``do`` notation:
+.. directly. Instead, we sequence operations with ``do`` notation:
 
 I/O 程序通常需要串连起多个活动，将一个计算的输出送入下一个计算的输入中。
 然而，``IO`` 是一个抽象类型，因此我们无法直接访问一个计算的结果。
@@ -1028,7 +1026,7 @@ IO 操作中：
 
 .. This function uses one of the ``t`` or ``e`` arguments, but not both
 .. (in fact, this is used to implement the ``if...then...else`` construct
-.. as we will see later. We would prefer if *only* the argument which was
+.. as we will see later). We would prefer if *only* the argument which was
 .. used was evaluated. To achieve this, Idris provides a ``Lazy``
 .. data type, which allows evaluation to be suspended:
 
@@ -1137,7 +1135,7 @@ Idris 提供了 ``Lazy`` 数据类型，它允许暂缓求值：
 .. To fix this we must add explicit ``Inf`` declarations to the constructor
 .. parameter types, since codata will not add it to constructor parameters of a
 .. **different** type from the one being defined. For example, the following
-.. outputs "1".
+.. outputs ``1``.
 
 为了修复它，我们必须为构造器参数的类型显式地加上 ``Inf`` 声明，因为余数据类型
 不会将它添加到和正在定义的构造器类型 **不同** 的构造器参数上。例如，以下程序输出「1」。
@@ -1422,7 +1420,7 @@ Maybe
 .. ---------------
 
 .. Dependent pairs allow the type of the second element of a pair to depend
-.. on the value of the first element.
+.. on the value of the first element:
 
 依赖序对允许序对第二个元素的类型依赖于第一个元素的值。
 
@@ -1434,8 +1432,7 @@ Maybe
 .. Again, there is syntactic sugar for this. ``(a : A ** P)`` is the type
 .. of a pair of A and P, where the name ``a`` can occur inside ``P``.
 .. ``( a ** p )`` constructs a value of this type. For example, we can
-.. pair a number with a ``Vect`` of a particular length.
-
+.. pair a number with a ``Vect`` of a particular length:
 
 同样，它也有语法糖。``(a : A ** P)`` 表示由 A 和 P 构成的序对的类型，其中名字
 ``a`` 可出现在 ``P`` 中。``( a ** p )`` 会构造一个该类型的值。例如，
@@ -1445,9 +1442,8 @@ Maybe
 
     vec : (n : Nat ** Vect n Int)
     vec = (2 ** [3, 4])
-
 .. If you like, you can write it out the long way, the two are precisely
-.. equivalent.
+.. equivalent:
 
 如果你喜欢，也可以把它写成较长的形式，二者完全等价：
 
@@ -1517,7 +1513,7 @@ Maybe
 
 我们之后会看到 ``with`` 的更多详情。
 
-.. Dependent pairs are sometimes referred to as “sigma types”.
+.. Dependent pairs are sometimes referred to as “Sigma types”.
 
 依赖序对有时被称作「Sigma 类型」。
 
@@ -1532,9 +1528,12 @@ Maybe
 .. automatically generating field access and update functions. Unlike
 .. the syntax used for data structures, records in Idris follow a
 .. different syntax to that seen with Haskell. For example, we can
-.. represent a person's name and age in a record:
+.. represent a person’s name and age in a record:
 
 **记录（Record）** 数据类型将多个值（记录的 **字段（Field）**）收集在一起。
+Idris 提供了定义记录的语法，它也会自动生成用于访问和更新字段的函数。
+和数据结构的语法不同，Idris 中的记录遵循与 Haskell 中看起来不同的语法。
+例如，我们可以将一个人的名字和年龄用记录表示：
 
 .. code-block:: idris
 
@@ -1550,7 +1549,7 @@ Maybe
 .. and the *fields* are then given which are in an indented block
 .. following the `where` keyword (here, ``firstName``, ``middleName``,
 .. ``lastName``, and ``age``). You can declare multiple fields on a
-.. single line, provided that they have the same type.  The field names
+.. single line, provided that they have the same type. The field names
 .. can be used to access the field values:
 
 构造器名称由 ``constructor`` 关键字确定，**字段** 在 ``where``
@@ -1647,7 +1646,7 @@ Idris 也提供了便于访问和更新嵌套记录的语法。例如，若一�
     record { a->b->c = val } x
 
 .. This returns a new record, with the field accessed by the path
-.. ``a->b->c`` set to ``val``. The syntax is first class, i.e.  ``record {
+.. ``a->b->c`` set to ``val``. The syntax is first class, i.e. ``record {
 .. a->b->c = val }`` itself has a function type. Symmetrically, the field
 .. can also be accessed with the following syntax:
 
@@ -1703,10 +1702,11 @@ Idris 也提供了便于访问和更新嵌套记录的语法。例如，若一�
 .. function to add a student must now specify in the type that the
 .. size of the class has been increased by one. As the size is specified
 .. using natural numbers, the new value can be incremented using the
-.. ``S`` constructor.
+.. ``S`` constructor:
 
 **注意** 它无法再使用之前的 ``addStudent`` 函数了，因为这会改变班级的大小。
-现在用于添加学生的函数必须在类型中指定班级的大小加一。
+现在用于添加学生的函数必须在类型中指定班级的大小加一。由于其大小用自然数指定，
+新的值可使用 ``S`` 构造器递增：
 
 .. code-block:: idris
 
@@ -1869,7 +1869,7 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. - Each branch *matches* a value of the same type, and *returns* a
 ..   value of the same type.
 
-.. - The type of the result is "known". i.e. the type of the expression
+.. - The type of the result is “known”. i.e. the type of the expression
 ..   can be determined *without* type checking the ``case``-expression
 ..   itself.
 
@@ -1904,7 +1904,7 @@ Idris 区分 **完全（全，Total）** 函数与 **部分（偏，Partial）**
 若一个函数是完全的，我们可以认为其类型精确描述了该函数会做什么。例如，
 若我们有一个返回类型为 ``String`` 的函数，根据它是否完全，我们能知道的东西会有所不同：
 
-.. + If it's total, it will return a value of type ``String`` in finite time
+.. + If it's total, it will return a value of type ``String`` in finite time;
 .. + If it's partial, then as long as it doesn't crash or enter an infinite loop,
 ..   it will return a ``String``.
 
@@ -1912,7 +1912,7 @@ Idris 区分 **完全（全，Total）** 函数与 **部分（偏，Partial）**
 + 若它是偏函数，那么只要它不崩溃或进入无限循环，就会返回一个 ``String``。
 
 .. Idris makes this distinction so that it knows which functions are safe to
-.. evaluate while type checking (as we've seen with :ref:`sect-fctypes`).  After all,
+.. evaluate while type checking (as we've seen with :ref:`sect-fctypes`). After all,
 .. if it tries to evaluate a function during type checking which doesn't
 .. terminate, then type checking won't terminate!
 .. Therefore, only total functions will be evaluated during type checking.
