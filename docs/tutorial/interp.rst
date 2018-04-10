@@ -97,7 +97,7 @@
 .. Idris standard library. We import them because they are not provided
 .. in the prelude:
 
-上述代码使用了 Idris 标准库中的``Vect`` 和 ``Fin`` 类型。它们不在 Prelude 中，
+上述代码使用了 Idris 标准库中的 ``Vect`` 和 ``Fin`` 类型。它们不在 Prelude 中，
 因此我们需要导入它们：
 
 .. code-block:: idris
