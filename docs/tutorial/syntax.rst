@@ -227,7 +227,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. be overloaded. We can take this further, using idiom brackets, by
 .. declaring:
 
-在这个新的版本中，``expr`` 声明了下一个要被重载的表达式。我们可以利用惯用括号，
+在这个新的版本中，``expr`` 声明了下一个要被重载的表达式。我们可以利用习语括号，
 通过以下声明再进一步：
 
 .. code-block:: idris
@@ -243,7 +243,7 @@ Idris 支持以多种方式实现 **嵌入式领域特定语言（Embedded Domai
 .. the names ``<*>`` and ``pure``, and ad-hoc type-directed overloading
 .. is allowed. We can now say:
 
-注意，它无需成为 ``Applicative`` 实现的一部分，因为惯用括号记法会直接被翻译为
+注意，它无需成为 ``Applicative`` 实现的一部分，因为习语括号记法会直接被翻译为
 名字 ``<*>`` 和 ``pure``，针对特设（ad-hoc）类型的重载也被允许。现在我们可以写成：
 
 .. code-block:: idris
