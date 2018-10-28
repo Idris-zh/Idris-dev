@@ -675,13 +675,18 @@ split p xs =
     (chunk, [])          => [chunk]
     (chunk, (c :: rest)) => chunk :: split p (assert_smaller xs rest)
 
-||| A tuple where the first element is a List of the n first elements and
-||| the second element is a List of the remaining elements of the list
-||| It is equivalent to (take n xs, drop n xs)
+||| A tuple where the first element is a `List` of the `n` first elements and
+||| the second element is a `List` of the remaining elements of the original.
+||| It is equivalent to `(take n xs, drop n xs)` (`splitAtTakeDrop`),
+||| but is more efficient.
+|||
 ||| @ n   the index to split at
-||| @ xs  the list to split in two
+||| @ xs  the `List` to split in two
 splitAt : (n : Nat) -> (xs : List a) -> (List a, List a)
-splitAt n xs = (take n xs, drop n xs)
+splitAt Z xs = ([], xs)
+splitAt (S k) [] = ([], [])
+splitAt (S k) (x :: xs) with (splitAt k xs)
+  | (tk, dr) = (x :: tk, dr)
 
 ||| The partition function takes a predicate a list and returns the pair of
 ||| lists of elements which do and do not satisfy the predicate, respectively;
@@ -857,8 +862,32 @@ catMaybes (x::xs) =
 --------------------------------------------------------------------------------
 
 ||| (::) is injective
-consInjective : (x :: xs) = (y :: ys) -> (x = y, xs = ys)
+consInjective : {x : a} -> {xs : List a} -> {y : b} -> {ys : List b} ->
+                (x :: xs) = (y :: ys) -> (x = y, xs = ys)
 consInjective Refl = (Refl, Refl)
+
+||| Two lists are equal, if their heads are equal and their tails are equal.
+consCong2 : {x : a} -> {xs : List a} -> {y : b} -> {ys : List b} ->
+            x = y -> xs = ys -> x :: xs = y :: ys
+consCong2 Refl Refl = Refl
+
+||| Appending pairwise equal lists gives equal lists
+appendCong2 : {x1 : List a} -> {x2 : List a} ->
+              {y1 : List b} -> {y2 : List b} ->
+              x1 = y1 -> x2 = y2 -> x1 ++ x2 = y1 ++ y2
+appendCong2 {x1=[]} {y1=(_ :: _)} Refl _ impossible
+appendCong2 {x1=(_ :: _)} {y1=[]} Refl _ impossible
+appendCong2 {x1=[]} {y1=[]} _ eq2 = eq2
+appendCong2 {x1=(_ :: _)} {y1=(_ :: _)} eq1 eq2 =
+  consCong2
+    (fst $ consInjective eq1)
+    (appendCong2 (snd $ consInjective eq1) eq2)
+
+||| List.map is distributive over appending.
+mapAppendDistributive : (f : a -> b) -> (x : List a) -> (y : List a) ->
+                        map f (x ++ y) = map f x ++ map f y
+mapAppendDistributive _ [] _ = Refl
+mapAppendDistributive f (_ :: xs) y = cong $ mapAppendDistributive f xs y
 
 ||| The empty list is a right identity for append.
 appendNilRightNeutral : (l : List a) ->
@@ -931,3 +960,12 @@ foldlAsFoldr f z t = foldr (flip (.) . flip f) id t z
 foldlMatchesFoldr : (f : b -> a -> b) -> (q : b) -> (xs : List a) -> foldl f q xs = foldlAsFoldr f q xs
 foldlMatchesFoldr f q [] = Refl
 foldlMatchesFoldr f q (x :: xs) = foldlMatchesFoldr f (f q x) xs
+
+splitAtTakeDrop : (n : Nat) -> (xs : List a) -> splitAt n xs = (take n xs, drop n xs)
+splitAtTakeDrop Z xs = Refl
+splitAtTakeDrop (S k) [] = Refl
+splitAtTakeDrop (S k) (x :: xs) with (splitAt k xs) proof p
+  | (tk, dr) = let prf = trans p (splitAtTakeDrop k xs)
+                in aux (cong {f=(x ::) . fst} prf) (cong {f=snd} prf)
+  where aux : {a, b : Type} -> {w, x : a} -> {y, z : b} -> w = x -> y = z -> (w, y) = (x, z)
+        aux Refl Refl = Refl

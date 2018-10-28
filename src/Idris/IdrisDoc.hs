@@ -403,7 +403,7 @@ createIndex :: S.Set NsName -- ^ Set of namespace names to
                             --   documentation will be written.
             -> IO ()
 createIndex nss out =
-  do (path, h) <- openTempFile out "index.html"
+  do (path, h) <- openTempFileWithDefaultPermissions out "index.html"
      BS2.hPut h $ renderHtml $ wrapper Nothing $ do
        H.h1 "Namespaces"
        H.ul ! class_ "names" $ do
@@ -427,15 +427,14 @@ createNsDoc :: IState   -- ^ Needed to determine the types of names
                         --   documentation will be written.
             -> IO ()
 createNsDoc ist ns content out =
-  do let tpath                   = out </> "docs" </> (genRelNsPath ns "html")
-         dir                     = takeDirectory tpath
-         file                    = takeFileName tpath
-         haveDocs (_, Just d, _) = [d]
-         haveDocs _              = []
+  do let tpath               = out </> "docs" </> (genRelNsPath ns "html")
+         dir                 = takeDirectory tpath
+         file                = takeFileName tpath
+         haveDocs (_, md, _) = md
                                  -- We cannot do anything without a Doc
-         content'                = concatMap haveDocs (nsContents content)
+         content'            = reverse $ mapMaybe haveDocs $ nsContents content
      createDirectoryIfMissing True dir
-     (path, h) <- openTempFile dir file
+     (path, h) <- openTempFileWithDefaultPermissions dir file
      BS2.hPut h $ renderHtml $ wrapper (Just ns) $ do
        H.h1 $ toHtml (nsName2Str ns)
        case nsDocstring content of

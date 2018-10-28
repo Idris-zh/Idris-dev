@@ -86,6 +86,7 @@
     filter p (x :: xs) with (filter p xs)
       | ( _ ** xs' ) = if (p x) then ( _ ** x :: xs' ) else ( _ ** xs' )
 
+<<<<<<< HEAD
 .. hint::
 
     这个例子并不好，它省去了大量的细节，包括什么是视角，如何用视角来析构数据，
@@ -93,6 +94,19 @@
     中的 ``p`` 也毫无关系，这点可能会对初学者造成困扰。有条件的读者可参考
     Type-Driven Development with Idris 第二部分中的
     Views: extending pattern matching 一章，或者重新思考接下来这个例子。
+
+.. ``with`` clauses can also be nested:
+
+``with`` 从句还可以嵌套：
+
+.. code-block:: idris
+
+    foo : Int -> Int -> Bool
+    foo n m with (succ n)
+      foo _ m | 2 with (succ m)
+        foo _ _ | 2 | 3 = True
+        foo _ _ | 2 | _ = False
+      foo _ _ | _ = False
 
 .. If the intermediate computation itself has a dependent type, then the
 .. result can affect the forms of other arguments — we can learn the form

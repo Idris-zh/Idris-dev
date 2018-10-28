@@ -36,6 +36,51 @@ Idris 支持多种后端（默认为 C 和 JavaScript，可以通过插件添加
 编写的，带有垃圾收集器和内建并发消息传递的参考运行时系统。
 
 
+有标准库文档没？有函数列表没？
+==============================
+
+.. Is there some documentation for the standard lib? List of functions?
+.. =====================================================================
+
+.. API documentation for the shipped packages is listed on `the
+.. documentation page <http://www.idris-lang.org/documentation/>`_.
+
+预置包的 API 文档已在\ `文档页 <http://www.idris-lang.org/documentation/>`_\ 中列出。
+
+.. Unfortunately, the default prelude and shipped packages for `Idris`
+.. are not necessarily complete with regards to documentation.  Other
+.. ways to find functions include:
+
+不幸的是，`Idris` 的默认前导和预置包在文档方面未必完整。其它查找函数的方式包括：
+
+.. + REPL commands:
+
+..   + Use `:apropos` to search for text in documentation and function names.
+..   + Use `:search` to search for functions of a given type.
+..   + Use `:browse` to list the contents of a given namespace.
+
+.. + Use the REPL's auto-complete functionality.
+.. + Grep through the source code in `libs/`
+
++ REPL 命令：
+
+  + 使用 `:apropos` 来搜索文档和函数名中的文本。
+  + 使用 `:search` 来根据类型搜索函数。
+  + 使用 `:browse` 来列出给定名字空间中的内容。
+
++ 使用 REPL 的自动补全功能。
++ 使用 `grep` 在 `libs/` 中搜索源码
+
+.. If you find that the shipped packages are lacking in documentation,
+.. please feel free to write some. Or bug someone to do so.  `Idris` has
+.. syntax for providing rich documentation, which is then viewable using
+.. the `:doc` command and listed in generated HTML API documentation.
+
+如果你发现预置包缺少文档，请随心为它补充一些。当然也可以通知别人来做这件事。
+`Idris` 提供了显示富文档的语法，富文档可使用 `:doc` 命令浏览，并在生成的 HTML API
+文档中列出。
+
+
 Idris 能拿来干活不？
 ====================
 
@@ -49,7 +94,7 @@ Idris 能拿来干活不？
 .. and we don't have the resources at the moment to polish the system on our own.
 .. Therefore, we don't recommend building your business around it!
 
-Idris 主要是个研究工具，用来探索依赖类型软件开发的可能性，也就是说它的主要目的（还）
+Idris 主要是个研究工具，用来探索用依赖类型开发软件的可能性，也就是说它的主要目的（还）
 不是开发可用于生产的系统。因此，某些方面上它还有些粗糙，也缺少很多库。现在还没人全职搞
 Idris，我们目前也没有资源来独立完善该系统。因此，我们不推荐你围绕它来开展业务！
 
@@ -291,11 +336,23 @@ Idris 使用「大小改变终止（size change termination）」来寻找从函
 ``assert_total`` 函数。
 
 
+<<<<<<< HEAD
 Idris 啥时候能自举啊？
 ======================
 
 .. When will Idris be self-hosting?
 .. ================================
+||||||| merged common ancestors
+It’s not a priority, though not a bad idea in the long run. It would be a
+worthwhile effort in the short term to implement libraries to support
+self-hosting, such as a good parsing library.
+
+=======
+It’s not a priority, though not a bad idea in the long run. It would
+be a worthwhile effort in the short term to implement libraries in
+Idris to support self-hosting, such as argument parsing and a
+POSIX-compliant library for system interaction.
+>>>>>>> idris-lang/master
 
 .. It’s not a priority, though not a bad idea in the long run. It would be a
 .. worthwhile effort in the short term to implement libraries to support
