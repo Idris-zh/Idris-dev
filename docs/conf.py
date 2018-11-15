@@ -33,7 +33,7 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 # ones.
 extensions = [
     'sphinx.ext.todo',
-    'sphinx.ext.pngmath', # imgmath is not supported on readthedocs.
+    'sphinx.ext.imgmath',
     'sphinx.ext.ifconfig',
 ]
 
@@ -343,7 +343,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
   (master_doc, 'IdrisManual', u'Idris 手册',
-   author, 'IdrisManual', u'项目描述',
+   author, 'IdrisManual', u'一个带有依赖类型的函数式编程语言',
    'Miscellaneous'),
 ]
 

@@ -342,24 +342,14 @@ Idris 啥时候能自举啊？
 
 .. When will Idris be self-hosting?
 .. ================================
-||||||| merged common ancestors
-It’s not a priority, though not a bad idea in the long run. It would be a
-worthwhile effort in the short term to implement libraries to support
-self-hosting, such as a good parsing library.
 
-=======
-It’s not a priority, though not a bad idea in the long run. It would
-be a worthwhile effort in the short term to implement libraries in
-Idris to support self-hosting, such as argument parsing and a
-POSIX-compliant library for system interaction.
->>>>>>> idris-lang/master
-
-.. It’s not a priority, though not a bad idea in the long run. It would be a
-.. worthwhile effort in the short term to implement libraries to support
-.. self-hosting, such as a good parsing library.
+.. It’s not a priority, though not a bad idea in the long run. It would
+.. be a worthwhile effort in the short term to implement libraries in
+.. Idris to support self-hosting, such as argument parsing and a
+.. POSIX-compliant library for system interaction.
 
 这事不急，虽说从长远来看这主意不错。就目前来说，实现支持自举的库是一项很有价值的工作,
-比如说实现良好的解析库。
+比如说参数解析器以及符合 POSIX 标准的库用于系统交互。
 
 
 Idris 有全域多态不? ``Type`` 是啥类型的？
