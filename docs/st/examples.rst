@@ -6,7 +6,7 @@ Example: Network Socket Programming
 
 The POSIX sockets API supports communication between processes across a
 network. A *socket* represents an endpoint of a network communication, and can be
-in one of several states: 
+in one of several states:
 
 * ``Ready``, the initial state
 * ``Bound``, meaning that it has been bound to an address ready for incoming
@@ -61,7 +61,7 @@ of a socket:
 
   data SocketState = Ready | Bound | Listening | Open | Closed
 
-Then, we'll begin defining an interface, starting with a ``Sock`` type 
+Then, we'll begin defining an interface, starting with a ``Sock`` type
 for representing sockets, parameterised by their current state:
 
 .. code-block:: idris
@@ -73,7 +73,7 @@ We create sockets using the ``socket`` method. The ``SocketType`` is defined
 by the sockets library, and describes whether the socket is TCP, UDP,
 or some other form. We'll use ``Stream`` for this throughout, which indicates a
 TCP socket.
-    
+
 .. code-block:: idris
 
     socket : SocketType -> ST m (Either () Var) [addIfRight (Sock Ready)]
@@ -163,7 +163,7 @@ want to ``close`` the connection and remove the socket:
              ST m () [Remove sock (Sock Closed)]
 
 We have a predicate ``CloseOK``, used by ``close`` in an implicit proof
-argument, which describes when it is okay to close a socket: 
+argument, which describes when it is okay to close a socket:
 
 .. code-block:: idris
 
@@ -205,7 +205,7 @@ For reference, here is the complete interface:
     remove : (sock : Var) -> ST m () [Remove sock (Sock Closed)]
     send : (sock : Var) -> String ->
            ST m (Either () ()) [sock ::: Sock Open :-> (Sock Closed `or` Sock Open)]
-    recv : (sock : Var) -> 
+    recv : (sock : Var) ->
            ST m (Either () String) [sock ::: Sock Open :-> (Sock Closed `or` Sock Open)]
 
 We'll see how to implement this shortly; mostly, the methods can be implemented
@@ -395,7 +395,7 @@ list because, in general, this makes automatic proof construction with
 an ``auto``-implicit easier for Idris. On the other hand, when we use
 ``call`` to make a smaller set of resources, ``updateWith`` puts newly
 created resources at the *end* of the list, because in general that reduces
-the amount of re-ordering of resources. 
+the amount of re-ordering of resources.
 
 If we look at the type of
 ``fixResources``, we can see what we need to do to finish ``accept``:

@@ -1,7 +1,7 @@
 .. _st-tutorial-index:
 
 ######################################
-用 Idris 实现可感知状态的系统: ST 教程
+用 Idris 实现带有状态的系统: ST 教程
 ######################################
 
 .. ##########################################################
@@ -11,7 +11,7 @@
 .. A tutorial on implementing state-aware systems using
 .. the `Control.ST` library in `Idris`.
 
-本教程叙述了如何用 Idris 的 ``Control.ST`` 库实现可感知状态的系统。
+本教程叙述了如何用 Idris 的 ``Control.ST`` 库实现带有状态的系统。
 
 .. .. note::
 

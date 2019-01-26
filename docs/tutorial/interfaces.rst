@@ -279,7 +279,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 
 .. _monadsdo:
 
-单子与 ``do`` 记法
+单子与 ``do``-记法
 ==================
 
 .. Monads and ``do``-notation
@@ -291,7 +291,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. defined as follows:
 
 单子接口 ``Monad`` 允许我们对绑定和计算进行封装，它也是 :ref:`sect-do` 一节中
-``do`` 记法的基础。单子扩展了前面定义的 ``Applicative``，其定义如下：
+``do``-记法的基础。单子扩展了前面定义的 ``Applicative``，其定义如下：
 
 .. code-block:: idris
 
@@ -353,7 +353,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 
 若 ``x`` 和 ``y`` 均可用，该函数会从二者中提取出值；若其中一个或二者均不可用，
 则返回 ``Nothing`` （「fail-fast 速错原则」）。``Nothing`` 的情况通过 ``>>=``
-操作符来管理，由 ``do`` 记法来隐藏。
+操作符来管理，由 ``do``-记法来隐藏。
 
 ::
 
@@ -373,7 +373,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. which reads a number from the console, returning a value of the form
 .. ``Just x`` if the number is valid, or ``Nothing`` otherwise:
 
-有时我们需要立即对 ``do`` 记法中某个函数的结果进行模式匹配。例如，假设我们有一个函数
+有时我们需要立即对 ``do``-记法中某个函数的结果进行模式匹配。例如，假设我们有一个函数
 ``readNumber``，它从控制台读取一个数，若该数有效则返回 ``Just x`` 形式的值，否则返回
 ``Nothing`` ：
 
@@ -447,7 +447,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 ``Just y_ok <-``）给出了首选的绑定：若能匹配，``do`` 块的剩余部分就会继续执行。
 第二部分给出了选取的绑定，其中的绑定可以有不止一个。
 
-``!`` 记法
+``!``-记法
 ~~~~~~~~~~
 
 .. ``!``-notation
@@ -458,7 +458,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. bound is used once, immediately. In these cases, we can use a
 .. shorthand version, as follows:
 
-在很多情况下，``do`` 记法会让程序不必要地啰嗦，在将值绑定一次就立即使用的情况下尤甚，
+在很多情况下，``do``-记法会让程序不必要地啰嗦，在将值绑定一次就立即使用的情况下尤甚，
 例如前面的 ``m_add``。此时我们可以使用更加简短的方式：
 
 .. code-block:: idris
@@ -485,7 +485,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. direct style, while still giving a notational clue as to which
 .. expressions are monadic.
 
-然而请注意，它并不是一个真的函数，而只是一个语法！在实践中，子表达式 ``!expr``
+然而请注意，它并不是一个真的函数，而是一个语法！在实践中，子表达式 ``!expr``
 会在 ``expr`` 的当前作用域内尽可能地提升，将它绑定到一个全新的名字 ``x``，
 然后用它来代替 ``!expr``。首先表达式会按从左到右的顺序深度优先地上升。在实践中，``!``
 记法允许我们以更直接的方式来编程，同时该记法也标出了哪些表达式为单子。
@@ -558,7 +558,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 
 .. Then the comprehension is converted to ``do`` notation:
 
-接着该推导式会被转换为 ``do`` 记法：
+接着该推导式会被转换为 ``do``-记法：
 
 .. code-block:: idris
 
@@ -585,7 +585,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. larger example in this section is inspired by Conor McBride and Ross
 .. Paterson’s paper “Applicative Programming with Effects” [1]_.
 
-``do`` 记法为串连提供了另一种写法，而惯用法则为 **应用** 提供了另一种写法。
+``do``-记法为串连提供了另一种写法，而习语则为 **应用** 提供了另一种写法。
 本节中的记法以及大量的例子受到了 Conor McBride 和 Ross Paterson 的论文
 「带作用的应用子编程」 [1]_ 的启发。
 
@@ -654,7 +654,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. and Paterson describe such an evaluator [1]_, for a language similar
 .. to the following:
 
-惯用记法在定义求值器时通常很有用。McBride 和 Paterson
+习语记法在定义求值器时通常很有用。McBride 和 Paterson
 就为下面这样的语言描述了求值器 [1]_ ：
 
 .. .. code-block:: idris
@@ -724,7 +724,7 @@ Idris 会分两趟进行繁释（elaborate）：第一趟为类型，第二趟�
 .. Evaluating an expression can now make use of the idiomatic application
 .. to handle errors:
 
-现在就可以在求值表达式时，通过应用的惯用法来处理错误了：
+现在就可以在求值表达式时，通过应用的习语来处理错误了：
 
 .. code-block:: idris
 
