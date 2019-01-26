@@ -1,8 +1,12 @@
 .. _smstypes:
 
-***********************
-State Machines in Types
-***********************
+****************
+用类型表示状态机
+****************
+
+.. ***********************
+.. State Machines in Types
+.. ***********************
 
 In the introduction, we saw the following state transition diagram representing
 the (abstract) states of a data store, and the actions we can perform on the
@@ -13,7 +17,7 @@ store:
 We say that these are the *abstract* states of the store, because the concrete
 state will contain a lot more information: for example, it might contain
 user names, hashed passwords, the store contents, and so on. However, as far
-as we are concerned for the actions ``login``, ``logout`` and ``readSecret``, 
+as we are concerned for the actions ``login``, ``logout`` and ``readSecret``,
 it's whether we are logged in or not which affects which are valid.
 
 We've seen how to manipulate states using ``ST``, and some small examples
@@ -28,7 +32,7 @@ So far, we've used ``State`` and the primitive operations, ``new``, ``read``,
 however, we'll begin by defining an *interface* (see :ref:`sect-interfaces` in
 the Idris tutorial) which describes the operations on the store, and explains
 in their types exactly when each operation is valid, and how it affects
-the store's state. By using an interface, we can be sure that 
+the store's state. By using an interface, we can be sure that
 this is the *only* way to access the store.
 
 Defining an interface for the data store
@@ -265,8 +269,8 @@ store currently has:
       st : Var
       ok : LoginResult
     --------------------------------------
-    whatNow : STrans m () [st ::: Store (case ok of   
-                                              OK => LoggedIn 
+    whatNow : STrans m () [st ::: Store (case ok of
+                                              OK => LoggedIn
                                               BadPassword => LoggedOut)]
                           (\result => [])
 
@@ -423,7 +427,7 @@ manipulate the store.
 
 Looking at the types of the holes tells us how we need to manipulate the
 state. For example, the ``?DataStore_rhs_2`` hole tells us what we need
-to do to implement ``connect``. We need to return a new ``Var`` which 
+to do to implement ``connect``. We need to return a new ``Var`` which
 represents a resource of type ``State String``:
 
 .. code-block:: idris
@@ -503,7 +507,7 @@ Finally, we can try this at the REPL as follows (Idris defaults to the
 ``IO`` context at the REPL if there is an implementation available, so no
 need to give the ``m`` argument explicitly here):
 
-.. code:: 
+.. code::
 
     *Login> :exec run getData
     Enter password: Mornington Crescent

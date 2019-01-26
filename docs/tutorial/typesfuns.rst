@@ -972,7 +972,7 @@ Prelude 中定义了很多 I/O 操作，例如为了读写文件，需要包含�
 
 I/O 程序通常需要串连起多个活动，将一个计算的输出送入下一个计算的输入中。
 然而，``IO`` 是一个抽象类型，因此我们无法直接访问一个计算的结果。
-因此，我们用 ``do`` 记法来串连起操作：
+因此，我们用 ``do``-记法来串连起操作：
 
 .. code-block:: idris
 
@@ -1001,7 +1001,7 @@ IO 操作中：
 .. As we will see later, ``do`` notation is more general than this, and
 .. can be overloaded.
 
-后面我们会看到，``do`` 记法比这里的展示更加通用，并且可以被重载。
+后面我们会看到，``do``-记法比这里的展示更加通用，并且可以被重载。
 
 .. _sect-lazy:
 
@@ -1826,7 +1826,7 @@ Idris 提供了 **推导** 记法作为构建列表的简便写法。一般形�
 .. second string.
 
 ``break`` 是个库函数，它从给定的函数返回 true 的位置将字符串分为一个字符串的序对。
-我们接着析构它返回的序对， 并移除第二个字符串的第一个字符。
+我们接着解构它返回的序对，并移除第二个字符串的第一个字符。
 
 .. A ``case`` expression can match several cases, for example, to inspect
 .. an intermediate value of type ``Maybe a``. Recall ``list_lookup``

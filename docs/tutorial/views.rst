@@ -21,7 +21,7 @@
 .. or not:
 
 由于类型可以依赖于值，因此某些参数的形式可根据其它参数的值来确定。例如，
-如果我们写出 ``(++)`` 的隐式长度参数，就会看出它的形式由向量是否为空来决定：
+如果我们写出 ``(++)`` 的长度隐式参数，就会看出它的形式由向量是否为空来决定：
 
 .. code-block:: idris
 
@@ -76,9 +76,9 @@
 .. original function argument pattern, then the left side of ``|`` is
 .. extraneous and may be omitted:
 
-在这里，``with`` 从句能让我们析构（deconstruct）``filter p xs`` 的结果。
+在这里，``with`` 从句能让我们解构（deconstruct）``filter p xs`` 的结果。
 该视角精化的参数模式 ``filter p (x :: xs)`` 位于 ``with`` 从句的下方，
-之后是一条竖线 ``|`` 后面跟着析构的中间结果 ``( _ ** xs' )``。
+之后是一条竖线 ``|`` 后面跟着解构的中间结果 ``( _ ** xs' )``。
 如果该视角精化的参数模式与原函数的参数模式相同，那么 ``|`` 左侧的就是多余的，可以省略：
 
 .. code-block:: idris
@@ -86,10 +86,9 @@
     filter p (x :: xs) with (filter p xs)
       | ( _ ** xs' ) = if (p x) then ( _ ** x :: xs' ) else ( _ ** xs' )
 
-<<<<<<< HEAD
 .. hint::
 
-    这个例子并不好，它省去了大量的细节，包括什么是视角，如何用视角来析构数据，
+    这个例子并不好，它省去了大量的细节，包括什么是视角，如何用视角来解构数据，
     以及 with 从句帮你做了什么。参数 ``p`` 与结果 ``(p ** Vect p a)``
     中的 ``p`` 也毫无关系，这点可能会对初学者造成困扰。有条件的读者可参考
     Type-Driven Development with Idris 第二部分中的
