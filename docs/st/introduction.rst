@@ -14,8 +14,8 @@
 .. correctly (i.e. according to the specification in its type) simply
 .. because it compiles.
 
-像 `Idris <http://www.idris-lang.org/>`_ 这种支持直接用类型系统对程序进行推理的函数式语言，
-仅凭某个程序能够编译这一点，我们就能\ **确定**\ 该程序会正确地（即，按照类型描述的规范）运行。
+像 `Idris <http://www.idris-lang.org/>`_ 这种可以直接用类型系统对程序进行推理的函数式语言，
+仅凭程序能够编译这一点，我们就能\ **确定**\ 该程序会正确运行（即按照类型描述的规范运行）。
 
 .. Realistically, though,  software relies on state, and many components rely on state machines. For
 .. example, they describe network transport protocols like TCP, and
@@ -30,12 +30,12 @@
 .. dispenses cash only when the machine is in a state where a card has been
 .. inserted and the PIN verified.
 
-然而实际上，软件依赖于状态，而很多组件则依赖于状态机。它们可以描述像 TCP 这样的网络传输协议,
-实现事件驱动的系统，以及正则表达式匹配。此外，像网络套接字和文件这类的很多基础资源，
-都由状态机隐式地管理；特定操作只有在资源处于特定状态时才合法，而这些操作也能够改变底层资源的状态。
-例如，只有向已建立连接的网络套接字发送消息才有意义，关闭一个套接字会将其状态从“打开”切换为关闭"。
-状态机同样可以编码重要的安全性质。比如，在实现一个 ATM (自动取款机) 的软件中，
-非常重要的一个性质是，ATM 只有在卡片插入且通过密码验证的状态下才能吐出钞票。
+然而在现实中，软件依赖于状态，很多组件则依赖于状态机。它们可以描述像 TCP 这样的网络传输协议，
+实现事件驱动的系统以及正则表达式的匹配。此外，像网络 Socket 和文件这类的很多基础资源，
+都由状态机隐式地管理；特定操作只有在资源处于特定状态时才可行，而这些操作也可以改变底层资源的状态。
+例如，只有向已建立连接的网络 Socket 发送消息才有意义，关闭 Socket 会将其状态从“打开”切换为“关闭”。
+状态机同样可以编码重要的安全性质。比如，在一个 ATM（自动取款机）的软件实现中，
+有一点性质非常重要：ATM 只有在卡片插入且通过密码验证的状态下才能吐出钞票。
 
 .. In this tutorial we will introduce the ``Control.ST`` library, which is included
 .. with the Idris distribution (currently as part of the ``contrib`` package)
@@ -46,19 +46,19 @@
 .. discussed in Chapter 13 (available as a free sample chapter) and Chapter 14
 .. of `Type-Driven Development with Idris <https://www.manning.com/books/type-driven-development-with-idris>`_.
 
-本教程将介绍 ``Control.ST`` 库，它支持用状态和副作用进行编程和推理。
+本教程将介绍 ``Control.ST`` 库，它支持对带有状态和副作用的程序进行编程和推理。
 该库已包含在 Idris 发行版当中（目前属于 ``contrib`` 包）。本教程假设读者已经熟悉
-:ref:`tutorial-index` 中所述的纯函数式编程的方法。
+:ref:`tutorial-index` 中所述的纯函数式的编程方法。\
 ``ST`` 库基于\ `《Idris 类型驱动开发》 <https://www.manning.com/books/type-driven-development-with-idris>`_\
-一书中第 13、14 章所讨论的内容，如需更多背景信息可以参考此书。
+一书中第 13 和 14 章所讨论的内容，如需更多背景信息可以参考此书。
 
 .. The ``ST`` library allows us to write programs which are composed of multiple
 .. state transition systems. It supports composition in two ways: firstly, we can
 .. use several independently implemented state transition systems at once;
 .. secondly, we can implement one state transition system in terms of others.
 
-我们可使用 ``ST`` 库编写由多个状态转移系统组合而成的程序。它支持两种组合方式：
-第一，我们能够同时使用数个独立实现的状态转移系统；
+我们可使用 ``ST`` 库编写由多个状态转移系统组合而成的程序。它支持两种组合方式：\
+第一，我们能够同时使用数个独立实现的状态转移系统；\
 第二，我们能够基于其它状态转移系统实现新的状态转移系统。
 
 
@@ -73,9 +73,9 @@
 .. a secure data store in which a user must log in before getting access to
 .. some secret data. This system can be in one of two states:
 
-许多软件组件依赖于状态，有些操作仅在某些特定状态下才有效。
+许多软件的组件依赖于状态，有些操作仅在特定状态下才有效。
 例如，考虑一个安全的数据存储，它只有在用户登录的情况下才能访问某些机密数据。
-该系统可以处于以下两个状态之一:
+该系统可以处于以下两种状态之一:
 
 .. * ``LoggedIn``, in which the user is allowed to read the secret
 .. * ``LoggedOut``, in which the user has no access to the secret
@@ -109,10 +109,10 @@
 .. user is logged in.
 
 我们通常使用类型检查器来确保变量和参数的使用一致性。然而，主流的类型系统并不能\
-很好地支持像“某些操作仅当资源处于合适的状态时才被执行”这类性质的静态检查。
+很好地支持像“某些操作只有在资源处于合适的状态时才被执行”这类性质的静态检查。
 例如，在数据存储的示例中，检查“用户在执行 ``读取数据`` 前是否成功登录”这一性质非常重要。
-``ST`` 库允许我们在类型系统中表达这类\ **协议** ，并且在\ **编译阶段**\
-确保机密数据仅当用户处于已登录状态时才能被读取。
+``ST`` 库能让我们在类型系统中表达这类\ **协议**\ ，并且在\ **编译阶段**\
+确保机密数据只有在用户处于已登录状态时才能被读取。
 
 大纲
 ====
@@ -133,12 +133,12 @@
 .. API in practice, implementing the POSIX network sockets API.
 
 本教程从描述如何操作独立的状态开始（:ref:`introst`），引入了 ``STrans``
-数据类型来描述有状态的函数，以及 ``ST`` 用于描述顶层的状态转移。
+数据类型来描述带有状态的函数，以及 ``ST`` 用来描述顶层的状态转移。
 接下来的章节（:ref:`smstypes`）描述了如何用类型表示状态机，以及如何定义\ **接口**\
-以描述有状态的系统。之后（:ref:`composing`）描述了如何组合有多个状态机的系统。
-它解释了如何实现同时使用多个状态机的系统，以及如何基于低级的系统实现高级的有状态系统。
-最后（:ref:`netexample`）我们将看到一个有状态的 API 应用于真实场景的例子，它实现了
-POSIX 网络套接字 API。
+以描述带有状态的系统。之后（:ref:`composing`）描述了如何组合带有多个状态机的系统。
+它解释了如何实现同时使用多个状态机的系统，以及如何基于低级系统来实现高级的带有状态的系统。
+最后（:ref:`netexample`）我们将看到一个带有状态的 API 应用于真实场景的例子，它实现了
+POSIX 网络 Socket API。
 
 .. The ``Control.ST`` library is also described in a draft paper by
 .. `Edwin Brady <https://edwinb.wordpress.com/>`_, "State Machines All The Way
@@ -147,9 +147,9 @@ POSIX 网络套接字 API。
 .. the motivation, design and implementation of the library in more depth.
 
 ``Control.ST`` 库在 `Edwin Brady <https://edwinb.wordpress.com/>`_
-的一篇文章草稿 "State Machines All The Way Down" 中亦有提及，你可以从\
+的一篇文稿 "State Machines All The Way Down" 中亦有提及，你可以从\
 `这里 <https://www.idris-lang.org/drafts/sms.pdf>`_\ 获取它。
-这篇文章展示了本教程中的很多例子，并且更加深入地描述了它的动机、设计、以及实现。
+这篇文章展示了本教程中的很多例子，更加深入地描述了它们的动机、设计、以及实现。
 
 .. |login| image:: ../image/login.png
                    :width: 500px
