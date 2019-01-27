@@ -17,7 +17,7 @@
 ..    questions on the mailing list.
 
 .. -  The IRC channel ``#idris``, on
-..    `chat.freenode.net <http://chat.freenode.net>`__.
+..     `webchat.freenode.net <https://webchat.freenode.net/>`__.
 
 .. - The wiki (https://github.com/idris-lang/Idris-dev/wiki/) has further
 ..    user provided information, in particular:
@@ -38,7 +38,7 @@
 
 -  Idris 网站（http://www.idris-lang.org/）以及在邮件列表中提问。
 
--  `chat.freenode.net <http://chat.freenode.net>`__ 上的 ``#idris`` IRC 频道。
+-  `webchat.freenode.net <http://webchat.freenode.net>`__ 上的 ``#idris`` IRC 频道。
 
 - 维基（https://github.com/idris-lang/Idris-dev/wiki/）上有更多用户提供的信息，
   特别是：
