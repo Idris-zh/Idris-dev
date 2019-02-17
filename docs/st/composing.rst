@@ -1,8 +1,12 @@
 .. _composing:
 
-************************
-Composing State Machines
-************************
+**********
+组合状态机
+**********
+
+.. ************************
+.. Composing State Machines
+.. ************************
 
 In the previous section, we defined a ``DataStore`` interface and used it
 to implement the following small program which allows a user to log in to
