@@ -1,8 +1,12 @@
 .. _netexample:
 
-***********************************
-Example: Network Socket Programming
-***********************************
+**********************
+示例：网络 Socket 编程
+**********************
+
+.. ***********************************
+.. Example: Network Socket Programming
+.. ***********************************
 
 The POSIX sockets API supports communication between processes across a
 network. A *socket* represents an endpoint of a network communication, and can be
