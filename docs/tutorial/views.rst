@@ -228,5 +228,4 @@ with 从句加上 ``proof p`` 后缀，由模式匹配生成的证明会被命�
 
 .. [1] Conor McBride and James McKinna. 2004. The view from the
        left. J. Funct. Program. 14, 1 (January 2004),
-       69-111. DOI=10.1017/S0956796803004829
-       http://dx.doi.org/10.1017/S0956796803004829ñ
+       69-111. https://doi.org/10.1017/S0956796803004829
