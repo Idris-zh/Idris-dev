@@ -57,7 +57,7 @@
 .. use several independently implemented state transition systems at once;
 .. secondly, we can implement one state transition system in terms of others.
 
-我们可使用 ``ST`` 库编写由多个状态转移系统组合而成的程序。它支持两种组合方式：\
+我们可使用 ``ST`` 库编写由多个状态转移系统复合而成的程序。它支持两种复合方式：\
 第一，我们能够同时使用数个独立实现的状态转移系统；\
 第二，我们能够基于其它状态转移系统实现新的状态转移系统。
 
@@ -135,7 +135,7 @@
 本教程从描述如何操作独立的状态开始（:ref:`introst`），引入了 ``STrans``
 数据类型来描述带有状态的函数，以及 ``ST`` 用来描述顶层的状态转移。
 接下来的章节（:ref:`smstypes`）描述了如何用类型表示状态机，以及如何定义\ **接口**\
-以描述带有状态的系统。之后（:ref:`composing`）描述了如何组合带有多个状态机的系统。
+以描述带有状态的系统。之后（:ref:`composing`）描述了如何复合带有多个状态机的系统。
 它解释了如何实现同时使用多个状态机的系统，以及如何基于低级系统来实现高级的带有状态的系统。
 最后（:ref:`netexample`）我们将看到一个带有状态的 API 应用于真实场景的例子，它实现了
 POSIX 网络 Socket API。
