@@ -1091,7 +1091,7 @@ SDL 绑定执行它们。例如，假设我们有一个可以绘图的平面 ``w
                   Just ev <- poll
                     | Nothing => render t           -- 继续直到按下按键
                   case ev of
-                       KeyUp _ => pure ()           -- 按键按下，因此退出
+                       KeyUp _ => pure ()           -- 按键按下，于是退出
                        _ => render t
      where drawAll : (srf : Var) -> List Line -> ST m () [srf ::: Surface {m}]
            drawAll srf [] = pure ()
