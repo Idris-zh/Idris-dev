@@ -282,6 +282,12 @@ latex_elements = {
 %
 \hypersetup{colorlinks = false}
 \definecolor{VerbatimBorderColor}{rgb}{1,1,1}
+
+% Customised setup for CJK Characters
+\hypersetup{unicode=true}
+\usepackage{CJKutf8}
+\AtBeginDocument{\begin{CJK}{UTF8}{gbsn}}
+\AtEndDocument{\end{CJK}}
 ''',
 
 'maketitle': latex_title_page,
